@@ -2,3 +2,7 @@
 
 transcript
 vsim.wlf
+
+.library_mapping.xml
+.project
+.settings

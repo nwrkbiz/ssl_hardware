@@ -41,7 +41,6 @@ begin
 			oTimeStamp => oTimeStamp
 		);
 		
-		
 	iClk <= not(iClk) after cClkPeriod/2;
 	inRstAsync <= cnInactivated after 50 us;
 	
