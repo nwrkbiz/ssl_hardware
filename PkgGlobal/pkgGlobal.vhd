@@ -19,7 +19,7 @@ constant cnInactivated 	: std_ulogic := not('0');
 
 -- avalon MM bus constants
 constant cAvalonDataWidth	: natural := 8;
-constant cAvalonAddrWidth	: natural := 8;
+constant cAvalonAddrWidth	: natural := 5; -- the sensor with the largest regfile contains 36 registers
 
 -- internal regfile read/write constants
 constant cAddrWidth			: natural := 8;

@@ -10,75 +10,127 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.pkgGlobal.all;
+
 entity TbRegFile is
 end entity TbRegFile;
 
 architecture Bhv of TbRegFile is
 	
-	constant cRegFileWidth 		: natural := 32;
-	constant cRegFileHeight 	: natural := 10;
-	constant cAvalonDataWidth 	: natural := 32;
-	constant cAvalonAddrWidth 	: natural := 4;
-	constant cAddrWidth 		: natural := 6;
-	constant cDataWidth 		: natural := 8;
+	constant gNumOfBytes 	: natural := 12;
+	constant gFifoByteWidth : natural := 8;
 	
 	signal iClk 			: std_ulogic := '0';
 	signal inRstAsync 		: std_ulogic := not('1');
+	signal AvalonAddr		: natural;
 	signal iAvalonAddr 		: std_ulogic_vector(cAvalonAddrWidth-1 downto 0);
 	signal iAvalonRead 		: std_ulogic;
 	signal oAvalonReadData 	: std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 	signal iAvalonWrite 	: std_ulogic;
 	signal iAvalonWriteData : std_ulogic_vector(cAvalonDataWidth-1 downto 0);
-	signal iAddr 			: std_ulogic_vector(cAddrWidth-1 downto 0);
-	signal iRead 			: std_ulogic;
-	signal oReadData 		: std_ulogic_vector(cDataWidth-1 downto 0);
-	signal iWrite 			: std_ulogic;
-	signal iWriteData 		: std_ulogic_vector(cDataWidth-1 downto 0);
 	signal iFifoData 		: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 	signal oFifoShift 		: std_ulogic;
+	
+	signal oRegDataFrequency 	: std_ulogic_vector(15 downto 0);
+	signal oRegDataConfig	 	: std_ulogic_vector(15 downto 0);
+	signal oWriteConfigReg		: std_ulogic;
+	
+	constant cClkFreq	: natural 	:= 50_000_000;
+	constant cClkPeriod	: time		:= 1 sec/cClkFreq; 
+
 	
 begin
 	
 	UUT: entity work.RegFile
 		generic map(
-			gNumOfBytes		 => 16,
-			gFifoByteWidth	 => 4
+			gNumOfBytes    => gNumOfBytes,
+			gFifoByteWidth => gFifoByteWidth
 		)
 		port map(
-			iClk             => iClk,
-			inRstAsync       => inRstAsync,
-			iAvalonAddr      => iAvalonAddr,
-			iAvalonRead      => iAvalonRead,
-			oAvalonReadData  => oAvalonReadData,
-			iAvalonWrite     => iAvalonWrite,
-			iAvalonWriteData => iAvalonWriteData,
-			iAddr            => iAddr,
-			iRead            => iRead,
-			oReadData        => oReadData,
-			iWrite           => iWrite,
-			iWriteData       => iWriteData,
-			iFifoData 		 => iFifoData,
-			oFifoShift		 => oFifoShift
+			iClk              => iClk,
+			inRstAsync        => inRstAsync,
+			iAvalonAddr       => iAvalonAddr,
+			iAvalonRead       => iAvalonRead,
+			oAvalonReadData   => oAvalonReadData,
+			iAvalonWrite      => iAvalonWrite,
+			iAvalonWriteData  => iAvalonWriteData,
+			oRegDataFrequency => oRegDataFrequency,
+			oRegDataConfig    => oRegDataConfig,
+			oWriteConfigReg   => oWriteConfigReg,
+			iFifoData         => iFifoData,
+			oFifoShift        => oFifoShift
 		);
 		
 		
-	iClk <= not(iClk) after 5 ns; -- 100MHz
+	iClk <= not(iClk) after cClkPeriod/2; -- 100MHz
 	inRstAsync <= not('0') after 20 ns;
+	
+	iAvalonAddr <= std_ulogic_vector(to_unsigned(AvalonAddr,cAvalonAddrWidth));
 	
 	Stimul: process is
 		
 	begin
-		iAvalonAddr <= x"1";
+		
+		-- provide some data over the fifo interface
+		iFifoData <= x"0123_4567_89AB_CDEF";
+		
+		wait for 2* cClkPeriod;
+		
+		-- read some fifo values
+		iAvalonRead <= '1';
+		AvalonAddr <= 0;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 1;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 2;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 3;
+		wait for 5*cClkPeriod;
+		
+		-- try to write to fifo region the whole time
+		AvalonAddr <= 3;
 		iAvalonWrite <= '1';
-		iAvalonWriteData <= x"ABCD_EFEF";
+		iAvalonWriteData <= x"CC";
+		wait for 5*cClkPeriod;
 		
-		iAddr <= b"00_0000";
-		iWrite <= '1';
-		iWriteData <= x"55";
+		-- read all fifo values now
+		AvalonAddr <= 0;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 1;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 2;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 3;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 4;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 5;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 6;
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 7;
+		wait for 5*cClkPeriod;
+		iAvalonRead <= '0';
 		
-		wait for 20 ns;
+		-- write to the config register
+		AvalonAddr <= 11;
+		wait for 5*cClkPeriod;
 		
+		-- write and read from freq reg
+		iAvalonRead <= '0';
+		iAvalonWrite <= '1';
+		AvalonAddr <= 8;
+		iAvalonWriteData <= x"AA";
+		wait for 5*cClkPeriod;
+		AvalonAddr <= 9;
+		iAvalonWriteData <= x"BB";
+		wait for 5*cClkPeriod;
 		iAvalonWrite <= '0';
+		iAvalonRead <= '1';
+		AvalonAddr <= 8;
+		wait for 2*cClkPeriod;
+		AvalonAddr <= 9;
+		
 		
 		
 	wait;

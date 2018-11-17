@@ -59,11 +59,8 @@ architecture RTL of RegFile is
 	signal WriteConfigReg : std_ulogic;
 	
 begin
-	
-	-- infer a true dual ported ram
-	
-	Reg: process(iClk, inRstAsync) is
-		variable Addr 			: natural;		
+		
+	Reg: process(iClk, inRstAsync) is	
 		variable AvalonAddr		: natural;
 		
 	begin
@@ -80,6 +77,7 @@ begin
 			AvalonAddr 	:= to_integer(unsigned(iAvalonAddr));
 			
 			-- avalon port
+			oAvalonReadData <= (others => '0');
 			if iAvalonRead = cActivated then
 				oAvalonReadData <= RegFile(AvalonAddr);
 			end if;
@@ -103,14 +101,14 @@ begin
 			
 			
 			-- fifo shift logic
-			if Addr < gFifoByteWidth then
+			if AvalonAddr < gFifoByteWidth then
 				if iAvalonRead = cActivated then
-					FifoRead(Addr) <= '1';
+					FifoRead(AvalonAddr) <= '1';
 				end if;
 			end if;
 			
 			FifoShift <= '0';
-			if FifoRead(gFifoByteWidth-1 downto 0) = (others => '1') then
+			if FifoRead = (gFifoByteWidth-1 downto 0 => '1') then
 				FifoShift <= '1';
 				FifoRead <= (others => '0');
 			end if;

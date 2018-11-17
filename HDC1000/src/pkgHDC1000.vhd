@@ -23,14 +23,14 @@ package pkgHDC1000 is
 	constant cRegAddrConfig_H		: natural := 11;
 	
 	-- fifo range types
-	subtype tFifoRangeTemp_L 		is natural range 0  to 7;
-	subtype tFifoRangeTemp_H 		is natural range 8  to 15;
-	subtype tFifoRangeHumidity_L 	is natural range 16 to 23;
-	subtype tFifoRangeHumidity_H 	is natural range 24 to 31;
-	subtype tFifoRangeTimeStamp_0 	is natural range 32 to 39;
-	subtype tFifoRangeTimeStamp_1 	is natural range 40 to 47;
-	subtype tFifoRangeTimeStamp_2 	is natural range 48 to 55;
-	subtype tFifoRangeTimeStamp_3 	is natural range 56 to 63;
+	subtype tFifoRangeTemp_L 		is natural range 7  downto 0;
+	subtype tFifoRangeTemp_H 		is natural range 15 downto 8;
+	subtype tFifoRangeHumidity_L 	is natural range 23 downto 16;
+	subtype tFifoRangeHumidity_H 	is natural range 31 downto 24;
+	subtype tFifoRangeTimeStamp_0 	is natural range 39 downto 32;
+	subtype tFifoRangeTimeStamp_1 	is natural range 47 downto 40;
+	subtype tFifoRangeTimeStamp_2 	is natural range 55 downto 48;
+	subtype tFifoRangeTimeStamp_3 	is natural range 63 downto 56;
 
 	
 end package pkgHDC1000;
