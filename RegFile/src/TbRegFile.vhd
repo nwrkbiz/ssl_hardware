@@ -34,17 +34,15 @@ architecture Bhv of TbRegFile is
 	signal oReadData 		: std_ulogic_vector(cDataWidth-1 downto 0);
 	signal iWrite 			: std_ulogic;
 	signal iWriteData 		: std_ulogic_vector(cDataWidth-1 downto 0);
+	signal iFifoData 		: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
+	signal oFifoShift 		: std_ulogic;
 	
 begin
 	
 	UUT: entity work.RegFile
 		generic map(
-			gRegFileWidth    => cRegFileWidth,
-			gRegFileHeight   => cRegFileHeight,
-			gAvalonDataWidth => cAvalonDataWidth,
-			gAvalonAddrWidth => cAvalonAddrWidth,
-			gAddrWidth       => cAddrWidth,
-			gDataWidth       => cDataWidth
+			gNumOfBytes		 => 16,
+			gFifoByteWidth	 => 4
 		)
 		port map(
 			iClk             => iClk,
@@ -58,7 +56,9 @@ begin
 			iRead            => iRead,
 			oReadData        => oReadData,
 			iWrite           => iWrite,
-			iWriteData       => iWriteData
+			iWriteData       => iWriteData,
+			iFifoData 		 => iFifoData,
+			oFifoShift		 => oFifoShift
 		);
 		
 		
