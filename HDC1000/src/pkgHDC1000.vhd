@@ -6,9 +6,14 @@
 -------------------------------------------------------------------------
 -- Description: this package provides some constant and types specific for the operation with HDC1000 (temp and humidity sensor)
 
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
 package pkgHDC1000 is
 	
 	-- register file address constants
+	constant cRegFileNumberOfBytes	: natural := 12;
 	constant cRegAddrTemp_L 		: natural := 0;
 	constant cRegAddrTemp_H 		: natural := 1;
 	constant cRegAddrHumidity_L 	: natural := 2;
@@ -31,6 +36,18 @@ package pkgHDC1000 is
 	subtype tFifoRangeTimeStamp_1 	is natural range 47 downto 40;
 	subtype tFifoRangeTimeStamp_2 	is natural range 55 downto 48;
 	subtype tFifoRangeTimeStamp_3 	is natural range 63 downto 56;
+	
+	subtype tFiforangeTimeStamp		is natural range 63 downto 32;
+	
+	-- default i2c read frequency is 400 ms
+	constant cDefaultI2cReadFreqNat	: natural := 400;
+	constant cDefaultI2cReadFreq		: std_ulogic_vector(15 downto 0) := std_ulogic_vector(to_unsigned(cDefaultI2cReadFreqNat,16));
+	
+	-- i2c constants
+	constant cI2cAddr	: std_ulogic_vector(6 downto 0)	:= b"100_0000";
+	
+	constant cI2cRegAddrTemp 	: std_ulogic_vector(7 downto 0)	:= x"00";
+	constant cI2cRegAddrHumid 	: std_ulogic_vector(7 downto 0)	:= x"01"; 
 
 	
 end package pkgHDC1000;

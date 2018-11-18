@@ -12,7 +12,8 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
+--use ieee.std_logic_arith.all;
+use ieee.numeric_std.all;
 
 package I2C is
 	component simple_i2c is
@@ -46,7 +47,8 @@ end package I2C;
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
+--use ieee.std_logic_arith.all;
+use ieee.numeric_std.all;
 
 entity simple_i2c is
 	port (
@@ -334,7 +336,8 @@ end architecture structural;
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
+--use ieee.std_logic_arith.all;
+use ieee.numeric_std.all;
 
 entity i2c_core is
 	port (

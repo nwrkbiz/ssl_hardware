@@ -19,8 +19,8 @@ entity StrobeGenAndTimeStamp is
 		-- divide clk with this value to create strobe
 		gClkDiv			: natural := 1000;
 			
-		-- assuming strobe is active every 1ms, a 24-bit vector can measure about 5 hours
-		gTimeStampWidth : natural range 0 to 24 := 24
+		-- assuming strobe is active every 1ms, a 24-bit vector can measure about 5 hours, 32 -> ~1000years
+		gTimeStampWidth : natural := 32
 	);
 	port(
 		iClk		: in std_ulogic;
@@ -34,11 +34,11 @@ end entity;
 architecture Rtl of StrobeGenAndTimeStamp is
 	
 	constant cStrobeCountMax 	: natural := gClkFreq/gClkDiv-1;
-	constant cTimeStampMax		: integer := (2**gTimeStampWidth)-1;
+	constant cTimeStampMax		: unsigned(gTimeStampWidth-1 downto 0) := (others => '1');
 
 	signal StrobeCount 	: natural range 0 to cStrobeCountMax;
 	signal Strobe		: std_ulogic;
-	signal TimeStamp	: integer range 0 to cTimeStampMax;
+	signal TimeStamp	: unsigned(gTimeStampWidth-1 downto 0);
 
 begin
 	
@@ -47,7 +47,7 @@ begin
 		if inRstAsync = cnActivated then
 			StrobeCount <= 0;
 			Strobe <= '0';
-			TimeStamp <= 0;
+			TimeStamp <= (others => '0');
 		elsif rising_edge(iClk) then
 			
 			-- strobe gen logic
@@ -62,7 +62,7 @@ begin
 			-- time stamp logic
 			if Strobe = cActivated then
 				if TimeStamp = cTimeStampMax then
-					TimeStamp <= 0;
+					TimeStamp <= (others => '0');
 				else
 					TimeStamp <= TimeStamp + 1;
 				end if;
@@ -73,6 +73,6 @@ begin
 	
 	-- connecting to output
 	oStrobe	 	<= Strobe;
-	oTimeStamp	<= std_ulogic_vector(to_unsigned(TimeStamp,gTimeStampWidth));
+	oTimeStamp	<= std_ulogic_vector(TimeStamp);
 				
 end architecture;

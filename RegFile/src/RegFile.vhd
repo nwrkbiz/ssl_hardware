@@ -50,7 +50,10 @@ end entity RegFile;
 architecture RTL of RegFile is
 	
 	type tRegFile is array (0 to gNumOfBytes-1) of std_ulogic_vector(cAvalonDataWidth-1 downto 0);
-	signal RegFile : tRegFile;
+	signal RegFile : tRegFile := (	cRegAddrFrequenzy_H => cDefaultI2cReadFreq(15 downto 8),
+									cRegAddrFrequenzy_L => cDefaultI2cReadFreq(7  downto 0),
+									others => (others => '0')
+	);
 	
 	-- tracks if every byte fo the fifo was read 
 	-- if it matches (others => '1') fifo will be shifted
