@@ -33,7 +33,7 @@ end entity;
 
 architecture Rtl of StrobeGenAndTimeStamp is
 	
-	constant cStrobeCountMax 	: natural := gClkFreq/gClkDiv-1;
+	constant cStrobeCountMax 	: natural := gClkDiv-1;
 	constant cTimeStampMax		: unsigned(gTimeStampWidth-1 downto 0) := (others => '1');
 
 	signal StrobeCount 	: natural range 0 to cStrobeCountMax;

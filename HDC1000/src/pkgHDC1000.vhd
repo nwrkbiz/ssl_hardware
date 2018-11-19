@@ -27,6 +27,10 @@ package pkgHDC1000 is
 	constant cRegAddrConfig_L		: natural := 10;
 	constant cRegAddrConfig_H		: natural := 11;
 	
+	-- fifo width
+	constant cFifoByteWidth		: natural := 8;
+	constant cFifoStages		: natural := 8;
+	
 	-- fifo range types
 	subtype tFifoRangeTemp_L 		is natural range 7  downto 0;
 	subtype tFifoRangeTemp_H 		is natural range 15 downto 8;

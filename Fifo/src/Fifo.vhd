@@ -31,7 +31,7 @@ end entity Fifo;
 architecture RTL of Fifo is
 	
 	type tFifo is array (0 to gFifoStages-1) of std_ulogic_vector(gFifoWidth-1 downto 0);
-	signal Fifo : tFifo;
+	signal Fifo : tFifo := (others => (others => '0'));
 	
 	signal Read		: natural range 0 to gFifoStages-1;
 	signal Write	: natural range 0 to gFifoStages-1;

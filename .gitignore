@@ -6,3 +6,9 @@ vsim.wlf
 .library_mapping.xml
 .project
 .settings
+
+/Project/HDC1000/*
+!/Project/HDC1000/*.qpf
+!/Project/HDC1000/*.qsf
+!/Project/HDC1000/*.sdc
+

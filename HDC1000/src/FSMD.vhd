@@ -42,18 +42,23 @@ entity FSMD is
 		iTimeStamp	: in std_ulogic_vector(cTimeStampWidth-1 downto 0);
 		
 		-- data ready from HDC1000
-		inDataReady	: in std_ulogic
+		inDataReady	: in std_ulogic;
+		
+		--debug
+		oLEDs		: out std_ulogic_vector(9 downto 0)
 	);
 end entity FSMD;
 
 architecture RTL of FSMD is
 	
-	constant cClkCnt 	: unsigned(7 downto 0) 	:= to_unsigned(24,8); -- no idea how it works but 24 creates a 400kHz clk
+	constant cClkCnt 	: unsigned(7 downto 0) 	:= to_unsigned(gClkFrequency/gI2cFrequency/5 -1,8); -- no idea how it works but 24 creates a 400kHz clk
 	
 		type tState is (Idle, WaitForI2cTransfer,
 						TriggerMeasurementI2cAddr, TriggerMeasurementI2cRegAddr, WaitForDataRdy, 
-						ReadDataI2cAddr, ReadDataTempData_H, ReadDataTempData_L, ReadDataHumidData_H, ReadDataHumidData_L, ReadDataStop,
-						WriteDataToFifo, SendAck);
+						ReadDataI2cAddr, 
+						ReadDataTempData_H, SaveTempData_H, ReadDataTempData_L, SaveTempData_L, 
+						ReadDataHumidData_H, SaveHumidData_H, ReadDataHumidData_L, SaveHumidData_L,
+						WriteDataToFifo);
 	
 	type tData is record
 		State 		: tState;
@@ -68,6 +73,8 @@ architecture RTL of FSMD is
 		I2cDataIn 	: std_ulogic_vector(7 downto 0);
 		FifoData	: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 		FifoWrite	: std_ulogic;
+		
+		LEDs		: std_ulogic_vector(9 downto 0);
 	end record tData;
 	
 	constant cDefaultData : tData := (
@@ -82,7 +89,9 @@ architecture RTL of FSMD is
 		I2cAckIn 	=> '0',
 		I2cDataIn 	=> (others => '0'),
 		FifoData	=> (others => '0'),
-		FifoWrite	=> '0'		
+		FifoWrite	=> '0',
+		
+		LEDs		=> (others => '0')	
 	);
 	
 	signal R,NxR	: tData;
@@ -114,7 +123,7 @@ begin
 		NxR.I2cRead		<= '0';
 		NxR.I2cWrite	<= '0';
 		NxR.I2cStop		<= '0';
-		NxR.I2cAckIn	<= '1';
+		NxR.I2cAckIn	<= '0'; -- '0' means always active
 		NxR.FifoWrite	<= '0';
 		
 		
@@ -138,7 +147,9 @@ begin
 				NxR.State <= WaitForI2cTransfer;
 				
 			when WaitForI2cTransfer =>
+				NxR.LEDs(0)<= '1';
 				if R.ReadI2cData = '1' then
+					NxR.LEDs(1)<= '1';
 					NxR.State <= TriggerMeasurementI2cAddr;
 					NxR.ReadI2cData <= '0';
 				end if;
@@ -150,6 +161,7 @@ begin
 				NxR.I2cDataIn	<= cI2cAddr & cI2cWrite;
 				NxR.I2cWrite	<= '1';
 				if I2cCmdAck = '1' then
+					NxR.LEDs(2)<= '1';
 					NxR.State		<= TriggerMeasurementI2cRegAddr;
 					NxR.I2cStart	<= '0';
 				end if;
@@ -158,12 +170,14 @@ begin
 				NxR.I2cWrite	<= '1';
 				NxR.I2cDataIn	<= cI2cRegAddrTemp;
 				if I2cCmdAck = '1' then
+					NxR.LEDs(3)<= '1';
 					NxR.I2cWrite	<= '0';
 					NxR.State	<= WaitForDataRdy;
 				end if;
 				
 			when WaitForDataRdy =>
 				if inDataReady = not('1') then
+					NxR.LEDs(4)<= '1';
 					NxR.State	<= ReadDataI2cAddr;
 				end if;
 				
@@ -172,69 +186,69 @@ begin
 				NxR.I2cWrite	<= '1';
 				NxR.I2cDataIn	<= cI2cAddr & cI2cRead;
 				if I2cCmdAck = '1' then
+					NxR.LEDs(5)<= '1';
 					NxR.I2cStart	<= '0';
 					NxR.I2cWrite	<= '0';
-					NxR.I2cRead		<= '1';
 					NxR.State	<= ReadDataTempData_H;
 				end if;
 			
 			when ReadDataTempData_H =>
 				-- DataOut is available 1 clock cycle later as I2cCmdAck
-				NxR.I2cRead		<= '0';
+				NxR.I2cRead		<= '1';
 				if I2cCmdAck = '1' then
+					NxR.LEDs(6)<= '1';
 					NxR.I2cRead		<= '0';
-					NxR.State		<= SendAck;
+					NxR.State		<= ReadDataTempData_L;
 				end if;
 				
-			when ReadDataTempData_L =>
+			when SaveTempData_H =>
 				-- save data from last state
 				NxR.FifoData(tFifoRangeTemp_H)	<= std_ulogic_vector(I2cDataOut);
+				NxR.State	<= ReadDataTempData_L;
 				
-				-- prepare next read
+			when ReadDataTempData_L =>
 				NxR.I2cRead		<= '1';
 				if I2cCmdAck = '1' then
 					NxR.I2cRead		<= '0';
-					NxR.State		<= ReadDataHumidData_H;
+					NxR.State		<= SaveTempData_L;
 				end if;
 				
-			when ReadDataHumidData_H =>
+			when SaveTempData_L	=>
 				-- save data from last state
 				NxR.FifoData(tFifoRangeTemp_L)	<= std_ulogic_vector(I2cDataOut);
+				NxR.State		<= ReadDataHumidData_H;
 				
-				-- prepare next read
+			when ReadDataHumidData_H =>
 				NxR.I2cRead		<= '1';
 				if I2cCmdAck = '1' then
 					NxR.I2cRead		<= '0';
-					NxR.State		<= ReadDataHumidData_L;
+					NxR.State		<= SaveHumidData_H;
 				end if;
 				
-			when SendAck =>
-				NxR.State <= SendAck;
-				
-			when ReadDataHumidData_L =>
+			when SaveHumidData_H	=>
 				-- save data from last state
 				NxR.FifoData(tFifoRangeHumidity_H)	<= std_ulogic_vector(I2cDataOut);
+				NxR.State		<= ReadDataHumidData_L;
 				
-				-- prepare next read
+			when ReadDataHumidData_L =>			
 				NxR.I2cRead		<= '1';
+				NxR.I2cStop		<= '1';	-- last read -> stop is needed
 				if I2cCmdAck = '1' then
+					NxR.LEDs(7)<= '1';
 					NxR.I2cRead		<= '0';
-					NxR.State		<= ReadDataStop;
+					NxR.State		<= SaveHumidData_L;
 				end if;
 				
-			when ReadDataStop =>
+			when SaveHumidData_L	=>
+				NxR.LEDs(8)<= '1';
 				-- save data from last state
 				NxR.FifoData(tFifoRangeHumidity_L)	<= std_ulogic_vector(I2cDataOut);
-				
-				-- set stop condition
-				NxR.I2cStop	<= '1';
-				
 				-- save time stamp
 				NxR.FifoData(tFiforangeTimeStamp)	<= iTimeStamp;
-				
-				NxR.State	<= WriteDataToFifo;
+				NxR.State		<= WriteDataToFifo;
 				
 			when WriteDataToFifo =>
+				NxR.LEDs(9)<= '1';
 				NxR.FifoWrite 	<= '1';
 				NxR.State		<= WaitForI2cTransfer;
 				
@@ -252,6 +266,8 @@ begin
 	-- outputs
 	oFifoData 	<= R.FifoData;
 	oFifoWrite	<= R.FifoWrite;
+	
+	oLEDs		<= R.LEDs;
 	
 	
 	I2cController: entity work.simple_i2c
