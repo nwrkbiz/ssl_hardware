@@ -51,11 +51,13 @@ end entity FSMD;
 
 architecture RTL of FSMD is
 	
-	constant cClkCnt 	: unsigned(7 downto 0) 	:= to_unsigned(gClkFrequency/gI2cFrequency/5 -1,8); -- no idea how it works but 24 creates a 400kHz clk
+	constant cClkCnt 			: unsigned(7 downto 0) 	:= to_unsigned(gClkFrequency/gI2cFrequency/5 -1,8); -- creates a 400kHz clk
+	constant cI2cTimeoutCntMax	: natural				:= gClkFrequency/200_000; -- wait for 5 us
 	
 		type tState is (Idle, WaitForI2cTransfer,
-						TriggerMeasurementI2cAddr, TriggerMeasurementI2cRegAddr, WaitForDataRdy, 
-						ReadDataI2cAddr, 
+						TriggerMeasurementI2cAddr, TriggerMeasurementWaitOnAck0, 
+						TriggerMeasurementI2cRegAddr, TriggerMeasurementWaitOnAck1, WaitForDataRdy, 
+						ReadDataI2cAddr, ReadDataWaitOnAck,
 						ReadDataTempData_H, SaveTempData_H, ReadDataTempData_L, SaveTempData_L, 
 						ReadDataHumidData_H, SaveHumidData_H, ReadDataHumidData_L, SaveHumidData_L,
 						WriteDataToFifo);
@@ -74,6 +76,8 @@ architecture RTL of FSMD is
 		FifoData	: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 		FifoWrite	: std_ulogic;
 		
+		I2cAckTimeOutCnt	: natural range 0 to cI2cTimeoutCntMax-1;
+		
 		LEDs		: std_ulogic_vector(9 downto 0);
 	end record tData;
 	
@@ -90,6 +94,8 @@ architecture RTL of FSMD is
 		I2cDataIn 	=> (others => '0'),
 		FifoData	=> (others => '0'),
 		FifoWrite	=> '0',
+		
+		I2cAckTimeOutCnt	=> 0,
 		
 		LEDs		=> (others => '0')	
 	);
@@ -113,7 +119,7 @@ begin
 	end process;
 	
 	FSMD: process (
-		R, iRegDataFrequency, iStrobe, inDataReady, iTimeStamp, I2cCmdAck
+		R, iRegDataFrequency, iStrobe, inDataReady, iTimeStamp, I2cCmdAck, I2cDataOut, I2cAckOut
 	) is	
 	begin
 		-- defaults
@@ -161,18 +167,48 @@ begin
 				NxR.I2cDataIn	<= cI2cAddr & cI2cWrite;
 				NxR.I2cWrite	<= '1';
 				if I2cCmdAck = '1' then
-					NxR.LEDs(2)<= '1';
-					NxR.State		<= TriggerMeasurementI2cRegAddr;
+					NxR.LEDs(2)		<= '1';
+					NxR.I2cWrite	<= '0';
 					NxR.I2cStart	<= '0';
+					NxR.State		<= TriggerMeasurementWaitOnAck0;
+					NxR.I2cStart	<= '0';
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when TriggerMeasurementWaitOnAck0 =>
+				if I2cAckOut = '0' then
+					NxR.State <= TriggerMeasurementI2cRegAddr;
+				else
+					-- timeout 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back to write I2c address again
+						NxR.State <= TriggerMeasurementI2cAddr;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
 				end if;
 				
 			when TriggerMeasurementI2cRegAddr =>
 				NxR.I2cWrite	<= '1';
 				NxR.I2cDataIn	<= cI2cRegAddrTemp;
 				if I2cCmdAck = '1' then
-					NxR.LEDs(3)<= '1';
+					NxR.LEDs(3)		<= '1';
 					NxR.I2cWrite	<= '0';
-					NxR.State	<= WaitForDataRdy;
+					NxR.State		<= TriggerMeasurementWaitOnAck1;
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when TriggerMeasurementWaitOnAck1 =>
+				if I2cAckOut = '0' then
+					NxR.State <= WaitForDataRdy;
+				else
+					-- timeout 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back to write I2c address again
+						NxR.State <= TriggerMeasurementI2cAddr;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
 				end if;
 				
 			when WaitForDataRdy =>
@@ -189,7 +225,21 @@ begin
 					NxR.LEDs(5)<= '1';
 					NxR.I2cStart	<= '0';
 					NxR.I2cWrite	<= '0';
-					NxR.State	<= ReadDataTempData_H;
+					NxR.State		<= ReadDataWaitOnAck;
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when ReadDataWaitOnAck =>
+				if I2cAckOut = '0' then
+					NxR.State <= ReadDataTempData_H;
+				else
+					-- time out 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back one state to write I2c address again
+						NxR.State <= ReadDataI2cAddr;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
 				end if;
 			
 			when ReadDataTempData_H =>

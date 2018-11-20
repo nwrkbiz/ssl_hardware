@@ -7,8 +7,8 @@ vsim.wlf
 .project
 .settings
 
-/Project/HDC1000/*
-!/Project/HDC1000/*.qpf
-!/Project/HDC1000/*.qsf
-!/Project/HDC1000/*.sdc
+/Project/*/*
+!/Project/*/*.qpf
+!/Project/*/*.qsf
+!/Project/*/*.sdc
 

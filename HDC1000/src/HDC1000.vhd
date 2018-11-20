@@ -15,7 +15,6 @@ use work.pkgHDC1000.all;
 entity HDC1000 is
 	generic (
 		gClkFrequency	: natural	:= 50_000_000;
-		gStrobeTime		: time		:= 1 ms;
 		gI2cFrequency	: natural	:= 400_000;
 		
 		-- sync inDataRdy (min. 2)
@@ -28,9 +27,12 @@ entity HDC1000 is
 		-- i2c interface
 		ioSCL		: inout	std_logic;
 		ioSDA		: inout std_logic;
-		
-		-- Data ready from chip
+		-- Data ready from HDC1000
 		inDataReady	: in std_ulogic;
+		
+		-- strobe and timestamp
+		iStrobe		: in std_ulogic;
+		iTimeStamp	: in std_ulogic_vector(cTimeStampWidth-1 downto 0);
 		
 		-- avalon MM interface
 		iAvalonAddr 		: in  std_ulogic_vector(cAvalonAddrWidth-1 downto 0);
@@ -50,8 +52,6 @@ architecture Bhv of HDC1000 is
 	signal RegDataFrequency 	: std_ulogic_vector(15 downto 0);
 	signal RegDataConfig 		: std_ulogic_vector(15 downto 0);
 	signal WriteConfigReg 		: std_ulogic;
-	signal Strobe 				: std_ulogic;
-	signal TimeStamp 			: std_ulogic_vector(cTimeStampWidth-1 downto 0);
 	signal DataToFifo 			: std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
 	signal DataFromFifo 		: std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
 	signal FifoShift 			: std_ulogic;
@@ -60,11 +60,7 @@ architecture Bhv of HDC1000 is
 	constant cSyncDataWidth		: natural := 1;
 	signal iDataAsync 	: std_ulogic_vector(cSyncDataWidth-1 downto 0);
 	signal oDataSync 		: std_ulogic_vector(cSyncDataWidth-1 downto 0);
-	
-	constant cClkPeriod 	: time	  	:= 1 sec/gClkFrequency;
-	constant cClkDiv		: natural	:= gStrobeTime/cClkPeriod;
-	
-	
+		
 begin
 	
 
@@ -100,8 +96,8 @@ begin
 			iRegDataFrequency => RegDataFrequency,
 			iRegDataConfig    => RegDataConfig,
 			iWriteConfigReg   => WriteConfigReg,
-			iStrobe           => Strobe,
-			iTimeStamp        => TimeStamp,
+			iStrobe           => iStrobe,
+			iTimeStamp        => iTimeStamp,
 			inDataReady       => nDataReadySync,
 			oLEDs			  => oLEDs
 		);
@@ -138,19 +134,6 @@ begin
 			oWriteConfigReg   => WriteConfigReg,
 			iFifoData         => DataFromFifo,
 			oFifoShift        => FifoShift
-		);
-		
-	StrobeTimeStamp: entity work.StrobeGenAndTimeStamp
-		generic map(
-			gClkFreq        => gClkFrequency,
-			gClkDiv         => cClkDiv,
-			gTimeStampWidth => cTimeStampWidth
-		)
-		port map(
-			iClk       => iClk,
-			inRstAsync => inRstAsync,
-			oStrobe    => Strobe,
-			oTimeStamp => TimeStamp
 		);
 
 end architecture Bhv;

@@ -153,7 +153,7 @@ begin
 		--
 		-- command interpreter, translate complex commands into simpler I2C commands
 		--
-		nxt_state_decoder: process(clk, nReset, state)
+		nxt_state_decoder: process(clk, nReset, state, ack_in, core_ack, core_cmd, core_txd, dcnt, go, read, sr(7), start, stop)
 			variable nxt_state : states;
 			variable idcnt : unsigned(2 downto 0);
 			variable ihost_ack : std_logic;
@@ -395,7 +395,7 @@ begin
 	end process gen_clken;
 
 	-- generate statemachine
-	nxt_state_decoder : process (clk, nReset, state, cmd, SDA)
+	nxt_state_decoder : process (clk, nReset, state, cmd, SDA, Din, txd)
 		variable nxt_state : cmds;
 		variable icmd_ack, ibusy, store_sda : std_logic;
 		variable itxd : std_logic;
@@ -522,7 +522,7 @@ begin
 	--
 	-- convert states to SCL and SDA signals
 	--
-	output_decoder: process (clk, nReset, state)
+	output_decoder: process (clk, nReset, state, Din, SCLo, SDA)
 		variable iscl, isda : std_logic;
 	begin
 		case (state) is

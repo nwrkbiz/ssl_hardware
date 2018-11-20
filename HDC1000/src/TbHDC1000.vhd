@@ -20,6 +20,7 @@ architecture Bhv of TbHDC1000 is
 	constant gStrobeTime 	: time		:= 1 us;
 	constant gI2cFrequency 	: natural	:= 400_000;
 	constant gSyncStages 	: natural	:= 2;
+	constant cClkDiv		: natural	:= gStrobeTime/cClkPeriod;
 	
 	signal iClk 			: std_ulogic	:= '0';
 	signal inRstAsync 		: std_ulogic	:= not('1');
@@ -32,7 +33,9 @@ architecture Bhv of TbHDC1000 is
 	signal oAvalonReadData 	: std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 	signal iAvalonWrite 	: std_ulogic;
 	signal iAvalonWriteData : std_ulogic_vector(cAvalonDataWidth-1 downto 0);
-	signal oLEDs 			: std_ulogic_vector(8 downto 0);
+	signal oLEDs 			: std_ulogic_vector(9 downto 0);
+	signal iStrobe 			: std_ulogic;
+	signal iTimeStamp 		: std_ulogic_vector(cTimeStampWidth-1 downto 0);
 	
 	
 begin
@@ -49,11 +52,12 @@ begin
 	UUT: entity work.HDC1000
 		generic map(
 			gClkFrequency => gClkFrequency,
-			gStrobeTime   => gStrobeTime,
 			gI2cFrequency => gI2cFrequency,
 			gSyncStages   => gSyncStages
 		)
 		port map(
+			iStrobe 		 => iStrobe,
+			iTimeStamp 		 => iTimeStamp,
 			iClk             => iClk,
 			inRstAsync       => inRstAsync,
 			ioSCL            => ioSCL,
@@ -65,6 +69,19 @@ begin
 			iAvalonWrite     => iAvalonWrite,
 			iAvalonWriteData => iAvalonWriteData,
 			oLEDs            => oLEDs
+		);
+		
+	StrobeTimeStamp: entity work.StrobeGenAndTimeStamp
+		generic map(
+			gClkFreq        => gClkFrequency,
+			gClkDiv         => cClkDiv,
+			gTimeStampWidth => cTimeStampWidth
+		)
+		port map(
+			iClk       => iClk,
+			inRstAsync => inRstAsync,
+			oStrobe    => iStrobe,
+			oTimeStamp => iTimeStamp
 		);
 		
 	inDataReady <= not('1');
