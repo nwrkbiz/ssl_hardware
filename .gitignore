@@ -2,6 +2,7 @@
 
 transcript
 vsim.wlf
+modelsim.ini
 
 .library_mapping.xml
 .project
