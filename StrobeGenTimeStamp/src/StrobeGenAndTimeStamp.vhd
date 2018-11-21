@@ -17,10 +17,13 @@ entity StrobeGenAndTimeStamp is
 		gClkFreq 		: natural := 50_000_000;
 		
 		-- divide clk with this value to create strobe
-		gClkDiv			: natural := 1000;
+		gStrobe			: time 	  := 1 ms;
 			
 		-- assuming strobe is active every 1ms, a 24-bit vector can measure about 5 hours, 32 -> ~1000years
-		gTimeStampWidth : natural := 32
+		gTimeStampWidth : natural := 32;
+		
+		-- set reset configuration - default: low active
+		gResetIsLowActive	: natural range 0 to 1	:= 1
 	);
 	port(
 		iClk		: in std_ulogic;
@@ -33,18 +36,30 @@ end entity;
 
 architecture Rtl of StrobeGenAndTimeStamp is
 	
-	constant cStrobeCountMax 	: natural := gClkDiv-1;
+	constant cClkPeriod			: time 		:= 1 sec/gClkFreq;
+	
+	constant cStrobeCountMax 	: natural := (gStrobe/cClkPeriod)-1;
 	constant cTimeStampMax		: unsigned(gTimeStampWidth-1 downto 0) := (others => '1');
 
 	signal StrobeCount 	: natural range 0 to cStrobeCountMax;
 	signal Strobe		: std_ulogic;
 	signal TimeStamp	: unsigned(gTimeStampWidth-1 downto 0);
+	signal Reset : std_ulogic;
 
 begin
 	
-	Reg: process (iClk, inRstAsync) is
+	-- convert reset if necessary
+	nRst: if gResetIsLowActive = 1 generate		-- low active
+			Reset <= inRstAsync;
+		end generate;
+		
+	Rst: if gResetIsLowActive = 0 generate		-- high active
+			Reset <= not(inRstAsync);
+		end generate;
+	
+	Reg: process (iClk, Reset) is
 	begin
-		if inRstAsync = cnActivated then
+		if Reset = not('1') then
 			StrobeCount <= 0;
 			Strobe <= '0';
 			TimeStamp <= (others => '0');

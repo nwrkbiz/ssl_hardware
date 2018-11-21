@@ -18,7 +18,10 @@ entity HDC1000 is
 		gI2cFrequency	: natural	:= 400_000;
 		
 		-- sync inDataRdy (min. 2)
-		gSyncStages		: natural	:= 2	
+		gSyncStages		: natural	:= 2;
+		
+		-- set reset configuration - default: low active
+		gResetIsLowActive	: natural range 0 to 1	:= 1
 	);
 	port(
 		iClk		: in  std_ulogic;
@@ -39,14 +42,11 @@ entity HDC1000 is
 		iAvalonRead 		: in  std_ulogic;
 		oAvalonReadData 	: out std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 		iAvalonWrite 		: in  std_ulogic;
-		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0);
-		
-		-- debug
-		oLEDs				: out std_ulogic_vector(9 downto 0)		
+		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0)
 	);
 end entity HDC1000;
 
-architecture Bhv of HDC1000 is
+architecture Rtl of HDC1000 is
 
 	signal FifoWrite 			: std_ulogic;
 	signal RegDataFrequency 	: std_ulogic_vector(15 downto 0);
@@ -60,10 +60,19 @@ architecture Bhv of HDC1000 is
 	constant cSyncDataWidth		: natural := 1;
 	signal iDataAsync 	: std_ulogic_vector(cSyncDataWidth-1 downto 0);
 	signal oDataSync 		: std_ulogic_vector(cSyncDataWidth-1 downto 0);
+	
+	signal Reset		: std_ulogic;
 		
 begin
 	
-
+	-- convert reset if necessary
+	nRst: if gResetIsLowActive = 1 generate		-- low active
+			Reset <= inRstAsync;
+		end generate;
+		
+	Rst: if gResetIsLowActive = 0 generate		-- high active
+			Reset <= not(inRstAsync);
+		end generate;
 	
 	iDataAsync(0) 	<= inDataReady;
 	nDataReadySync	<= oDataSync(0);
@@ -75,7 +84,7 @@ begin
 		)
 		port map(
 			iClk       => iClk,
-			inRstAsync => inRstAsync,
+			inRstAsync => Reset,
 			iData      => iDataAsync,
 			oData      => oDataSync
 		);
@@ -88,7 +97,7 @@ begin
 		)
 		port map(
 			iClk              => iClk,
-			inRstAsync        => inRstAsync,
+			inRstAsync        => Reset,
 			ioSCL             => ioSCL,
 			ioSDA             => ioSDA,
 			oFifoData         => DataToFifo,
@@ -98,8 +107,7 @@ begin
 			iWriteConfigReg   => WriteConfigReg,
 			iStrobe           => iStrobe,
 			iTimeStamp        => iTimeStamp,
-			inDataReady       => nDataReadySync,
-			oLEDs			  => oLEDs
+			inDataReady       => nDataReadySync
 		);
 		
 	Fifo: entity work.Fifo
@@ -109,7 +117,7 @@ begin
 		)
 		port map(
 			iClk       => iClk,
-			inRstAsync => inRstAsync,
+			inRstAsync => Reset,
 			iFifoData  => DataToFifo,
 			oFifoData  => DataFromFifo,
 			iFifoShift => FifoShift,
@@ -123,7 +131,7 @@ begin
 		)
 		port map(
 			iClk              => iClk,
-			inRstAsync        => inRstAsync,
+			inRstAsync        => Reset,
 			iAvalonAddr       => iAvalonAddr,
 			iAvalonRead       => iAvalonRead,
 			oAvalonReadData   => oAvalonReadData,
@@ -136,7 +144,7 @@ begin
 			oFifoShift        => FifoShift
 		);
 
-end architecture Bhv;
+end architecture Rtl;
 
 
 

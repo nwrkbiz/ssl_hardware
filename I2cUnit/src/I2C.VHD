@@ -395,7 +395,7 @@ begin
 	end process gen_clken;
 
 	-- generate statemachine
-	nxt_state_decoder : process (clk, nReset, state, cmd, SDA, Din, txd)
+	nxt_state_decoder : process (clk, nReset, state, cmd, Din, txd)
 		variable nxt_state : cmds;
 		variable icmd_ack, ibusy, store_sda : std_logic;
 		variable itxd : std_logic;

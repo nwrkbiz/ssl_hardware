@@ -13,13 +13,16 @@ add wave -noupdate -divider FMSD
 add wave -noupdate -expand /tbhdc1000/UUT/FSMD/R
 add wave -noupdate /tbhdc1000/UUT/FSMD/NxR
 add wave -noupdate -divider {i2c core}
+add wave -noupdate -radix unsigned /tbhdc1000/UUT/FSMD/I2cController/clk_cnt
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cCmdAck
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cAckOut
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/core_cmd
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/Din
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/Dout
+add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/statemachine/state
+add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/u1/state
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {214974619 ps} 0}
+WaveRestoreCursors {{Cursor 1} {25344828 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 206
 configure wave -valuecolwidth 100
@@ -35,4 +38,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {1050 us}
+WaveRestoreZoom {0 ps} {315 us}

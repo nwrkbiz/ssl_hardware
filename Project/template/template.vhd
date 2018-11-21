@@ -116,7 +116,10 @@ ARCHITECTURE MAIN OF template IS
     component HPSPlatform is
         port (
             clk_clk                              : in    std_logic                     := 'X';             -- clk
-            h2f_reset_reset_n                    : out   std_logic;                                        -- reset_n
+            data_rdy_n_drdy_n                    : in    std_logic                     := 'X';             -- drdy_n
+			h2f_reset_reset_n                    : out   std_logic;                                        -- reset_n
+			hdc1000_1_i2c_clk                    : inout std_logic                     := 'X';             -- i2c_clk
+			hdc1000_1_i2c_data                   : inout std_logic                     := 'X';             -- i2c_data
             hps_0_f2h_cold_reset_req_reset_n     : in    std_logic                     := 'X';             -- reset_n
             hps_0_f2h_debug_reset_req_reset_n    : in    std_logic                     := 'X';             -- reset_n
             hps_0_f2h_stm_hw_events_stm_hwevents : in    std_logic_vector(27 downto 0) := (others => 'X'); -- stm_hwevents
@@ -210,6 +213,9 @@ BEGIN
 u0 : component HPSPlatform
         port map (
             clk_clk                         => CLOCK_50,                         --                     clk.clk
+			hdc1000_1_i2c_clk               => RH_TEMP_I2C_SCL,             					-- i2c_clk
+			hdc1000_1_i2c_data              => RH_TEMP_I2C_SDA,             					-- i2c_data
+            data_rdy_n_drdy_n               => RH_TEMP_DRDY_n,        							-- drdy_n
             reset_reset_n                   => HPS_H2F_RST,                   --                   reset.reset_n
             memory_mem_a                    => HPS_DDR3_ADDR,                    --                  memory.mem_a
             memory_mem_ba                   => HPS_DDR3_BA,                   --                        .mem_ba

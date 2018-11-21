@@ -9,7 +9,12 @@ modelsim.ini
 .settings
 
 /Project/*/*
-!/Project/*/*.qpf
-!/Project/*/*.qsf
-!/Project/*/*.sdc
+!*.qpf
+!*.qsf
+!*.sdc
+!*.tcl
+!output_files/
+!scripts/
+!*.qsys
+!*.sopcinfo
 

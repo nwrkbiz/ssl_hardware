@@ -1,0 +1,924 @@
+Analysis & Synthesis report for TbdHDC1000
+Mon Nov 19 18:00:35 2018
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|R.State
+ 10. State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:state
+ 11. State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|state
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Inverted Register Statistics
+ 16. Registers Packed Into Inferred Megafunctions
+ 17. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 18. Source assignments for HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated
+ 19. Parameter Settings for User Entity Instance: HDC1000:HDC1000
+ 20. Parameter Settings for User Entity Instance: HDC1000:HDC1000|Sync:Sync
+ 21. Parameter Settings for User Entity Instance: HDC1000:HDC1000|FSMD:FSMD
+ 22. Parameter Settings for User Entity Instance: HDC1000:HDC1000|Fifo:Fifo
+ 23. Parameter Settings for User Entity Instance: HDC1000:HDC1000|RegFile:RegFile
+ 24. Parameter Settings for User Entity Instance: HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp
+ 25. Parameter Settings for Inferred Entity Instance: HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0
+ 26. altsyncram Parameter Settings by Entity Instance
+ 27. Port Connectivity Checks: "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1"
+ 28. Port Connectivity Checks: "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController"
+ 29. Port Connectivity Checks: "HDC1000:HDC1000|Sync:Sync"
+ 30. Port Connectivity Checks: "HDC1000:HDC1000"
+ 31. Post-Synthesis Netlist Statistics for Top Partition
+ 32. Elapsed Time Per Partition
+ 33. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Mon Nov 19 18:00:35 2018       ;
+; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
+; Revision Name                   ; TbdHDC1000                                  ;
+; Top-level Entity Name           ; TbdHDC1000                                  ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 128                                         ;
+; Total pins                      ; 15                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 64                                          ;
+; Total DSP Blocks                ; 0                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
+; Top-level entity name                                                           ; TbdHDC1000         ; TbdHDC1000         ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; OpenCore Plus hardware evaluation                                               ; Enable             ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; PowerPlay Power Optimization During Synthesis                                   ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                    ;
++--------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                       ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                                 ; Library ;
++--------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
+; ../../HDC1000/src/TbdHDC1000.vhd                       ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd                               ;         ;
+; ../../I2cUnit/src/I2C.VHD                              ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD                                      ;         ;
+; ../../HDC1000/src/pkgHDC1000.vhd                       ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/pkgHDC1000.vhd                               ;         ;
+; ../../HDC1000/src/HDC1000.vhd                          ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd                                  ;         ;
+; ../../HDC1000/src/FSMD.vhd                             ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd                                     ;         ;
+; ../../StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd         ;         ;
+; ../../Sync/src/Sync.vhd                                ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd                                        ;         ;
+; ../../RegFile/src/RegFile.vhd                          ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd                                  ;         ;
+; ../../Fifo/src/Fifo.vhd                                ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd                                        ;         ;
+; ../../PkgGlobal/pkgGlobal.vhd                          ; yes             ; User VHDL File                                        ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/PkgGlobal/pkgGlobal.vhd                                  ;         ;
+; altsyncram.tdf                                         ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/altsyncram.tdf                                                    ;         ;
+; stratix_ram_block.inc                                  ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/stratix_ram_block.inc                                             ;         ;
+; lpm_mux.inc                                            ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/lpm_mux.inc                                                       ;         ;
+; lpm_decode.inc                                         ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/lpm_decode.inc                                                    ;         ;
+; aglobal161.inc                                         ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/aglobal161.inc                                                    ;         ;
+; a_rdenreg.inc                                          ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/a_rdenreg.inc                                                     ;         ;
+; altrom.inc                                             ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/altrom.inc                                                        ;         ;
+; altram.inc                                             ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/altram.inc                                                        ;         ;
+; altdpram.inc                                           ; yes             ; Megafunction                                          ; d:/quartus/quartus/libraries/megafunctions/altdpram.inc                                                      ;         ;
+; db/altsyncram_9au1.tdf                                 ; yes             ; Auto-Generated Megafunction                           ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf                   ;         ;
+; db/tbdhdc1000.ram0_fifo_b067c8cc.hdl.mif               ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/tbdhdc1000.ram0_fifo_b067c8cc.hdl.mif ;         ;
++--------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
+
+
++----------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary              ;
++---------------------------------------------+------------+
+; Resource                                    ; Usage      ;
++---------------------------------------------+------------+
+; Estimate of Logic utilization (ALMs needed) ; 90         ;
+;                                             ;            ;
+; Combinational ALUT usage for logic          ; 148        ;
+;     -- 7 input functions                    ; 0          ;
+;     -- 6 input functions                    ; 29         ;
+;     -- 5 input functions                    ; 14         ;
+;     -- 4 input functions                    ; 25         ;
+;     -- <=3 input functions                  ; 80         ;
+;                                             ;            ;
+; Dedicated logic registers                   ; 128        ;
+;                                             ;            ;
+; I/O pins                                    ; 15         ;
+; Total MLAB memory bits                      ; 0          ;
+; Total block memory bits                     ; 64         ;
+;                                             ;            ;
+; Total DSP Blocks                            ; 0          ;
+;                                             ;            ;
+; Maximum fan-out node                        ; iClk~input ;
+; Maximum fan-out                             ; 136        ;
+; Total fan-out                               ; 1084       ;
+; Average fan-out                             ; 3.43       ;
++---------------------------------------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                        ;
++-----------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------+-----------------------+--------------+
+; Compilation Hierarchy Node                    ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                        ; Entity Name           ; Library Name ;
++-----------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------+-----------------------+--------------+
+; |TbdHDC1000                                   ; 148 (1)             ; 128 (0)                   ; 64                ; 0          ; 15   ; 0            ; |TbdHDC1000                                                                                ; TbdHDC1000            ; work         ;
+;    |HDC1000:HDC1000|                          ; 147 (0)             ; 128 (0)                   ; 64                ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000                                                                ; HDC1000               ; work         ;
+;       |FSMD:FSMD|                             ; 123 (52)            ; 106 (53)                  ; 0                 ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD                                                      ; FSMD                  ; work         ;
+;          |simple_i2c:I2cController|           ; 71 (40)             ; 53 (24)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController                             ; simple_i2c            ; work         ;
+;             |i2c_core:u1|                     ; 31 (31)             ; 29 (29)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1                 ; i2c_core              ; work         ;
+;       |Fifo:Fifo|                             ; 4 (4)               ; 3 (3)                     ; 64                ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|Fifo:Fifo                                                      ; Fifo                  ; work         ;
+;          |altsyncram:Fifo_rtl_0|              ; 0 (0)               ; 0 (0)                     ; 64                ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0                                ; altsyncram            ; work         ;
+;             |altsyncram_9au1:auto_generated|  ; 0 (0)               ; 0 (0)                     ; 64                ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated ; altsyncram_9au1       ; work         ;
+;       |StrobeGenAndTimeStamp:StrobeTimeStamp| ; 20 (20)             ; 17 (17)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp                          ; StrobeGenAndTimeStamp ; work         ;
+;       |Sync:Sync|                             ; 0 (0)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |TbdHDC1000|HDC1000:HDC1000|Sync:Sync                                                      ; Sync                  ; work         ;
++-----------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------+-----------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                  ;
++-------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------------------------------------------+
+; Name                                                                                      ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF                                      ;
++-------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------------------------------------------+
+; HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 8            ; 64           ; 8            ; 64           ; 512  ; db/TbdHDC1000.ram0_Fifo_b067c8cc.hdl.mif ;
++-------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------------------------------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|R.State                                                                                                                                                                                                                                                                                                                                                                                                        ;
++--------------------------------------+-------------------------+-------------------------+-----------------------------+-------------------------+-----------------------------+------------------------+----------------------------+------------------------+----------------------------+-------------------------+------------------------+--------------------------------------+-----------------------------------+----------------------------+--------------+
+; Name                                 ; R.State.WriteDataToFifo ; R.State.SaveHumidData_L ; R.State.ReadDataHumidData_L ; R.State.SaveHumidData_H ; R.State.ReadDataHumidData_H ; R.State.SaveTempData_L ; R.State.ReadDataTempData_L ; R.State.SaveTempData_H ; R.State.ReadDataTempData_H ; R.State.ReadDataI2cAddr ; R.State.WaitForDataRdy ; R.State.TriggerMeasurementI2cRegAddr ; R.State.TriggerMeasurementI2cAddr ; R.State.WaitForI2cTransfer ; R.State.Idle ;
++--------------------------------------+-------------------------+-------------------------+-----------------------------+-------------------------+-----------------------------+------------------------+----------------------------+------------------------+----------------------------+-------------------------+------------------------+--------------------------------------+-----------------------------------+----------------------------+--------------+
+; R.State.Idle                         ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 0            ;
+; R.State.WaitForI2cTransfer           ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 1                          ; 1            ;
+; R.State.TriggerMeasurementI2cAddr    ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 1                                 ; 0                          ; 1            ;
+; R.State.TriggerMeasurementI2cRegAddr ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 1                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.WaitForDataRdy               ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 1                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.ReadDataI2cAddr              ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 1                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.ReadDataTempData_H           ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 1                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.SaveTempData_H               ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 1                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.ReadDataTempData_L           ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 1                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.SaveTempData_L               ; 0                       ; 0                       ; 0                           ; 0                       ; 0                           ; 1                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.ReadDataHumidData_H          ; 0                       ; 0                       ; 0                           ; 0                       ; 1                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.SaveHumidData_H              ; 0                       ; 0                       ; 0                           ; 1                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.ReadDataHumidData_L          ; 0                       ; 0                       ; 1                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.SaveHumidData_L              ; 0                       ; 1                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
+; R.State.WriteDataToFifo              ; 1                       ; 0                       ; 0                           ; 0                       ; 0                           ; 0                      ; 0                          ; 0                      ; 0                          ; 0                       ; 0                      ; 0                                    ; 0                                 ; 0                          ; 1            ;
++--------------------------------------+-------------------------+-------------------------+-----------------------------+-------------------------+-----------------------------+------------------------+----------------------------+------------------------+----------------------------+-------------------------+------------------------+--------------------------------------+-----------------------------------+----------------------------+--------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:state                                                                                                                ;
++------------------------------+-----------------------------+----------------------------+------------------------------+-----------------------------+------------------------------+-----------------------------+
+; Name                         ; \statemachine:state.st_stop ; \statemachine:state.st_ack ; \statemachine:state.st_write ; \statemachine:state.st_read ; \statemachine:state.st_start ; \statemachine:state.st_idle ;
++------------------------------+-----------------------------+----------------------------+------------------------------+-----------------------------+------------------------------+-----------------------------+
+; \statemachine:state.st_idle  ; 0                           ; 0                          ; 0                            ; 0                           ; 0                            ; 0                           ;
+; \statemachine:state.st_start ; 0                           ; 0                          ; 0                            ; 0                           ; 1                            ; 1                           ;
+; \statemachine:state.st_read  ; 0                           ; 0                          ; 0                            ; 1                           ; 0                            ; 1                           ;
+; \statemachine:state.st_write ; 0                           ; 0                          ; 1                            ; 0                           ; 0                            ; 1                           ;
+; \statemachine:state.st_ack   ; 0                           ; 1                          ; 0                            ; 0                           ; 0                            ; 1                           ;
+; \statemachine:state.st_stop  ; 1                           ; 0                          ; 0                            ; 0                           ; 0                            ; 1                           ;
++------------------------------+-----------------------------+----------------------------+------------------------------+-----------------------------+------------------------------+-----------------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|state                                                                                                                                                ;
++---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
+; Name          ; state.wr_d ; state.wr_c ; state.wr_b ; state.wr_a ; state.rd_d ; state.rd_c ; state.rd_b ; state.rd_a ; state.stop_c ; state.stop_b ; state.stop_a ; state.start_d ; state.start_c ; state.start_b ; state.start_a ; state.idle ;
++---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
+; state.idle    ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 0          ;
+; state.start_a ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 1             ; 1          ;
+; state.start_b ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 1             ; 0             ; 1          ;
+; state.start_c ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 1             ; 0             ; 0             ; 1          ;
+; state.start_d ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 1             ; 0             ; 0             ; 0             ; 1          ;
+; state.stop_a  ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 1            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.stop_b  ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 1            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.stop_c  ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 1            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.rd_a    ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 1          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.rd_b    ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 1          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.rd_c    ; 0          ; 0          ; 0          ; 0          ; 0          ; 1          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.rd_d    ; 0          ; 0          ; 0          ; 0          ; 1          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.wr_a    ; 0          ; 0          ; 0          ; 1          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.wr_b    ; 0          ; 0          ; 1          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.wr_c    ; 0          ; 1          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
+; state.wr_d    ; 1          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0          ; 0            ; 0            ; 0            ; 0             ; 0             ; 0             ; 0             ; 1          ;
++---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                 ;
++------------------------------------------------------------------------+-----------------------------------------------------------+
+; Register name                                                          ; Reason for Removal                                        ;
++------------------------------------------------------------------------+-----------------------------------------------------------+
+; HDC1000:HDC1000|FSMD:FSMD|R.I2cAckIn                                   ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|FSMD:FSMD|R.I2cDataIn[1..6]                            ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|RegFile:RegFile|FifoRead[0..7]                         ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|RegFile:RegFile|FifoShift                              ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|Fifo:Fifo|Read[0..2]                                   ; Stuck at GND due to stuck port clock_enable               ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][1]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][2]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][3]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][5]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][6]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][1]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][2]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][3]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][4]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][5]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][6]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][7]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][7]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][4] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[9][0]                          ; Merged with HDC1000:HDC1000|RegFile:RegFile|RegFile[8][4] ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][4]                          ; Stuck at VCC due to stuck port data_in                    ;
+; HDC1000:HDC1000|RegFile:RegFile|RegFile[8][0]                          ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|FSMD:FSMD|R.State.SaveTempData_H                       ; Stuck at GND due to stuck port data_in                    ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[8..15]                            ; Stuck at GND due to stuck port clock_enable               ;
+; HDC1000:HDC1000|FSMD:FSMD|R.State.Idle                                 ; Merged with HDC1000:HDC1000|FSMD:FSMD|R.I2cEnable         ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[0..7,16..63]                      ; Lost fanout                                               ;
+; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[0..31] ; Lost fanout                                               ;
+; Total Number of Removed Registers = 133                                ;                                                           ;
++------------------------------------------------------------------------+-----------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                        ;
++--------------------------------------------------+---------------------------+-------------------------------------------------------------------------------------+
+; Register name                                    ; Reason for Removal        ; Registers Removed due to This Register                                              ;
++--------------------------------------------------+---------------------------+-------------------------------------------------------------------------------------+
+; HDC1000:HDC1000|FSMD:FSMD|R.State.SaveTempData_H ; Stuck at GND              ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[8], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[9],   ;
+;                                                  ; due to stuck port data_in ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[10], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[11], ;
+;                                                  ;                           ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[12], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[13], ;
+;                                                  ;                           ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[14], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[15], ;
+;                                                  ;                           ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[5], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[6],   ;
+;                                                  ;                           ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[7]                                             ;
+; HDC1000:HDC1000|RegFile:RegFile|FifoShift        ; Stuck at GND              ; HDC1000:HDC1000|Fifo:Fifo|Read[2], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[0],         ;
+;                                                  ; due to stuck port data_in ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[1], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[2],   ;
+;                                                  ;                           ; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[3], HDC1000:HDC1000|FSMD:FSMD|R.FifoData[4]    ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[32]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[0]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[33]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[1]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[34]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[2]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[35]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[3]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[36]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[4]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[37]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[5]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[38]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[6]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[39]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[7]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[40]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[8]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[41]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[9]                  ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[42]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[10]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[43]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[11]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[44]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[12]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[45]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[13]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[46]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[14]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[47]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[15]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[48]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[16]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[49]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[17]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[50]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[18]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[51]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[19]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[52]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[20]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[53]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[21]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[54]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[22]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[55]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[23]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[56]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[24]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[57]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[25]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[58]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[26]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[59]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[27]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[60]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[28]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[61]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[29]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[62]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[30]                 ;
+; HDC1000:HDC1000|FSMD:FSMD|R.FifoData[63]         ; Lost Fanouts              ; HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp|TimeStamp[31]                 ;
++--------------------------------------------------+---------------------------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 128   ;
+; Number of registers using Synchronous Clear  ; 44    ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 120   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 73    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                       ;
++--------------------------------------------------------------------------+---------+
+; Inverted Register                                                        ; Fan out ;
++--------------------------------------------------------------------------+---------+
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|SDAo      ; 1       ;
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|SCLo      ; 9       ;
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|clk_en    ; 20      ;
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:dcnt[2] ; 5       ;
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:dcnt[1] ; 6       ;
+; HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:dcnt[0] ; 7       ;
+; Total number of inverted registers = 6                                   ;         ;
++--------------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                             ;
++--------------------------------------------+--------------------------------------+------+
+; Register Name                              ; Megafunction                         ; Type ;
++--------------------------------------------+--------------------------------------+------+
+; HDC1000:HDC1000|Fifo:Fifo|oFifoData[8..15] ; HDC1000:HDC1000|Fifo:Fifo|Fifo_rtl_0 ; RAM  ;
++--------------------------------------------+--------------------------------------+------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|sr[7]                 ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|sr[2]                 ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[3]    ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[1]    ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|\statemachine:dcnt[2] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1|state     ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; No         ; |TbdHDC1000|HDC1000:HDC1000|FSMD:FSMD|Selector7                                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Source assignments for HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated ;
++---------------------------------+--------------------+------+-----------------------------------------+
+; Assignment                      ; Value              ; From ; To                                      ;
++---------------------------------+--------------------+------+-----------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                       ;
++---------------------------------+--------------------+------+-----------------------------------------+
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000 ;
++----------------+------------------+--------------------------+
+; Parameter Name ; Value            ; Type                     ;
++----------------+------------------+--------------------------+
+; gclkfrequency  ; 50000000         ; Signed Integer           ;
+; gstrobetime    ; 1000000000000 fs ; Physical                 ;
+; gi2cfrequency  ; 400000           ; Signed Integer           ;
+; gsyncstages    ; 2                ; Signed Integer           ;
++----------------+------------------+--------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000|Sync:Sync ;
++----------------+-------+-----------------------------------------------+
+; Parameter Name ; Value ; Type                                          ;
++----------------+-------+-----------------------------------------------+
+; gsyncstages    ; 2     ; Signed Integer                                ;
+; gdatawidth     ; 1     ; Signed Integer                                ;
++----------------+-------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000|FSMD:FSMD ;
++----------------+----------+--------------------------------------------+
+; Parameter Name ; Value    ; Type                                       ;
++----------------+----------+--------------------------------------------+
+; gclkfrequency  ; 50000000 ; Signed Integer                             ;
+; gi2cfrequency  ; 400000   ; Signed Integer                             ;
+; gfifobytewidth ; 8        ; Signed Integer                             ;
++----------------+----------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000|Fifo:Fifo ;
++----------------+-------+-----------------------------------------------+
+; Parameter Name ; Value ; Type                                          ;
++----------------+-------+-----------------------------------------------+
+; gfifowidth     ; 64    ; Signed Integer                                ;
+; gfifostages    ; 8     ; Signed Integer                                ;
++----------------+-------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000|RegFile:RegFile ;
++----------------+-------+-----------------------------------------------------+
+; Parameter Name ; Value ; Type                                                ;
++----------------+-------+-----------------------------------------------------+
+; gnumofbytes    ; 12    ; Signed Integer                                      ;
+; gfifobytewidth ; 8     ; Signed Integer                                      ;
++----------------+-------+-----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp ;
++-----------------+----------+-----------------------------------------------------------------------+
+; Parameter Name  ; Value    ; Type                                                                  ;
++-----------------+----------+-----------------------------------------------------------------------+
+; gclkfreq        ; 50000000 ; Signed Integer                                                        ;
+; gclkdiv         ; 50000    ; Signed Integer                                                        ;
+; gtimestampwidth ; 32       ; Signed Integer                                                        ;
++-----------------+----------+-----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0 ;
++------------------------------------+------------------------------------------+------------------+
+; Parameter Name                     ; Value                                    ; Type             ;
++------------------------------------+------------------------------------------+------------------+
+; BYTE_SIZE_BLOCK                    ; 8                                        ; Untyped          ;
+; AUTO_CARRY_CHAINS                  ; ON                                       ; AUTO_CARRY       ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                      ; IGNORE_CARRY     ;
+; AUTO_CASCADE_CHAINS                ; ON                                       ; AUTO_CASCADE     ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                      ; IGNORE_CASCADE   ;
+; WIDTH_BYTEENA                      ; 1                                        ; Untyped          ;
+; OPERATION_MODE                     ; DUAL_PORT                                ; Untyped          ;
+; WIDTH_A                            ; 64                                       ; Untyped          ;
+; WIDTHAD_A                          ; 3                                        ; Untyped          ;
+; NUMWORDS_A                         ; 8                                        ; Untyped          ;
+; OUTDATA_REG_A                      ; UNREGISTERED                             ; Untyped          ;
+; ADDRESS_ACLR_A                     ; NONE                                     ; Untyped          ;
+; OUTDATA_ACLR_A                     ; NONE                                     ; Untyped          ;
+; WRCONTROL_ACLR_A                   ; NONE                                     ; Untyped          ;
+; INDATA_ACLR_A                      ; NONE                                     ; Untyped          ;
+; BYTEENA_ACLR_A                     ; NONE                                     ; Untyped          ;
+; WIDTH_B                            ; 64                                       ; Untyped          ;
+; WIDTHAD_B                          ; 3                                        ; Untyped          ;
+; NUMWORDS_B                         ; 8                                        ; Untyped          ;
+; INDATA_REG_B                       ; CLOCK1                                   ; Untyped          ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                   ; Untyped          ;
+; RDCONTROL_REG_B                    ; CLOCK0                                   ; Untyped          ;
+; ADDRESS_REG_B                      ; CLOCK0                                   ; Untyped          ;
+; OUTDATA_REG_B                      ; UNREGISTERED                             ; Untyped          ;
+; BYTEENA_REG_B                      ; CLOCK1                                   ; Untyped          ;
+; INDATA_ACLR_B                      ; NONE                                     ; Untyped          ;
+; WRCONTROL_ACLR_B                   ; NONE                                     ; Untyped          ;
+; ADDRESS_ACLR_B                     ; NONE                                     ; Untyped          ;
+; OUTDATA_ACLR_B                     ; NONE                                     ; Untyped          ;
+; RDCONTROL_ACLR_B                   ; NONE                                     ; Untyped          ;
+; BYTEENA_ACLR_B                     ; NONE                                     ; Untyped          ;
+; WIDTH_BYTEENA_A                    ; 1                                        ; Untyped          ;
+; WIDTH_BYTEENA_B                    ; 1                                        ; Untyped          ;
+; RAM_BLOCK_TYPE                     ; AUTO                                     ; Untyped          ;
+; BYTE_SIZE                          ; 8                                        ; Untyped          ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                 ; Untyped          ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                     ; Untyped          ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                     ; Untyped          ;
+; INIT_FILE                          ; db/TbdHDC1000.ram0_Fifo_b067c8cc.hdl.mif ; Untyped          ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                   ; Untyped          ;
+; MAXIMUM_DEPTH                      ; 0                                        ; Untyped          ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                   ; Untyped          ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                   ; Untyped          ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                   ; Untyped          ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                   ; Untyped          ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                          ; Untyped          ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                          ; Untyped          ;
+; ENABLE_ECC                         ; FALSE                                    ; Untyped          ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                    ; Untyped          ;
+; WIDTH_ECCSTATUS                    ; 3                                        ; Untyped          ;
+; DEVICE_FAMILY                      ; Cyclone V                                ; Untyped          ;
+; CBXI_PARAMETER                     ; altsyncram_9au1                          ; Untyped          ;
++------------------------------------+------------------------------------------+------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                            ;
++-------------------------------------------+-------------------------------------------------+
+; Name                                      ; Value                                           ;
++-------------------------------------------+-------------------------------------------------+
+; Number of entity instances                ; 1                                               ;
+; Entity Instance                           ; HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                       ;
+;     -- WIDTH_A                            ; 64                                              ;
+;     -- NUMWORDS_A                         ; 8                                               ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                    ;
+;     -- WIDTH_B                            ; 64                                              ;
+;     -- NUMWORDS_B                         ; 8                                               ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                          ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                    ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                            ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                        ;
++-------------------------------------------+-------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1"                     ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; busy ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController"                                          ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; clk_cnt[4..3] ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; clk_cnt[7..5] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; clk_cnt[2..0] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; ack_out       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "HDC1000:HDC1000|Sync:Sync"                                                            ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; ondata ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "HDC1000:HDC1000"                                                                                ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                             ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; iavalonaddr      ; Input  ; Info     ; Stuck at GND                                                                        ;
+; iavalonread      ; Input  ; Info     ; Stuck at GND                                                                        ;
+; oavalonreaddata  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; iavalonwrite     ; Input  ; Info     ; Stuck at GND                                                                        ;
+; iavalonwritedata ; Input  ; Info     ; Stuck at GND                                                                        ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 128                         ;
+;     CLR               ; 36                          ;
+;     CLR SCLR          ; 19                          ;
+;     ENA               ; 8                           ;
+;     ENA CLR           ; 40                          ;
+;     ENA CLR SCLR      ; 25                          ;
+; arriav_io_obuf        ; 2                           ;
+; arriav_lcell_comb     ; 149                         ;
+;     arith             ; 55                          ;
+;         1 data inputs ; 55                          ;
+;     normal            ; 94                          ;
+;         0 data inputs ; 2                           ;
+;         2 data inputs ; 14                          ;
+;         3 data inputs ; 10                          ;
+;         4 data inputs ; 25                          ;
+;         5 data inputs ; 14                          ;
+;         6 data inputs ; 29                          ;
+; boundary_port         ; 15                          ;
+; stratixv_ram_block    ; 8                           ;
+;                       ;                             ;
+; Max LUT depth         ; 4.00                        ;
+; Average LUT depth     ; 2.11                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
+    Info: Processing started: Mon Nov 19 18:00:17 2018
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off HDC1000 -c TbdHDC1000
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/hdc1000/src/tbdhdc1000.vhd
+    Info (12022): Found design unit 1: TbdHDC1000-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 32
+    Info (12023): Found entity 1: TbdHDC1000 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 15
+Info (12021): Found 5 design units, including 2 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/i2cunit/src/i2c.vhd
+    Info (12022): Found design unit 1: I2C File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 18
+    Info (12022): Found design unit 2: simple_i2c-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 80
+    Info (12022): Found design unit 3: i2c_core-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 361
+    Info (12023): Found entity 1: simple_i2c File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 53
+    Info (12023): Found entity 2: i2c_core File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 342
+Info (12021): Found 1 design units, including 0 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/hdc1000/src/pkghdc1000.vhd
+    Info (12022): Found design unit 1: pkgHDC1000 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/pkgHDC1000.vhd Line: 13
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/hdc1000/src/hdc1000.vhd
+    Info (12022): Found design unit 1: HDC1000-Bhv File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 47
+    Info (12023): Found entity 1: HDC1000 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/hdc1000/src/fsmd.vhd
+    Info (12022): Found design unit 1: FSMD-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 49
+    Info (12023): Found entity 1: FSMD File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/strobegentimestamp/src/strobegenandtimestamp.vhd
+    Info (12022): Found design unit 1: StrobeGenAndTimeStamp-Rtl File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd Line: 34
+    Info (12023): Found entity 1: StrobeGenAndTimeStamp File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/sync/src/sync.vhd
+    Info (12022): Found design unit 1: Sync-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd Line: 29
+    Info (12023): Found entity 1: Sync File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd Line: 13
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/regfile/src/regfile.vhd
+    Info (12022): Found design unit 1: RegFile-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 50
+    Info (12023): Found entity 1: RegFile File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/fifo/src/fifo.vhd
+    Info (12022): Found design unit 1: Fifo-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 31
+    Info (12023): Found entity 1: Fifo File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 15
+Info (12021): Found 1 design units, including 0 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/pkgglobal/pkgglobal.vhd
+    Info (12022): Found design unit 1: pkgGlobal File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/PkgGlobal/pkgGlobal.vhd Line: 13
+Info (12127): Elaborating entity "TbdHDC1000" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at TbdHDC1000.vhd(41): object "oAvalonReadData" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 41
+Info (12128): Elaborating entity "HDC1000" for hierarchy "HDC1000:HDC1000" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 53
+Info (12128): Elaborating entity "Sync" for hierarchy "HDC1000:HDC1000|Sync:Sync" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 77
+Info (12128): Elaborating entity "FSMD" for hierarchy "HDC1000:HDC1000|FSMD:FSMD" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 89
+Warning (10036): Verilog HDL or VHDL warning at FSMD.vhd(93): object "I2cAckOut" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 93
+Warning (10492): VHDL Process Statement warning at FSMD.vhd(192): signal "I2cDataOut" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 192
+Warning (10492): VHDL Process Statement warning at FSMD.vhd(204): signal "I2cDataOut" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 204
+Warning (10492): VHDL Process Statement warning at FSMD.vhd(216): signal "I2cDataOut" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 216
+Warning (10492): VHDL Process Statement warning at FSMD.vhd(229): signal "I2cDataOut" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 229
+Info (12128): Elaborating entity "simple_i2c" for hierarchy "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/FSMD.vhd Line: 254
+Warning (10036): Verilog HDL or VHDL warning at I2C.VHD(109): object "core_busy" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 109
+Warning (10492): VHDL Process Statement warning at I2C.VHD(165): signal "dcnt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 165
+Warning (10492): VHDL Process Statement warning at I2C.VHD(170): signal "core_txd" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 170
+Warning (10492): VHDL Process Statement warning at I2C.VHD(173): signal "core_cmd" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 173
+Warning (10492): VHDL Process Statement warning at I2C.VHD(183): signal "go" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 183
+Warning (10492): VHDL Process Statement warning at I2C.VHD(184): signal "start" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 184
+Warning (10492): VHDL Process Statement warning at I2C.VHD(187): signal "read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 187
+Warning (10492): VHDL Process Statement warning at I2C.VHD(200): signal "core_ack" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 200
+Warning (10492): VHDL Process Statement warning at I2C.VHD(201): signal "read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 201
+Warning (10492): VHDL Process Statement warning at I2C.VHD(214): signal "core_ack" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 214
+Warning (10492): VHDL Process Statement warning at I2C.VHD(215): signal "dcnt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 215
+Warning (10492): VHDL Process Statement warning at I2C.VHD(216): signal "sr" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 216
+Warning (10492): VHDL Process Statement warning at I2C.VHD(217): signal "dcnt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 217
+Warning (10492): VHDL Process Statement warning at I2C.VHD(227): signal "core_ack" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 227
+Warning (10492): VHDL Process Statement warning at I2C.VHD(228): signal "dcnt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 228
+Warning (10492): VHDL Process Statement warning at I2C.VHD(230): signal "dcnt" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 230
+Warning (10492): VHDL Process Statement warning at I2C.VHD(233): signal "ack_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 233
+Warning (10492): VHDL Process Statement warning at I2C.VHD(238): signal "core_ack" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 238
+Warning (10492): VHDL Process Statement warning at I2C.VHD(246): signal "stop" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 246
+Warning (10492): VHDL Process Statement warning at I2C.VHD(256): signal "core_ack" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 256
+Info (12128): Elaborating entity "i2c_core" for hierarchy "HDC1000:HDC1000|FSMD:FSMD|simple_i2c:I2cController|i2c_core:u1" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 119
+Warning (10492): VHDL Process Statement warning at I2C.VHD(411): signal "txd" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 411
+Warning (10492): VHDL Process Statement warning at I2C.VHD(428): signal "Din" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 428
+Warning (10492): VHDL Process Statement warning at I2C.VHD(530): signal "SCLo" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 530
+Warning (10492): VHDL Process Statement warning at I2C.VHD(531): signal "SDA" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 531
+Warning (10492): VHDL Process Statement warning at I2C.VHD(535): signal "SCLo" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 535
+Warning (10492): VHDL Process Statement warning at I2C.VHD(567): signal "Din" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 567
+Warning (10492): VHDL Process Statement warning at I2C.VHD(572): signal "Din" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 572
+Warning (10492): VHDL Process Statement warning at I2C.VHD(577): signal "Din" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 577
+Warning (10492): VHDL Process Statement warning at I2C.VHD(582): signal "Din" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 582
+Info (12128): Elaborating entity "Fifo" for hierarchy "HDC1000:HDC1000|Fifo:Fifo" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 110
+Info (12128): Elaborating entity "RegFile" for hierarchy "HDC1000:HDC1000|RegFile:RegFile" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 124
+Info (12128): Elaborating entity "StrobeGenAndTimeStamp" for hierarchy "HDC1000:HDC1000|StrobeGenAndTimeStamp:StrobeTimeStamp" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/HDC1000.vhd Line: 144
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "HDC1000:HDC1000|Fifo:Fifo|Fifo_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 64
+        Info (286033): Parameter WIDTHAD_A set to 3
+        Info (286033): Parameter NUMWORDS_A set to 8
+        Info (286033): Parameter WIDTH_B set to 64
+        Info (286033): Parameter WIDTHAD_B set to 3
+        Info (286033): Parameter NUMWORDS_B set to 8
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/TbdHDC1000.ram0_Fifo_b067c8cc.hdl.mif
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+        Info (286033): Parameter RDCONTROL_REG_B set to CLOCK0
+Info (12130): Elaborated megafunction instantiation "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0"
+Info (12133): Instantiated megafunction "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "64"
+    Info (12134): Parameter "WIDTHAD_A" = "3"
+    Info (12134): Parameter "NUMWORDS_A" = "8"
+    Info (12134): Parameter "WIDTH_B" = "64"
+    Info (12134): Parameter "WIDTHAD_B" = "3"
+    Info (12134): Parameter "NUMWORDS_B" = "8"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "INIT_FILE" = "db/TbdHDC1000.ram0_Fifo_b067c8cc.hdl.mif"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+    Info (12134): Parameter "RDCONTROL_REG_B" = "CLOCK0"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_9au1.tdf
+    Info (12023): Found entity 1: altsyncram_9au1 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 28
+Warning (14284): Synthesized away the following node(s):
+    Warning (14285): Synthesized away the following RAM node(s):
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a0" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 39
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a1" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 69
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a2" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 99
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a3" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 129
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a4" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 159
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a5" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 189
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a6" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 219
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a7" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 249
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a16" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 519
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a17" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 549
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a18" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 579
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a19" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 609
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a20" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 639
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a21" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 669
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a22" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 699
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a23" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 729
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a24" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 759
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a25" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 789
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a26" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 819
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a27" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 849
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a28" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 879
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a29" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 909
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a30" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 939
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a31" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 969
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a32" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 999
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a33" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1029
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a34" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1059
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a35" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1089
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a36" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1119
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a37" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1149
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a38" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1179
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a39" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1209
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a40" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1239
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a41" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1269
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a42" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1299
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a43" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1329
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a44" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1359
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a45" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1389
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a46" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1419
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a47" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1449
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a48" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1479
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a49" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1509
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a50" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1539
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a51" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1569
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a52" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1599
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a53" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1629
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a54" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1659
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a55" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1689
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a56" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1719
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a57" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1749
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a58" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1779
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a59" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1809
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a60" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1839
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a61" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1869
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a62" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1899
+        Warning (14320): Synthesized away node "HDC1000:HDC1000|Fifo:Fifo|altsyncram:Fifo_rtl_0|altsyncram_9au1:auto_generated|ram_block1a63" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/HDC1000/db/altsyncram_9au1.tdf Line: 1929
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDR[8]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 28
+    Warning (13410): Pin "LEDR[9]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/HDC1000/src/TbdHDC1000.vhd Line: 28
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 88 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 193 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 10 output pins
+    Info (21060): Implemented 2 bidirectional pins
+    Info (21061): Implemented 170 logic cells
+    Info (21064): Implemented 8 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 97 warnings
+    Info: Peak virtual memory: 4880 megabytes
+    Info: Processing ended: Mon Nov 19 18:00:35 2018
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:39
+
+

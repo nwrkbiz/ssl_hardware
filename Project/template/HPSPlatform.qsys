@@ -9,11 +9,19 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element HPSPlatform
+   element HDC1000_0
    {
-      datum _originalDeviceFamily
+      datum _sortIndex
       {
-         value = "Cyclone V";
+         value = "3";
+         type = "int";
+      }
+   }
+   element HDC1000_0.avalon_slave
+   {
+      datum baseAddress
+      {
+         value = "1024";
          type = "String";
       }
    }
@@ -63,6 +71,54 @@
       {
          value = "Cyclone V";
          type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element StrobeGenAndTimeStamp_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
       }
    }
    element clk_0
@@ -71,22 +127,6 @@
       {
          value = "0";
          type = "int";
-      }
-   }
-   element hdc1000_0
-   {
-      datum _sortIndex
-      {
-         value = "3";
-         type = "int";
-      }
-   }
-   element hdc1000_0.hdc1000_s0
-   {
-      datum baseAddress
-      {
-         value = "2048";
-         type = "String";
       }
    }
    element hmi
@@ -101,7 +141,7 @@
    {
       datum baseAddress
       {
-         value = "1040";
+         value = "1296";
          type = "String";
       }
    }
@@ -117,7 +157,7 @@
    {
       datum baseAddress
       {
-         value = "1024";
+         value = "1280";
          type = "String";
       }
    }
@@ -151,7 +191,13 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface
+   name="data_rdy_n"
+   internal="HDC1000_0.hdc1000"
+   type="conduit"
+   dir="end" />
  <interface name="h2f_reset" internal="hps_0.h2f_reset" type="reset" dir="start" />
+ <interface name="hdc1000_1" internal="HDC1000_0.i2c" type="conduit" dir="end" />
  <interface
    name="hps_0_f2h_cold_reset_req"
    internal="hps_0.f2h_cold_reset_req"
@@ -190,13 +236,27 @@
    internal="hmi.switches_external_connection"
    type="conduit"
    dir="end" />
- <module name="clk_0" kind="clock_source" version="18.1" enabled="1">
+ <module name="HDC1000_0" kind="HDC1000" version="1.0" enabled="1">
+  <parameter name="gClkFrequency" value="50000000" />
+  <parameter name="gI2cFrequency" value="400000" />
+  <parameter name="gResetIsLowActive" value="false" />
+  <parameter name="gSyncStages" value="2" />
+ </module>
+ <module
+   name="StrobeGenAndTimeStamp_0"
+   kind="StrobeGenAndTimeStamp"
+   version="1.0"
+   enabled="1">
+  <parameter name="gClkFreq" value="50000000" />
+  <parameter name="gResetIsLowActive" value="false" />
+  <parameter name="gTimeStampWidth" value="32" />
+ </module>
+ <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="hdc1000_0" kind="hdc1000" version="1.0" enabled="1" />
  <module name="hmi" kind="subsystemHMI" version="1.0" enabled="1">
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
@@ -213,7 +273,7 @@
   <parameter name="AUTO_SWITCHES_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_hmi" />
  </module>
- <module name="hps_0" kind="altera_hps" version="18.1" enabled="1">
+ <module name="hps_0" kind="altera_hps" version="16.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
   <parameter name="ACV_PHY_CLK_ADD_FR_PHASE" value="0.0" />
@@ -745,25 +805,25 @@
  </module>
  <connection
    kind="avalon"
-   version="18.1"
+   version="16.1"
    start="hps_0.h2f_lw_axi_master"
-   end="hdc1000_0.hdc1000_s0">
+   end="HDC1000_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0800" />
+  <parameter name="baseAddress" value="0x0400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
-   version="18.1"
+   version="16.1"
    start="hps_0.h2f_lw_axi_master"
    end="hmi.leds_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0410" />
+  <parameter name="baseAddress" value="0x0510" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
-   version="18.1"
+   version="16.1"
    start="hps_0.h2f_lw_axi_master"
    end="hmi.seven_segment_s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -772,54 +832,79 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.1"
+   version="16.1"
    start="hps_0.h2f_lw_axi_master"
    end="hmi.switches_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="baseAddress" value="0x0500" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="18.1" start="clk_0.clk" end="hdc1000_0.clock" />
  <connection
    kind="clock"
-   version="18.1"
+   version="16.1"
+   start="clk_0.clk"
+   end="HDC1000_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="StrobeGenAndTimeStamp_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
    start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk"
    end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="hmi.leds_clk" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="hmi.leds_clk" />
  <connection
    kind="clock"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk"
    end="hmi.seven_segment_clock" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="hmi.switches_clk" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="hmi.switches_clk" />
+ <connection
+   kind="conduit"
+   version="16.1"
+   start="StrobeGenAndTimeStamp_0.timing"
+   end="HDC1000_0.timing">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection
    kind="reset"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk_reset"
    end="hmi.leds_reset" />
  <connection
    kind="reset"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk_reset"
-   end="hdc1000_0.reset" />
+   end="HDC1000_0.reset_sink" />
  <connection
    kind="reset"
-   version="18.1"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="StrobeGenAndTimeStamp_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="16.1"
    start="clk_0.clk_reset"
    end="hmi.seven_segment_reset" />
  <connection
    kind="reset"
-   version="18.1"
+   version="16.1"
    start="clk_0.clk_reset"
    end="hmi.switches_reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

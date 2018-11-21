@@ -16,7 +16,7 @@ entity TbdHDC1000 is
 	generic(
 		gClkFrequency 	: natural	:= 50_000_000;
 		gStrobeTime 	: time		:= 1 ms;
-		gI2cFrequency 	: natural	:= 400_000;
+		gI2cFrequency 	: natural	:= 200_000;
 		gSyncStages 	: natural	:= 2
 	);
 	port(
@@ -31,7 +31,7 @@ entity TbdHDC1000 is
 		--inDataReady	: in std_ulogic;
 		
 		-- debug LEDs
-		LEDR		: out std_ulogic_vector(9 downto 0);
+		LEDR		: out 	std_ulogic_vector(9 downto 0);
 		GPIO_0		: inout std_ulogic_vector(35 downto 0);
 		GPIO_1		: inout std_ulogic_vector(35 downto 0)
 	);
@@ -48,21 +48,13 @@ architecture RTL of TbdHDC1000 is
 	signal iAvalonWrite : std_ulogic;
 	signal iAvalonWriteData : std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 	signal nDataReady : std_ulogic;
-	signal SCL : std_logic;
-	signal SDA : std_logic;
 	signal Strobe : std_ulogic;
 	signal TimeStamp : std_ulogic_vector(cTimeStampWidth-1 downto 0);
+	signal GPIO : std_ulogic_vector(5 downto 0);
 	
 begin
 	
-
-	-- oszi
-	GPIO_0(0) <= GPIO_1(3);
-	GPIO_0(1) <= GPIO_1(4);
-	
 	-- gpio interconnect
-	GPIO_1(3) <= SCL;
-	GPIO_1(5) <= SDA;
 	nDataReady <= GPIO_1(4);
 	
 	-- avalon inactive
@@ -80,8 +72,8 @@ begin
 		port map(
 			iClk             => iClk,
 			inRstAsync       => inRstAsync,
-			ioSCL            => SCL,
-			ioSDA            => SDA,
+			ioSCL            => GPIO_1(3),
+			ioSDA            => GPIO_1(5),
 			inDataReady      => nDataReady,
 			iStrobe 		 => Strobe,
 			iTimeStamp 		 => TimeStamp,
@@ -89,15 +81,14 @@ begin
 			iAvalonRead      => iAvalonRead,
 			oAvalonReadData  => oAvalonReadData,
 			iAvalonWrite     => iAvalonWrite,
-			iAvalonWriteData => iAvalonWriteData,
-			oLEDs            => LEDR
+			iAvalonWriteData => iAvalonWriteData
 		);
 		
 			
 	StrobeTimeStamp: entity work.StrobeGenAndTimeStamp
 		generic map(
 			gClkFreq        => gClkFrequency,
-			gClkDiv         => cClkDiv,
+			gStrobe         => 1 ms,
 			gTimeStampWidth => cTimeStampWidth
 		)
 		port map(
