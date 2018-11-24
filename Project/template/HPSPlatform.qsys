@@ -21,7 +21,39 @@
    {
       datum baseAddress
       {
-         value = "1024";
+         value = "2048";
+         type = "String";
+      }
+   }
+   element HDC1000_0.timing
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -141,15 +173,7 @@
    {
       datum baseAddress
       {
-         value = "1296";
-         type = "String";
-      }
-   }
-   element hmi.seven_segment_s0
-   {
-      datum baseAddress
-      {
-         value = "0";
+         value = "2320";
          type = "String";
       }
    }
@@ -157,7 +181,7 @@
    {
       datum baseAddress
       {
-         value = "1280";
+         value = "2304";
          type = "String";
       }
    }
@@ -239,7 +263,7 @@
  <module name="HDC1000_0" kind="HDC1000" version="1.0" enabled="1">
   <parameter name="gClkFrequency" value="50000000" />
   <parameter name="gI2cFrequency" value="400000" />
-  <parameter name="gResetIsLowActive" value="false" />
+  <parameter name="gResetIsLowActive" value="0" />
   <parameter name="gSyncStages" value="2" />
  </module>
  <module
@@ -248,7 +272,7 @@
    version="1.0"
    enabled="1">
   <parameter name="gClkFreq" value="50000000" />
-  <parameter name="gResetIsLowActive" value="false" />
+  <parameter name="gResetIsLowActive" value="0" />
   <parameter name="gTimeStampWidth" value="32" />
  </module>
  <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
@@ -809,7 +833,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="HDC1000_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="baseAddress" value="0x0800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -818,7 +842,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hmi.leds_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0510" />
+  <parameter name="baseAddress" value="0x0910" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -836,7 +860,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hmi.switches_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0500" />
+  <parameter name="baseAddress" value="0x0900" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -881,6 +905,13 @@
   <parameter name="startPort" value="" />
   <parameter name="startPortLSB" value="0" />
   <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="hps_0.f2h_irq0"
+   end="HDC1000_0.interrupt">
+  <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="reset"
