@@ -1,0 +1,68 @@
+/dts-v1/;
+/plugin/;
+/ {
+	fragment {
+		target-path = "/sopc@0/base-fpga-region";
+		#address-cells = <1>;
+		#size-cells = <1>;
+        
+		__overlay__@0 {
+			#address-cells = <2>;
+			#size-cells = <1>;
+			firmware-name = "socfpga.rbf";
+             
+			reg = <0xc0000000 0x20000000>,
+				  <0xff200000 0x00200000>;
+			reg-names = "axi_h2f", "axi_h2f_lw";
+            
+			ranges = <0x00000000 0x00000000 0xc0000000 0x20000000>,
+                     <0x00000001 0x00000000 0xff200000 0x00200000>;
+         
+		    
+
+			HDC1000_0: rfs_sensorboard@0x100000800 {
+				compatible = "ssl,hdc1000-1.0";
+				reg = <0x00000001 0x00000800 0x00000100>;
+				interrupt-parent = <&hps_0_arm_gic_0>;
+				interrupts = <0 40 0>;
+				clocks = <&clk_0>;
+			}; //end rfs_sensorboard@0x100000800 (HDC1000_0)
+
+			hmi_leds: gpio@0x100000910 {
+				compatible = "altr,pio-16.1", "altr,pio-1.0";
+				reg = <0x00000001 0x00000910 0x00000010>;
+				clocks = <&clk_0>;
+				altr,gpio-bank-width = <10>;	/* embeddedsw.dts.params.altr,gpio-bank-width type NUMBER */
+				resetvalue = <1023>;	/* embeddedsw.dts.params.resetvalue type NUMBER */
+				#gpio-cells = <2>;
+				gpio-controller;
+			}; //end gpio@0x100000910 (hmi_leds)
+
+			hmi_seven_segment: display@0x100000000 {
+				compatible = "hof,sevensegment-1.0";
+				reg = <0x00000001 0x00000000 0x00000400>;
+				clocks = <&clk_0>;
+			}; //end display@0x100000000 (hmi_seven_segment)
+
+			hmi_switches: gpio@0x100000900 {
+				compatible = "altr,pio-16.1", "altr,pio-1.0";
+				reg = <0x00000001 0x00000900 0x00000010>;
+				clocks = <&clk_0>;
+				altr,gpio-bank-width = <10>;	/* embeddedsw.dts.params.altr,gpio-bank-width type NUMBER */
+				resetvalue = <0>;	/* embeddedsw.dts.params.resetvalue type NUMBER */
+				#gpio-cells = <2>;
+				gpio-controller;
+			}; //end gpio@0x100000900 (hmi_switches)
+		
+
+			
+			/* sld_hub_controller_system_0_link: debug@0x000000000 {
+                #address-cells = <1>;
+                #size-cells = <1>;
+				compatible = "altr,altera_mm_debug_link-17.1", "altr,mm-debug-link-1.0";
+				reg = <0x00000000 0x00000000 0x00000080>;
+			}; //end debug@0x000000000 (sld_hub_controller_system_0_link)
+			*/	
+		};
+	};
+};
