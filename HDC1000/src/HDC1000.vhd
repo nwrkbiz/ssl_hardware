@@ -124,7 +124,7 @@ begin
 			iFifoWrite => FifoWrite
 		);
 		
-	RegFile: entity work.RegFile
+	RegFile: entity work.RegFileHDC1000
 		generic map(
 			gNumOfBytes    => cRegFileNumberOfBytes,
 			gFifoByteWidth => cFifoByteWidth

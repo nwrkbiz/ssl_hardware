@@ -30,9 +30,10 @@ begin
 	
 	UUT: entity work.StrobeGenAndTimeStamp
 		generic map(
-			gClkFreq        => cClkFreq,
-			gClkDiv			=> cClkDiv,
-			gTimeStampWidth => cTimeStampWidth
+			gClkFreq          => cClkFreq,
+			gStrobe           => 1 us,
+			gTimeStampWidth   => cTimeStampWidth,
+			gResetIsLowActive => 1
 		)
 		port map(
 			iClk       => iClk,

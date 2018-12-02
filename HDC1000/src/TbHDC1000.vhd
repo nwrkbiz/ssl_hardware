@@ -67,14 +67,12 @@ begin
 			iAvalonRead      => iAvalonRead,
 			oAvalonReadData  => oAvalonReadData,
 			iAvalonWrite     => iAvalonWrite,
-			iAvalonWriteData => iAvalonWriteData,
-			oLEDs            => oLEDs
+			iAvalonWriteData => iAvalonWriteData
 		);
 		
 	StrobeTimeStamp: entity work.StrobeGenAndTimeStamp
 		generic map(
 			gClkFreq        => gClkFrequency,
-			gClkDiv         => cClkDiv,
 			gTimeStampWidth => cTimeStampWidth
 		)
 		port map(
