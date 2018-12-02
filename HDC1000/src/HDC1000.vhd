@@ -42,7 +42,10 @@ entity HDC1000 is
 		iAvalonRead 		: in  std_ulogic;
 		oAvalonReadData 	: out std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 		iAvalonWrite 		: in  std_ulogic;
-		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0)
+		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0);
+		
+		-- interrupt to show software that fifo is not empty
+		oDataAvailable		: out std_ulogic
 	);
 end entity HDC1000;
 
@@ -116,12 +119,13 @@ begin
 			gFifoStages => cFifoStages
 		)
 		port map(
-			iClk       => iClk,
-			inRstAsync => Reset,
-			iFifoData  => DataToFifo,
-			oFifoData  => DataFromFifo,
-			iFifoShift => FifoShift,
-			iFifoWrite => FifoWrite
+			iClk       		=> iClk,
+			inRstAsync 		=> Reset,
+			iFifoData  		=> DataToFifo,
+			oFifoData  		=> DataFromFifo,
+			iFifoShift 		=> FifoShift,
+			iFifoWrite 		=> FifoWrite,
+			oFifoNotEmpty	=> oDataAvailable
 		);
 		
 	RegFile: entity work.RegFileHDC1000
