@@ -21,10 +21,11 @@ entity Fifo is
 		iClk 		: in std_ulogic;
 		inRstAsync 	: in std_ulogic;
 		
-		iFifoData	: in  std_ulogic_vector(gFifoWidth-1 downto 0);
-		oFifoData	: out std_ulogic_vector(gFifoWidth-1 downto 0);
-		iFifoShift	: in  std_ulogic;
-		iFifoWrite	: in  std_ulogic
+		iFifoData		: in  std_ulogic_vector(gFifoWidth-1 downto 0);
+		oFifoData		: out std_ulogic_vector(gFifoWidth-1 downto 0);
+		iFifoShift		: in  std_ulogic;
+		iFifoWrite		: in  std_ulogic;
+		oFifoNotEmpty	: out std_ulogic
 	);
 end entity Fifo;
 
@@ -81,6 +82,13 @@ begin
 				end if;
 			end if;
 			
+		end if;
+		
+		-- Read = Write means empty
+		if Read = Write then
+			oFifoNotEmpty <= '0';
+		else
+			oFifoNotEmpty <= '1';
 		end if;
 		
 	end process;
