@@ -120,7 +120,7 @@ begin
 		NxR.I2cRead		<= '0';
 		NxR.I2cWrite	<= '0';
 		NxR.I2cStop		<= '0';
-		NxR.I2cAckIn	<= '0'; -- '0' means always active
+		NxR.I2cAckIn	<= '1'; -- '0' means always active
 		NxR.FifoWrite	<= '0';
 		
 		
@@ -141,7 +141,9 @@ begin
 		---------------------------------------------------------------
 		case (R.State) is
 			when Idle =>
-				NxR.State <= PowerUpI2cAddr;
+				--if R.ReadI2cData = '1' then
+					NxR.State <= PowerUpI2cAddr;
+				--end if;
 				
 			when PowerUpI2cAddr =>
 				NxR.I2cStart	<= '1';

@@ -1,5 +1,5 @@
 Fitter report for TbdAPDS9301
-Sun Dec 02 17:23:08 2018
+Tue Dec 04 20:39:35 2018
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -64,7 +64,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Fitter Summary                                                                ;
 +---------------------------------+---------------------------------------------+
-; Fitter Status                   ; Successful - Sun Dec 02 17:23:08 2018       ;
+; Fitter Status                   ; Successful - Tue Dec 04 20:39:35 2018       ;
 ; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                   ; TbdAPDS9301                                 ;
 ; Top-level Entity Name           ; TbdAPDS9301                                 ;
@@ -159,8 +159,8 @@ agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.6%      ;
-;     Processor 3            ;   0.6%      ;
+;     Processor 2            ;   0.5%      ;
+;     Processor 3            ;   0.5%      ;
 ;     Processor 4            ;   0.5%      ;
 +----------------------------+-------------+
 
@@ -1643,9 +1643,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Name                                                                                 ; Location             ; Fan-Out ; Usage                     ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
 +--------------------------------------------------------------------------------------+----------------------+---------+---------------------------+--------+----------------------+------------------+---------------------------+
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|Equal0~5                                         ; MLABCELL_X87_Y10_N54 ; 36      ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckIn                                       ; FF_X80_Y10_N5        ; 19      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[3]~12                         ; MLABCELL_X82_Y11_N42 ; 8       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[3]~7                          ; MLABCELL_X82_Y11_N48 ; 8       ; Sync. clear               ; no     ; --                   ; --               ; --                        ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cEnable                                      ; FF_X80_Y10_N5        ; 19      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.SaveDataLight_H                          ; FF_X84_Y11_N11       ; 10      ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.SaveDataLight_L                          ; FF_X84_Y11_N5        ; 9       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[2]~0 ; LABCELL_X83_Y10_N0   ; 5       ; Clock enable              ; no     ; --                   ; --               ; --                        ;
@@ -1950,12 +1950,12 @@ This will disable optimization of problematic paths and expose them for further 
 ; Source Register                                                                           ; Destination Register                                                                      ; Delay Added in ns ;
 +-------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+-------------------+
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.RegAddrLight_L                                ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[7]                                 ; 0.264             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:state.st_read  ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|core_txd                     ; 0.258             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.PowerUpRegAddr                                ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[7]                                 ; 0.256             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.PowerUpI2cAddr                                ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[7]                                 ; 0.249             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.I2cAddrLight_L                                ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[7]                                 ; 0.241             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state.start_a    ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|SDAo             ; 0.235             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.WaitForI2cTransfer                            ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.I2cAddrLight_L                                ; 0.234             ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:state.st_read  ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|core_txd                     ; 0.232             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state.idle       ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cmd_ack          ; 0.227             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0]                                        ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[0]                        ; 0.216             ;
 ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[2]                        ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[3]                        ; 0.216             ;
@@ -2053,7 +2053,7 @@ Info (332111): Found 1 clocks
     Info (332111):   20.000         iClk
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
-Info (11798): Fitter preparation operations ending: elapsed time is 00:00:21
+Info (11798): Fitter preparation operations ending: elapsed time is 00:00:22
 Info (170189): Fitter placement preparation operations beginning
 Info (14951): The Fitter is using Advanced Physical Optimization.
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:02
@@ -2067,7 +2067,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.97 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.03 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -2111,10 +2111,10 @@ Warning (169064): Following 34 pins have no output enable or a GND or VCC output
     Info (169065): Pin GPIO_1[35] has a permanently disabled output enable File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
 Info (144001): Generated suppressed messages file C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Project/APDS9301/output_files/TbdAPDS9301.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 6637 megabytes
-    Info: Processing ended: Sun Dec 02 17:23:09 2018
-    Info: Elapsed time: 00:00:58
-    Info: Total CPU time (on all processors): 00:01:42
+    Info: Peak virtual memory: 6636 megabytes
+    Info: Processing ended: Tue Dec 04 20:39:36 2018
+    Info: Elapsed time: 00:01:01
+    Info: Total CPU time (on all processors): 00:01:49
 
 
 +----------------------------+
