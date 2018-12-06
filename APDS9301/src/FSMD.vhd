@@ -218,12 +218,12 @@ begin
 			-- after power up is done i2c reads are done with a specific frequency
 			when WaitForI2cTransfer =>
 				if R.ReadI2cData = '1' then
-					NxR.State <= I2cAddrLight_L;
+					NxR.State <= I2cAddrLight_Ch0_L;
 					NxR.ReadI2cData <= '0';
 				end if;
 			
 			-- write i2c address on bus				
-			when I2cAddrLight_L =>
+			when I2cAddr0 =>
 				NxR.I2cStart	<= '1';
 				NxR.I2cWrite	<= '1';
 				NxR.I2cDataIn	<= cI2cAddr & cI2cWrite;
@@ -236,21 +236,21 @@ begin
 				
 			when WaitOnAck0 =>
 				if I2cAckOut = '0' then
-					NxR.State <= RegAddrLight_L;
+					NxR.State <= RegAddrLight_Ch0_L;
 				else
 					-- time out 5 us
 					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
 						-- go back one state to write I2c address again
-						NxR.State <= I2cAddrLight_L;
+						NxR.State <= I2cAddrLight_Ch0_L;
 					else
 						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
 					end if;
 				end if;
 			
 			-- write reg address on bus
-			when RegAddrLight_L =>
+			when RegAddrLight_Ch0_L =>
 				NxR.I2cWrite	<= '1';
-				NxR.I2cDataIn	<= cI2cRegAddrLight_L;
+				NxR.I2cDataIn	<= cI2cRegAddrLight_Ch0_L;
 				if I2cCmdAck = '1' then
 					NxR.I2cWrite	<= '0';
 					NxR.State		<= WaitOnAck1;
@@ -264,14 +264,14 @@ begin
 					-- time out 5 us
 					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
 						-- go back one state to write I2c address again
-						NxR.State <= I2cAddrLight_L;
+						NxR.State <= I2cAddr0;
 					else
 						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
 					end if;
 				end if;
 				
 			-- set restart condition with i2c address
-			when RestartI2cAddrLight_L =>
+			when I2cAddr1 =>
 				NxR.I2cStart	<= '1';
 				NxR.I2cWrite	<= '1';
 				NxR.I2cDataIn	<= cI2cAddr & cI2cRead;
@@ -284,53 +284,36 @@ begin
 				
 			when WaitOnAck2 =>
 				if I2cAckOut = '0' then
-					NxR.State <= ReadDataLight_L;
+					NxR.State <= ReadDataLight_Ch0_L;
 				else
 					-- time out 5 us
 					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
 						-- go back one state to write I2c address again
-						NxR.State <= I2cAddrLight_L;
+						NxR.State <= I2cAddr0;
 					else
 						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
 					end if;
 				end if;
 								
-			when ReadDataLight_L =>
+			when ReadDataLight_Ch0_L =>
 				NxR.I2cRead		<= '1';
-				NxR.I2cStop		<= '1';
+				NxR.I2cAckIn <= '0';
 				if I2cCmdAck = '1' then
 					NxR.I2cRead		<= '0';
-					NxR.State		<= SaveDataLight_L;
+					NxR.State		<= SaveDataLight_Ch0_L;
 				end if;
 				
-			when SaveDataLight_L	=>
+			when SaveDataLight_Ch0_L =>
 				-- save data from last state
 				NxR.FifoData(tFifoRangeLight_L)	<= std_ulogic_vector(I2cDataOut);
-				NxR.State		<= I2cAddrLight_H;
+				NxR.State		<= SetAck0;
 				
-			-- write i2c address on bus				
-			when I2cAddrLight_H =>
-				NxR.I2cStart	<= '1';
-				NxR.I2cWrite	<= '1';
-				NxR.I2cDataIn	<= cI2cAddr & cI2cWrite;
+			-- set ACK and read Light_Ch0_H			
+			when SetAck0 =>
+				
 				if I2cCmdAck = '1' then
-					NxR.I2cStart	<= '0';
-					NxR.I2cWrite	<= '0';
-					NxR.State		<= WaitOnAck3;
-					NxR.I2cAckTimeOutCnt <= 0;
-				end if;
-				
-			when WaitOnAck3 =>
-				if I2cAckOut = '0' then
-					NxR.State <= RegAddrLight_H;
-				else
-					-- time out 5 us
-					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
-						-- go back one state to write I2c address again
-						NxR.State <= I2cAddrLight_H;
-					else
-						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
-					end if;
+					NxR.I2cRead		<= '0';
+					NxR.State		<= SaveDataLight_Ch0_L;
 				end if;
 			
 			-- write reg address on bus
@@ -403,7 +386,7 @@ begin
 					
 			-- after the complete i2c tranfser there is some time to do other stuff like reconfiguring the sensor, etc.
 			-- make sure to end up in WaitForI2cTransfer after this stuff
-			-- TODO: write to config register if necessary
+			-- TODO: write to config register if necessary (feature)
 			
 		end case;
 		

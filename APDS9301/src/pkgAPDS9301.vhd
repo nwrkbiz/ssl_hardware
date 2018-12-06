@@ -45,8 +45,7 @@ package pkgAPDS9301 is
 	-- i2c constants
 	constant cI2cAddr				: std_ulogic_vector(6 downto 0)	:= b"010_1001";
 	constant cI2cRegAddrControl		: std_ulogic_vector(7 downto 0)	:= x"80";
-	constant cI2cRegAddrLight_L		: std_ulogic_vector(7 downto 0)	:= x"8C";
-	constant cI2cRegAddrLight_H		: std_ulogic_vector(7 downto 0)	:= x"8D";
+	constant cI2cRegAddrLight_Ch0_L	: std_ulogic_vector(7 downto 0)	:= x"8C";
 	
 	constant cI2cRegControlData		: std_ulogic_vector(7 downto 0) := x"03";
 
