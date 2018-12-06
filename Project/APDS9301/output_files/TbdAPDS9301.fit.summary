@@ -1,12 +1,12 @@
-Fitter Status : Successful - Tue Dec 04 20:39:35 2018
+Fitter Status : Successful - Thu Dec 06 21:12:08 2018
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : TbdAPDS9301
 Top-level Entity Name : TbdAPDS9301
 Family : Cyclone V
 Device : 5CSEMA5F31C6
 Timing Models : Final
-Logic utilization (in ALMs) : 121 / 32,070 ( < 1 % )
-Total registers : 184
+Logic utilization (in ALMs) : 117 / 32,070 ( < 1 % )
+Total registers : 183
 Total pins : 80 / 457 ( 18 % )
 Total virtual pins : 0
 Total block memory bits : 0 / 4,065,280 ( 0 % )

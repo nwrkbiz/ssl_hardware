@@ -75,11 +75,7 @@ begin
 			iAvalonRead      => iAvalonRead,
 			oAvalonReadData  => oAvalonReadData,
 			iAvalonWrite     => iAvalonWrite,
-			iAvalonWriteData => iAvalonWriteData,
-			HEX0=>HEX0,
-			HEX1=>HEX1,
-			HEX2=>HEX2,
-			HEX3=>HEX3
+			iAvalonWriteData => iAvalonWriteData
 		);
 		
 		HEX4 <= (others => '1');

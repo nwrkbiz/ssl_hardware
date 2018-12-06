@@ -962,8 +962,8 @@ set_global_assignment -name ECO_REGENERATE_REPORT ON
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
-set_global_assignment -name TCL_SCRIPT_FILE ../HDC1000/HDC1000_hw.tcl
 set_global_assignment -name QSYS_FILE HPSPlatform.qsys
 set_global_assignment -name VHDL_FILE template.vhd
 set_global_assignment -name SDC_FILE template.sdc
+set_global_assignment -name SOURCE_FILE db/template.cmp.rdb
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
