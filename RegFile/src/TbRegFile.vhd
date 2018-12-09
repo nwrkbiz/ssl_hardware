@@ -31,20 +31,22 @@ architecture Bhv of TbRegFile is
 	signal iFifoData 		: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 	signal oFifoShift 		: std_ulogic;
 	
-	signal oRegDataFrequency 	: std_ulogic_vector(15 downto 0);
-	signal oRegDataConfig	 	: std_ulogic_vector(15 downto 0);
-	signal oWriteConfigReg		: std_ulogic;
-	
 	constant cClkFreq	: natural 	:= 50_000_000;
 	constant cClkPeriod	: time		:= 1 sec/cClkFreq; 
+	signal RegData : std_ulogic_vector(gNumOfBytes*8-1 downto 0);
 
 	
 begin
 	
+		
 	UUT: entity work.RegFile
 		generic map(
 			gNumOfBytes    => gNumOfBytes,
-			gFifoByteWidth => gFifoByteWidth
+			gFifoByteWidth => gFifoByteWidth,
+			
+			-- input default frequency over generic to keep RegFile independent
+			gDefaultFrequency => std_ulogic_vector(to_unsigned(400,16)),
+			gRegAddrFrequency => 2
 		)
 		port map(
 			iClk              => iClk,
@@ -54,11 +56,9 @@ begin
 			oAvalonReadData   => oAvalonReadData,
 			iAvalonWrite      => iAvalonWrite,
 			iAvalonWriteData  => iAvalonWriteData,
-			oRegDataFrequency => oRegDataFrequency,
-			oRegDataConfig    => oRegDataConfig,
-			oWriteConfigReg   => oWriteConfigReg,
 			iFifoData         => iFifoData,
-			oFifoShift        => oFifoShift
+			oFifoShift        => oFifoShift,
+			oRegData		  => RegData
 		);
 		
 		

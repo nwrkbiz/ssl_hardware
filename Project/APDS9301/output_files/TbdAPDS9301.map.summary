@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Thu Dec 06 21:11:04 2018
+Analysis & Synthesis Status : Successful - Sun Dec 09 00:41:14 2018
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : TbdAPDS9301
 Top-level Entity Name : TbdAPDS9301
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 159
+Total registers : 143
 Total pins : 80
 Total virtual pins : 0
 Total block memory bits : 0

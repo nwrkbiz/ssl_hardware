@@ -28,7 +28,7 @@ package pkgAPDS9301 is
 	
 	-- fifo width
 	constant cFifoByteWidth		: natural := 8;
-	constant cFifoStages		: natural := 8;
+	constant cFifoStages		: natural := 5000;	-- max freq is 1kHz - to save data up to 5 secs 5000 stages are needed
 	
 	-- fifo range types
 	subtype tFifoRangeLight_Ch0_L 		is natural range 7  downto 0;

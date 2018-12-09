@@ -16,7 +16,7 @@ entity TbdMPU9250 is
 	generic(
 		gClkFrequency 	: natural	:= 50_000_000;
 		gStrobeTime 	: time		:= 1 ms;
-		gI2cFrequency 	: natural	:= 200_000;
+		gI2cFrequency 	: natural	:= 400_000;
 		gSyncStages 	: natural	:= 2
 	);
 	port(
@@ -28,15 +28,7 @@ entity TbdMPU9250 is
 		--ioSCL		: inout std_ulogic;
 		
 		-- gpio_1 connects fpga and rfs card
-		GPIO_1		: inout std_ulogic_vector(35 downto 0);
-		
-		--debug
-		HEX0		: out std_ulogic_vector(6 downto 0);
-		HEX1		: out std_ulogic_vector(6 downto 0);
-		HEX2		: out std_ulogic_vector(6 downto 0);
-		HEX3		: out std_ulogic_vector(6 downto 0);
-		HEX4		: out std_ulogic_vector(6 downto 0);
-		HEX5		: out std_ulogic_vector(6 downto 0)
+		GPIO_1		: inout std_ulogic_vector(35 downto 0)
 	);
 end entity TbdMPU9250;
 
@@ -58,7 +50,10 @@ begin
 	iAvalonWrite 	 <= '0';
 	iAvalonWriteData <= (others => '0');
 	
-	APDS9301: entity work.APDS9301
+	-- set MPU_AD0_SD0
+	GPIO_1(27) <= '0';
+	
+	MPU9250: entity work.MPU9250
 		generic map(
 			gClkFrequency => gClkFrequency,
 			gI2cFrequency => gI2cFrequency,
@@ -67,23 +62,16 @@ begin
 		port map(
 			iClk             => iClk,
 			inRstAsync       => inRstAsync,
-			ioSCL            => GPIO_1(7),
-			ioSDA            => GPIO_1(9),
+			ioSCL            => GPIO_1(11),
+			ioSDA            => GPIO_1(13),
 			iStrobe 		 => Strobe,
 			iTimeStamp 		 => TimeStamp,
 			iAvalonAddr      => iAvalonAddr,
 			iAvalonRead      => iAvalonRead,
 			oAvalonReadData  => oAvalonReadData,
 			iAvalonWrite     => iAvalonWrite,
-			iAvalonWriteData => iAvalonWriteData,
-			HEX0=>HEX0,
-			HEX1=>HEX1,
-			HEX2=>HEX2,
-			HEX3=>HEX3
+			iAvalonWriteData => iAvalonWriteData
 		);
-		
-		HEX4 <= (others => '1');
-		HEX5 <= (others => '1');
 		
 			
 	StrobeTimeStamp: entity work.StrobeGenAndTimeStamp

@@ -55,6 +55,7 @@ architecture Rtl of APDS9301 is
 	signal FifoShift 			: std_ulogic;
 	
 	signal Reset		: std_ulogic;
+	signal RegData : std_ulogic_vector(cRegFileNumberOfBytes*8-1 downto 0);
 		
 begin
 	
@@ -101,10 +102,14 @@ begin
 			iFifoWrite => FifoWrite
 		);
 		
-	RegFile: entity work.RegFileAPDS9301
+	RegFile: entity work.RegFile
 		generic map(
 			gNumOfBytes    => cRegFileNumberOfBytes,
-			gFifoByteWidth => cFifoByteWidth
+			gFifoByteWidth => cFifoByteWidth,
+			
+			-- input default frequency over generic to keep RegFile independent
+			gDefaultFrequency => cDefaultI2cReadFreq,
+			gRegAddrFrequency => cRegAddrFrequenzy_L
 		)
 		port map(
 			iClk              => iClk,
@@ -114,12 +119,13 @@ begin
 			oAvalonReadData   => oAvalonReadData,
 			iAvalonWrite      => iAvalonWrite,
 			iAvalonWriteData  => iAvalonWriteData,
-			oRegDataFrequency => RegDataFrequency,
-			oRegDataConfig    => RegDataConfig,
-			oWriteConfigReg   => WriteConfigReg,
 			iFifoData         => DataFromFifo,
-			oFifoShift        => FifoShift
+			oFifoShift        => FifoShift,
+			oRegData		  => RegData
 		);
+		
+		RegDataFrequency(15 downto 8)	<= RegData(cRegAddrFrequenzy_H*8+7 downto cRegAddrFrequenzy_H*8);
+		RegDataFrequency(7  downto 0)	<= RegData(cRegAddrFrequenzy_L*8+7 downto cRegAddrFrequenzy_L*8);
 
 end architecture Rtl;
 

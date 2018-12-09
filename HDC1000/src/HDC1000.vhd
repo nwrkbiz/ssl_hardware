@@ -65,6 +65,7 @@ architecture Rtl of HDC1000 is
 	signal oDataSync 		: std_ulogic_vector(cSyncDataWidth-1 downto 0);
 	
 	signal Reset		: std_ulogic;
+	signal RegData : std_ulogic_vector(cRegFileNumberOfBytes*8-1 downto 0);
 		
 begin
 	
@@ -128,10 +129,14 @@ begin
 			oFifoNotEmpty	=> oDataAvailable
 		);
 		
-	RegFile: entity work.RegFileHDC1000
+	RegFile: entity work.RegFile
 		generic map(
 			gNumOfBytes    => cRegFileNumberOfBytes,
-			gFifoByteWidth => cFifoByteWidth
+			gFifoByteWidth => cFifoByteWidth,
+			
+			-- input default frequency over generic to keep RegFile independent
+			gDefaultFrequency => cDefaultI2cReadFreq,
+			gRegAddrFrequency => cRegAddrFrequenzy_L
 		)
 		port map(
 			iClk              => iClk,
@@ -141,12 +146,19 @@ begin
 			oAvalonReadData   => oAvalonReadData,
 			iAvalonWrite      => iAvalonWrite,
 			iAvalonWriteData  => iAvalonWriteData,
-			oRegDataFrequency => RegDataFrequency,
-			oRegDataConfig    => RegDataConfig,
-			oWriteConfigReg   => WriteConfigReg,
 			iFifoData         => DataFromFifo,
-			oFifoShift        => FifoShift
+			oFifoShift        => FifoShift,
+			oRegData		  => RegData
 		);
+		
+		-- detect write into config reg
+		WriteConfigReg 	<= iAvalonWrite when iAvalonAddr = std_ulogic_vector(to_unsigned(cRegAddrConfig_H, cAvalonAddrWidth)) else '0';
+		RegDataConfig(15 downto 8)	<= RegData(cRegAddrConfig_H*8+7 downto cRegAddrConfig_H*8);
+		RegDataConfig(7  downto 0)	<= RegData(cRegAddrConfig_L*8+7 downto cRegAddrConfig_L*8);
+	
+		RegDataFrequency(15 downto 8)	<= RegData(cRegAddrFrequenzy_H*8+7 downto cRegAddrFrequenzy_H*8);
+		RegDataFrequency(7  downto 0)	<= RegData(cRegAddrFrequenzy_L*8+7 downto cRegAddrFrequenzy_L*8);
+		
 
 end architecture Rtl;
 

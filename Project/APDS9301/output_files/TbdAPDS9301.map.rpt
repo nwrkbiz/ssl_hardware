@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TbdAPDS9301
-Thu Dec 06 21:11:04 2018
+Sun Dec 09 00:41:14 2018
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -24,15 +24,16 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
  16. Parameter Settings for User Entity Instance: APDS9301:APDS9301
  17. Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD
  18. Parameter Settings for User Entity Instance: APDS9301:APDS9301|Fifo:Fifo
- 19. Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFileAPDS9301:RegFile
+ 19. Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFile:RegFile
  20. Parameter Settings for User Entity Instance: StrobeGenAndTimeStamp:StrobeTimeStamp
- 21. Port Connectivity Checks: "APDS9301:APDS9301|Fifo:Fifo"
- 22. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1"
- 23. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController"
- 24. Port Connectivity Checks: "APDS9301:APDS9301"
- 25. Post-Synthesis Netlist Statistics for Top Partition
- 26. Elapsed Time Per Partition
- 27. Analysis & Synthesis Messages
+ 21. Port Connectivity Checks: "APDS9301:APDS9301|RegFile:RegFile"
+ 22. Port Connectivity Checks: "APDS9301:APDS9301|Fifo:Fifo"
+ 23. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1"
+ 24. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController"
+ 25. Port Connectivity Checks: "APDS9301:APDS9301"
+ 26. Post-Synthesis Netlist Statistics for Top Partition
+ 27. Elapsed Time Per Partition
+ 28. Analysis & Synthesis Messages
 
 
 
@@ -59,13 +60,13 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Dec 06 21:11:04 2018       ;
+; Analysis & Synthesis Status     ; Successful - Sun Dec 09 00:41:14 2018       ;
 ; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                   ; TbdAPDS9301                                 ;
 ; Top-level Entity Name           ; TbdAPDS9301                                 ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 159                                         ;
+; Total registers                 ; 143                                         ;
 ; Total pins                      ; 80                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -188,14 +189,14 @@ agreement for further details.
 +--------------------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path                       ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                         ; Library ;
 +--------------------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------------------------+---------+
+; ../../RegFile/src/RegFile.vhd                          ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd                          ;         ;
+; ../../APDS9301/src/FSMDAPDS9301.vhd                    ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd                    ;         ;
 ; ../../StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd ;         ;
 ; ../../I2cUnit/src/I2C.VHD                              ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD                              ;         ;
 ; ../../Fifo/src/Fifo.vhd                                ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd                                ;         ;
 ; ../../PkgGlobal/pkgGlobal.vhd                          ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/PkgGlobal/pkgGlobal.vhd                          ;         ;
 ; ../../APDS9301/src/TbdAPDS9301.vhd                     ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd                     ;         ;
-; ../../APDS9301/src/RegFile.vhd                         ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/RegFile.vhd                         ;         ;
 ; ../../APDS9301/src/pkgAPDS9301.vhd                     ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/pkgAPDS9301.vhd                     ;         ;
-; ../../APDS9301/src/FSMD.vhd                            ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMD.vhd                            ;         ;
 ; ../../APDS9301/src/APDS9301.vhd                        ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd                        ;         ;
 +--------------------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------------------------+---------+
 
@@ -205,25 +206,25 @@ agreement for further details.
 +---------------------------------------------+------------+
 ; Resource                                    ; Usage      ;
 +---------------------------------------------+------------+
-; Estimate of Logic utilization (ALMs needed) ; 122        ;
+; Estimate of Logic utilization (ALMs needed) ; 107        ;
 ;                                             ;            ;
-; Combinational ALUT usage for logic          ; 201        ;
+; Combinational ALUT usage for logic          ; 173        ;
 ;     -- 7 input functions                    ; 2          ;
 ;     -- 6 input functions                    ; 37         ;
 ;     -- 5 input functions                    ; 19         ;
-;     -- 4 input functions                    ; 51         ;
-;     -- <=3 input functions                  ; 92         ;
+;     -- 4 input functions                    ; 24         ;
+;     -- <=3 input functions                  ; 91         ;
 ;                                             ;            ;
-; Dedicated logic registers                   ; 159        ;
+; Dedicated logic registers                   ; 143        ;
 ;                                             ;            ;
 ; I/O pins                                    ; 80         ;
 ;                                             ;            ;
 ; Total DSP Blocks                            ; 0          ;
 ;                                             ;            ;
 ; Maximum fan-out node                        ; iClk~input ;
-; Maximum fan-out                             ; 159        ;
-; Total fan-out                               ; 1493       ;
-; Average fan-out                             ; 2.69       ;
+; Maximum fan-out                             ; 143        ;
+; Total fan-out                               ; 1295       ;
+; Average fan-out                             ; 2.53       ;
 +---------------------------------------------+------------+
 
 
@@ -232,9 +233,9 @@ agreement for further details.
 +--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------+-----------------------+--------------+
 ; Compilation Hierarchy Node                 ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                   ; Entity Name           ; Library Name ;
 +--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------+-----------------------+--------------+
-; |TbdAPDS9301                               ; 201 (0)             ; 159 (0)                   ; 0                 ; 0          ; 80   ; 0            ; |TbdAPDS9301                                                                          ; TbdAPDS9301           ; work         ;
-;    |APDS9301:APDS9301|                     ; 181 (28)            ; 142 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301                                                        ; APDS9301              ; work         ;
-;       |FsmdAPDS9301:FSMD|                  ; 153 (83)            ; 142 (89)                  ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD                                      ; FsmdAPDS9301          ; work         ;
+; |TbdAPDS9301                               ; 173 (0)             ; 143 (0)                   ; 0                 ; 0          ; 80   ; 0            ; |TbdAPDS9301                                                                          ; TbdAPDS9301           ; work         ;
+;    |APDS9301:APDS9301|                     ; 153 (0)             ; 126 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301                                                        ; APDS9301              ; work         ;
+;       |FsmdAPDS9301:FSMD|                  ; 153 (83)            ; 126 (73)                  ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD                                      ; FsmdAPDS9301          ; work         ;
 ;          |simple_i2c:I2cController|        ; 70 (40)             ; 53 (24)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController             ; simple_i2c            ; work         ;
 ;             |i2c_core:u1|                  ; 30 (30)             ; 29 (29)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1 ; i2c_core              ; work         ;
 ;    |StrobeGenAndTimeStamp:StrobeTimeStamp| ; 20 (20)             ; 17 (17)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|StrobeGenAndTimeStamp:StrobeTimeStamp                                    ; StrobeGenAndTimeStamp ; work         ;
@@ -314,33 +315,33 @@ Encoding Type:  One-Hot
 +---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                            ;
-+---------------------------------------------------------+---------------------------------------------------------------------+
-; Register name                                           ; Reason for Removal                                                  ;
-+---------------------------------------------------------+---------------------------------------------------------------------+
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[5]      ; Stuck at GND due to stuck port data_in                              ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2]      ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[6]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[4]      ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][1] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][2] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][3] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][5] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][6] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][1] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][2] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][3] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][4] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][5] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][6] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][7] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][7] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][4] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[9][0] ; Merged with APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][4] ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][4] ; Stuck at VCC due to stuck port data_in                              ;
-; APDS9301:APDS9301|RegFileAPDS9301:RegFile|RegFile[8][0] ; Stuck at GND due to stuck port data_in                              ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.Idle        ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cEnable         ;
-; Total Number of Removed Registers = 20                  ;                                                                     ;
-+---------------------------------------------------------+---------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                  ;
++----------------------------------------------------+----------------------------------------------------------------+
+; Register name                                      ; Reason for Removal                                             ;
++----------------------------------------------------+----------------------------------------------------------------+
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][7]    ; Stuck at VCC due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][6]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][5]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][4]    ; Stuck at VCC due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][3]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][2]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][1]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][0]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][7]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][6]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][5]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][4]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][3]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][2]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][1]    ; Stuck at GND due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][0]    ; Stuck at VCC due to stuck port clock_enable                    ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[5] ; Stuck at GND due to stuck port data_in                         ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[6] ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[4] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3] ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.Idle   ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cEnable    ;
+; Total Number of Removed Registers = 20             ;                                                                ;
++----------------------------------------------------+----------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -348,12 +349,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 159   ;
-; Number of registers using Synchronous Clear  ; 52    ;
+; Total registers                              ; 143   ;
+; Number of registers using Synchronous Clear  ; 56    ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 151   ;
+; Number of registers using Asynchronous Clear ; 135   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 94    ;
+; Number of registers using Clock Enable       ; 78    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -378,10 +379,10 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[3]                 ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[4]                 ;
 ; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[0]    ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[6]    ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[6]                          ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[1]    ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[0]                          ;
 ; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[0] ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state     ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
@@ -431,19 +432,21 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name ; Value ; Type                                            ;
 +----------------+-------+-------------------------------------------------+
 ; gfifowidth     ; 64    ; Signed Integer                                  ;
-; gfifostages    ; 8     ; Signed Integer                                  ;
+; gfifostages    ; 5000  ; Signed Integer                                  ;
 +----------------+-------+-------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFileAPDS9301:RegFile ;
-+----------------+-------+---------------------------------------------------------------+
-; Parameter Name ; Value ; Type                                                          ;
-+----------------+-------+---------------------------------------------------------------+
-; gnumofbytes    ; 11    ; Signed Integer                                                ;
-; gfifobytewidth ; 8     ; Signed Integer                                                ;
-+----------------+-------+---------------------------------------------------------------+
++--------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFile:RegFile ;
++-------------------+------------------+-----------------------------------------+
+; Parameter Name    ; Value            ; Type                                    ;
++-------------------+------------------+-----------------------------------------+
+; gnumofbytes       ; 11               ; Signed Integer                          ;
+; gfifobytewidth    ; 8                ; Signed Integer                          ;
+; gdefaultfrequency ; 0000000110010000 ; Unsigned Binary                         ;
+; gregaddrfrequency ; 8                ; Signed Integer                          ;
++-------------------+------------------+-----------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -458,6 +461,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; gresetislowactive ; 1                ; Signed Integer                              ;
 +-------------------+------------------+---------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "APDS9301:APDS9301|RegFile:RegFile"                                                              ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                             ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; oregdata[87..80] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; oregdata[63..0]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------+
@@ -508,31 +521,30 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 159                         ;
+; arriav_ff             ; 143                         ;
 ;     CLR               ; 45                          ;
 ;     CLR SCLR          ; 19                          ;
 ;     ENA               ; 7                           ;
-;     ENA CLR           ; 54                          ;
-;     ENA CLR SCLR      ; 33                          ;
+;     ENA CLR           ; 34                          ;
+;     ENA CLR SCLR      ; 37                          ;
 ;     plain             ; 1                           ;
 ; arriav_io_obuf        ; 36                          ;
-; arriav_lcell_comb     ; 206                         ;
+; arriav_lcell_comb     ; 175                         ;
 ;     arith             ; 63                          ;
 ;         1 data inputs ; 63                          ;
 ;     extend            ; 2                           ;
 ;         7 data inputs ; 2                           ;
-;     normal            ; 141                         ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 4                           ;
-;         2 data inputs ; 11                          ;
+;     normal            ; 110                         ;
+;         0 data inputs ; 2                           ;
+;         2 data inputs ; 10                          ;
 ;         3 data inputs ; 18                          ;
-;         4 data inputs ; 51                          ;
+;         4 data inputs ; 24                          ;
 ;         5 data inputs ; 19                          ;
 ;         6 data inputs ; 37                          ;
 ; boundary_port         ; 80                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 1.97                        ;
+; Average LUT depth     ; 2.00                        ;
 +-----------------------+-----------------------------+
 
 
@@ -551,10 +563,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Thu Dec 06 21:10:45 2018
+    Info: Processing started: Sun Dec 09 00:40:56 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TbdAPDS9301 -c TbdAPDS9301
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/regfile/src/regfile.vhd
+    Info (12022): Found design unit 1: RegFile-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 49
+    Info (12023): Found entity 1: RegFile File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 15
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/fsmdapds9301.vhd
+    Info (12022): Found design unit 1: FsmdAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd Line: 46
+    Info (12023): Found entity 1: FsmdAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd Line: 16
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/strobegentimestamp/src/strobegenandtimestamp.vhd
     Info (12022): Found design unit 1: StrobeGenAndTimeStamp-Rtl File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd Line: 37
     Info (12023): Found entity 1: StrobeGenAndTimeStamp File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd Line: 15
@@ -572,29 +590,29 @@ Info (12021): Found 1 design units, including 0 entities, in source file /users/
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/tbdapds9301.vhd
     Info (12022): Found design unit 1: TbdAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 43
     Info (12023): Found entity 1: TbdAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 15
-Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/regfile.vhd
-    Info (12022): Found design unit 1: RegFileAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/RegFile.vhd Line: 51
-    Info (12023): Found entity 1: RegFileAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/RegFile.vhd Line: 17
 Info (12021): Found 1 design units, including 0 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/pkgapds9301.vhd
     Info (12022): Found design unit 1: pkgAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/pkgAPDS9301.vhd Line: 13
-Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/fsmd.vhd
-    Info (12022): Found design unit 1: FsmdAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMD.vhd Line: 46
-    Info (12023): Found entity 1: FsmdAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMD.vhd Line: 16
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/apds9301.vhd
-    Info (12022): Found design unit 1: APDS9301-Rtl File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 53
+    Info (12022): Found design unit 1: APDS9301-Rtl File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 47
     Info (12023): Found entity 1: APDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 15
 Info (12127): Elaborating entity "TbdAPDS9301" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(34): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(35): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(36): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(37): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
 Warning (10036): Verilog HDL or VHDL warning at TbdAPDS9301.vhd(47): object "oAvalonReadData" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 47
 Info (12128): Elaborating entity "APDS9301" for hierarchy "APDS9301:APDS9301" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 61
-Info (12129): Elaborating entity "FsmdAPDS9301" using architecture "A:rtl" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 101
-Info (12128): Elaborating entity "simple_i2c" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMD.vhd Line: 385
+Warning (10541): VHDL Signal Declaration warning at APDS9301.vhd(51): used implicit default value for signal "RegDataConfig" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 51
+Warning (10541): VHDL Signal Declaration warning at APDS9301.vhd(52): used implicit default value for signal "WriteConfigReg" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 52
+Info (12129): Elaborating entity "FsmdAPDS9301" using architecture "A:rtl" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 71
+Info (12128): Elaborating entity "simple_i2c" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd Line: 385
 Warning (10036): Verilog HDL or VHDL warning at I2C.VHD(109): object "core_busy" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 109
 Info (12128): Elaborating entity "i2c_core" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 119
-Info (12128): Elaborating entity "Fifo" for hierarchy "APDS9301:APDS9301|Fifo:Fifo" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 121
+Info (12128): Elaborating entity "Fifo" for hierarchy "APDS9301:APDS9301|Fifo:Fifo" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 91
 Warning (10492): VHDL Process Statement warning at Fifo.vhd(88): signal "Read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 88
 Warning (10492): VHDL Process Statement warning at Fifo.vhd(88): signal "Write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 88
-Info (12128): Elaborating entity "RegFileAPDS9301" for hierarchy "APDS9301:APDS9301|RegFileAPDS9301:RegFile" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 135
-Info (12128): Elaborating entity "StrobeGenAndTimeStamp" for hierarchy "StrobeGenAndTimeStamp:StrobeTimeStamp" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 89
+Info (12128): Elaborating entity "RegFile" for hierarchy "APDS9301:APDS9301|RegFile:RegFile" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 105
+Info (12128): Elaborating entity "StrobeGenAndTimeStamp" for hierarchy "StrobeGenAndTimeStamp:StrobeTimeStamp" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 85
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
     Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
@@ -631,6 +649,34 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_1[34]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
     Warning (13040): bidirectional pin "GPIO_1[35]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
 Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
     Warning (13410): Pin "HEX4[0]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
     Warning (13410): Pin "HEX4[1]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
     Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
@@ -648,15 +694,15 @@ Warning (13024): Output pins are stuck at VCC or GND
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 320 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 275 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 42 output pins
     Info (21060): Implemented 36 bidirectional pins
-    Info (21061): Implemented 240 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 55 warnings
+    Info (21061): Implemented 195 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 89 warnings
     Info: Peak virtual memory: 4872 megabytes
-    Info: Processing ended: Thu Dec 06 21:11:04 2018
-    Info: Elapsed time: 00:00:19
-    Info: Total CPU time (on all processors): 00:00:38
+    Info: Processing ended: Sun Dec 09 00:41:14 2018
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:40
 
 

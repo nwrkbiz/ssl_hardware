@@ -13,7 +13,6 @@ use ieee.numeric_std.all;
 package pkgHDC1000 is
 	
 	-- register file address constants
-	constant cRegFileNumberOfBytes	: natural := 12;
 	constant cRegAddrTemp_L 		: natural := 0;
 	constant cRegAddrTemp_H 		: natural := 1;
 	constant cRegAddrHumidity_L 	: natural := 2;
@@ -27,9 +26,12 @@ package pkgHDC1000 is
 	constant cRegAddrConfig_L		: natural := 10;
 	constant cRegAddrConfig_H		: natural := 11;
 	
+	-- register file constants and types
+	constant cRegFileNumberOfBytes	: natural := 12;
+	
 	-- fifo width
 	constant cFifoByteWidth		: natural := 8;
-	constant cFifoStages		: natural := 8;
+	constant cFifoStages		: natural := 5000;	-- max freq is 1kHz - to save data up to 5 secs 5000 stages are needed
 	
 	-- fifo range types
 	subtype tFifoRangeTemp_L 		is natural range 7  downto 0;
@@ -43,8 +45,8 @@ package pkgHDC1000 is
 	
 	subtype tFiforangeTimeStamp		is natural range 63 downto 32;
 	
-	-- default i2c read frequency is 400 ms
-	constant cDefaultI2cReadFreqNat	: natural := 400;
+	-- default i2c read frequency is 20 ms (50Hz)
+	constant cDefaultI2cReadFreqNat	: natural := 20;
 	constant cDefaultI2cReadFreq		: std_ulogic_vector(15 downto 0) := std_ulogic_vector(to_unsigned(cDefaultI2cReadFreqNat,16));
 	
 	-- i2c constants

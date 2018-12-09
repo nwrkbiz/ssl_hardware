@@ -86,7 +86,7 @@ PORT(
     LSENSOR_INT         : in        std_logic;
     LSENSOR_SCL         : inout     std_logic;
     LSENSOR_SDA         : inout     std_logic;
-    MPU_AD0_SDO         : in        std_logic;
+    MPU_AD0_SDO         : out        std_logic;
     MPU_CS_n            : inout     std_logic;
     MPU_FSYNC           : out       std_logic;
     MPU_INT         : in        std_logic;
@@ -116,10 +116,7 @@ ARCHITECTURE MAIN OF template IS
     component HPSPlatform is
 		port (
 			clk_clk                              : in    std_logic                     := 'X';             -- clk
-			data_rdy_n_drdy_n                    : in    std_logic                     := 'X';             -- drdy_n
 			h2f_reset_reset_n                    : out   std_logic;                                        -- reset_n
-			hdc1000_i2c_clk                      : inout std_logic                     := 'X';             -- i2c_clk
-			hdc1000_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
 			hps_0_f2h_cold_reset_req_reset_n     : in    std_logic                     := 'X';             -- reset_n
 			hps_0_f2h_debug_reset_req_reset_n    : in    std_logic                     := 'X';             -- reset_n
 			hps_0_f2h_stm_hw_events_stm_hwevents : in    std_logic_vector(27 downto 0) := (others => 'X'); -- stm_hwevents
@@ -195,12 +192,20 @@ ARCHITECTURE MAIN OF template IS
 			switches_external_connection_export  : in    std_logic_vector(9 downto 0)  := (others => 'X'); -- export
 			timing_out_strobe                    : out   std_logic;                                        -- strobe
 			timing_out_strobe_cnt                : out   std_logic_vector(31 downto 0);                    -- strobe_cnt
+			data_rdy_n_drdy_n                    : in    std_logic                     := 'X';             -- drdy_n
+			hdc1000_i2c_clk                      : inout std_logic                     := 'X';             -- i2c_clk
+			hdc1000_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
 			hdc1000_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
 			hdc1000_timing_in_strobe_cnt         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- strobe_cnt
 			apds9301_timing_in_strobe            : in    std_logic                     := 'X';             -- strobe
 			apds9301_timing_in_strobe_cnt        : in    std_logic_vector(31 downto 0) := (others => 'X'); -- strobe_cnt
 			apds9301_i2c_clk                     : inout std_logic                     := 'X';             -- i2c_clk
-			apds9301_i2c_data                    : inout std_logic                     := 'X'              -- i2c_data
+			apds9301_i2c_data                    : inout std_logic                     := 'X';             -- i2c_data
+			mpu9250_i2c_clk                      : inout std_logic                     := 'X';             -- i2c_clk
+			mpu9250_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
+			mpu9250_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
+			mpu9250_timing_in_strobe_cnt         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- strobe_cnt
+			mpu9250_i2c_addr_lsb                 : out   std_logic                                         -- i2c_addr_lsb
 		);
     end component HPSPlatform;
       
@@ -226,18 +231,25 @@ u0 : component HPSPlatform
             clk_clk                         => CLOCK_50,                         --                     clk.clk
 			
 			-- hdc1000
-			hdc1000_i2c_clk                 => RH_TEMP_I2C_SCL,             					-- i2c_clk
-			hdc1000_i2c_data                => RH_TEMP_I2C_SDA,             					-- i2c_data
-            data_rdy_n_drdy_n               => RH_TEMP_DRDY_n,        							-- drdy_n
-			hdc1000_timing_in_strobe        => Strobe,             --            hdc1000_timing_in.strobe
-			hdc1000_timing_in_strobe_cnt    => StrobeCount,         --                             .strobe_cnt
+			hdc1000_i2c_clk                 => RH_TEMP_I2C_SCL, 
+			hdc1000_i2c_data                => RH_TEMP_I2C_SDA, 
+            data_rdy_n_drdy_n               => RH_TEMP_DRDY_n,  
+			hdc1000_timing_in_strobe        => Strobe,          
+			hdc1000_timing_in_strobe_cnt    => StrobeCount,     
 			
 			
 			-- apds9301
-			apds9301_i2c_clk                => LSENSOR_SCL,                     --                     apds9301.i2c_clk
-			apds9301_i2c_data               => LSENSOR_SDA,                     --                             .i2c_data
-			apds9301_timing_in_strobe       => Strobe,            --           apds9301_timing_in.strobe
-			apds9301_timing_in_strobe_cnt   => StrobeCount,        --                             .strobe_cnt
+			apds9301_i2c_clk                => LSENSOR_SCL,     
+			apds9301_i2c_data               => LSENSOR_SDA,     
+			apds9301_timing_in_strobe       => Strobe,          
+			apds9301_timing_in_strobe_cnt   => StrobeCount,     
+			
+			-- mpu9250
+			mpu9250_i2c_clk                 => MPU_SCL_SCLK,                  
+			mpu9250_i2c_data                => MPU_SDA_SDI,
+			mpu9250_i2c_addr_lsb            => MPU_AD0_SDO,
+			mpu9250_timing_in_strobe        => Strobe,         
+			mpu9250_timing_in_strobe_cnt    => StrobeCount,      
 			
 			-- strobe and timestamp have to be exported because conduit only allows one to one connection
             timing_out_strobe               => Strobe,                    --                   timing_out.strobe
