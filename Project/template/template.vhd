@@ -9,6 +9,10 @@ PORT(
     CLOCK_50    : in std_logic;
     SW      : in std_logic_vector(9 downto 0);
     LEDR        : out std_logic_vector(9 downto 0);
+	
+	
+	-- KEYS
+	KEY		: in std_ulogic_vector(3 downto 0);
 
 
     -- //////////// SEG7 //////////
@@ -192,7 +196,7 @@ ARCHITECTURE MAIN OF template IS
 			switches_external_connection_export  : in    std_logic_vector(9 downto 0)  := (others => 'X'); -- export
 			timing_out_strobe                    : out   std_logic;                                        -- strobe
 			timing_out_strobe_cnt                : out   std_logic_vector(31 downto 0);                    -- strobe_cnt
-			data_rdy_n_drdy_n                    : in    std_logic                     := 'X';             -- drdy_n
+			hdc1000_data_rdy_drdy_n              : in    std_logic                     := 'X';             -- drdy_n
 			hdc1000_i2c_clk                      : inout std_logic                     := 'X';             -- i2c_clk
 			hdc1000_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
 			hdc1000_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
@@ -206,6 +210,7 @@ ARCHITECTURE MAIN OF template IS
 			mpu9250_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
 			mpu9250_timing_in_strobe_cnt         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- strobe_cnt
 			mpu9250_i2c_addr_lsb                 : out   std_logic                                         -- i2c_addr_lsb
+
 		);
     end component HPSPlatform;
       
@@ -230,10 +235,13 @@ u0 : component HPSPlatform
         port map (
             clk_clk                         => CLOCK_50,                         --                     clk.clk
 			
+			-- fpga reset
+			reset_reset_n		           => not(KEY(0)), 
+
 			-- hdc1000
 			hdc1000_i2c_clk                 => RH_TEMP_I2C_SCL, 
 			hdc1000_i2c_data                => RH_TEMP_I2C_SDA, 
-            data_rdy_n_drdy_n               => RH_TEMP_DRDY_n,  
+            hdc1000_data_rdy_drdy_n         => RH_TEMP_DRDY_n,  
 			hdc1000_timing_in_strobe        => Strobe,          
 			hdc1000_timing_in_strobe_cnt    => StrobeCount,     
 			
@@ -255,7 +263,6 @@ u0 : component HPSPlatform
             timing_out_strobe               => Strobe,                    --                   timing_out.strobe
 			timing_out_strobe_cnt           => StrobeCount,                --                             .strobe_cnt
 			
-			reset_reset_n                   => HPS_H2F_RST,                   --                   reset.reset_n
             memory_mem_a                    => HPS_DDR3_ADDR,                    --                  memory.mem_a
             memory_mem_ba                   => HPS_DDR3_BA,                   --                        .mem_ba
             memory_mem_ck                   => HPS_DDR3_CK_P,                   --                        .mem_ck

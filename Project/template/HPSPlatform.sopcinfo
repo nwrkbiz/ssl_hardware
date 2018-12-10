@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="HPSPlatform" kind="HPSPlatform" version="1.0" fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.12.09.02:10:11 -->
+ <!-- 2018.12.10.23:55:27 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1544317810</value>
+  <value>1544482526</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -136,7 +136,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="gResetIsLowActive">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -773,7 +773,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="gResetIsLowActive">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1455,7 +1455,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="gResetIsLowActive">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2082,7 +2082,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="gResetIsLowActive">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2625,7 +2625,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1544317810</value>
+   <value>1544482526</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -90643,11 +90643,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/StrobeGenAndTimeStamp_0.reset_sink"
+   name="clk_0.clk_reset/HDC1000_0.reset_sink"
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="StrobeGenAndTimeStamp_0.reset_sink">
+   end="HDC1000_0.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -90666,34 +90666,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>StrobeGenAndTimeStamp_0</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/MPU9250_0.reset_sink"
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="MPU9250_0.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>MPU9250_0</endModule>
+  <endModule>HDC1000_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
@@ -90724,11 +90697,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/HDC1000_0.reset_sink"
+   name="clk_0.clk_reset/MPU9250_0.reset_sink"
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="HDC1000_0.reset_sink">
+   end="MPU9250_0.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -90747,7 +90720,34 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>HDC1000_0</endModule>
+  <endModule>MPU9250_0</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk_reset/StrobeGenAndTimeStamp_0.reset_sink"
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="StrobeGenAndTimeStamp_0.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>StrobeGenAndTimeStamp_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection

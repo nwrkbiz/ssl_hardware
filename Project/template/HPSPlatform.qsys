@@ -41,6 +41,22 @@
          type = "String";
       }
    }
+   element HDC1000_0.clock_sink
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
+   element HDC1000_0.hdc1000
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
    element HPSPlatform
    {
       datum _originalDeviceFamily
@@ -309,13 +325,13 @@
    type="conduit"
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface name="h2f_reset" internal="hps_0.h2f_reset" type="reset" dir="start" />
+ <interface name="hdc1000" internal="HDC1000_0.i2c" type="conduit" dir="end" />
  <interface
-   name="data_rdy_n"
+   name="hdc1000_data_rdy"
    internal="HDC1000_0.hdc1000"
    type="conduit"
    dir="end" />
- <interface name="h2f_reset" internal="hps_0.h2f_reset" type="reset" dir="start" />
- <interface name="hdc1000" internal="HDC1000_0.i2c" type="conduit" dir="end" />
  <interface
    name="hdc1000_timing_in"
    internal="HDC1000_0.timing"
@@ -373,19 +389,19 @@
  <module name="APDS9301_0" kind="APDS9301" version="1.0" enabled="1">
   <parameter name="gClkFrequency" value="50000000" />
   <parameter name="gI2cFrequency" value="400000" />
-  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gResetIsLowActive" value="1" />
   <parameter name="gSyncStages" value="2" />
  </module>
  <module name="HDC1000_0" kind="HDC1000" version="1.0" enabled="1">
   <parameter name="gClkFrequency" value="50000000" />
   <parameter name="gI2cFrequency" value="400000" />
-  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gResetIsLowActive" value="1" />
   <parameter name="gSyncStages" value="2" />
  </module>
  <module name="MPU9250_0" kind="MPU9250" version="1.0" enabled="1">
   <parameter name="gClkFrequency" value="50000000" />
   <parameter name="gI2cFrequency" value="400000" />
-  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gResetIsLowActive" value="1" />
   <parameter name="gSyncStages" value="2" />
  </module>
  <module
@@ -394,7 +410,7 @@
    version="1.0"
    enabled="1">
   <parameter name="gClkFreq" value="50000000" />
-  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gResetIsLowActive" value="1" />
   <parameter name="gTimeStampWidth" value="32" />
  </module>
  <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
@@ -1054,12 +1070,7 @@
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="StrobeGenAndTimeStamp_0.reset_sink" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="MPU9250_0.reset_sink" />
+   end="HDC1000_0.reset_sink" />
  <connection
    kind="reset"
    version="16.1"
@@ -1069,7 +1080,12 @@
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="HDC1000_0.reset_sink" />
+   end="MPU9250_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="StrobeGenAndTimeStamp_0.reset_sink" />
  <connection
    kind="reset"
    version="16.1"

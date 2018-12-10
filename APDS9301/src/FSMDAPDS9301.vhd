@@ -54,9 +54,10 @@ architecture RTL of FsmdAPDS9301 is
 					PowerUpAck0, PowerUpAck1, PowerUpAck2,
 					WaitForI2cTransfer,
 					I2cAddr0, I2cAddr1, RegAddrLight_Ch0_L,
+					I2cAddr2, I2cAddr3, RegAddrLight_Ch1_L,
 					ReadDataLight_Ch0_L, ReadDataLight_Ch0_H, ReadDataLight_Ch1_L, ReadDataLight_Ch1_H,
 					SaveDataLight_Ch0_L, SaveDataLight_Ch0_H, SaveDataLight_Ch1_L, SaveDataLight_Ch1_H,
-					WaitOnAck0, WaitOnAck1, WaitOnAck2,
+					WaitOnAck0, WaitOnAck1, WaitOnAck2, WaitOnAck3, WaitOnAck4, WaitOnAck5,
 					WriteDataToFifo
 					);
 	
@@ -223,7 +224,7 @@ begin
 					NxR.ReadI2cData <= '0';
 				end if;
 			
-			-- start reading the ADC channels
+			-- start reading the ADC channel0
 			-- write i2c address on bus				
 			when I2cAddr0 =>
 				NxR.I2cStart	<= '1';
@@ -318,7 +319,6 @@ begin
 			----------------------------------------------------------------------------------------	
 			when ReadDataLight_Ch0_H =>
 				NxR.I2cRead		<= '1';
-				NxR.I2cAckIn 	<= '0'; -- send ACK to make sure APDS9301 sends another byte of data from the next address
 				if I2cCmdAck = '1' then
 					NxR.I2cRead		<= '0';
 					NxR.State		<= SaveDataLight_Ch0_H;
@@ -327,8 +327,82 @@ begin
 			when SaveDataLight_Ch0_H =>
 				-- save data from last state
 				NxR.FifoData(tFifoRangeLight_Ch0_H)	<= std_ulogic_vector(I2cDataOut);
-				NxR.State		<= ReadDataLight_Ch1_L;
+				NxR.State		<= I2cAddr2;
+				
+			-- start reading channel 1
+			-- write i2c address on bus				
+			when I2cAddr2 =>
+				NxR.I2cStart	<= '1';
+				NxR.I2cWrite	<= '1';
+				NxR.I2cDataIn	<= cI2cAddr & cI2cWrite;
+				if I2cCmdAck = '1' then
+					NxR.I2cStart	<= '0';
+					NxR.I2cWrite	<= '0';
+					NxR.State		<= WaitOnAck3;
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when WaitOnAck3 =>
+				if I2cAckOut = '0' then
+					NxR.State <= RegAddrLight_Ch1_L;
+				else
+					-- time out 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back one state to write I2c address again
+						NxR.State <= I2cAddr2;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
+				end if;
 			
+			-- write reg address on bus
+			when RegAddrLight_Ch1_L =>
+				NxR.I2cWrite	<= '1';
+				NxR.I2cDataIn	<= cI2cRegAddrLight_Ch1_L;
+				if I2cCmdAck = '1' then
+					NxR.I2cWrite	<= '0';
+					NxR.State		<= WaitOnAck4;
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when WaitOnAck4 =>
+				if I2cAckOut = '0' then
+					NxR.State <= I2cAddr3;
+				else
+					-- time out 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back to write I2c address again
+						NxR.State <= I2cAddr2;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
+				end if;
+				
+			-- set restart condition with i2c address (now with read)
+			when I2cAddr3 =>
+				NxR.I2cStart	<= '1';
+				NxR.I2cWrite	<= '1';
+				NxR.I2cDataIn	<= cI2cAddr & cI2cRead;
+				if I2cCmdAck = '1' then
+					NxR.I2cStart	<= '0';
+					NxR.I2cWrite	<= '0';
+					NxR.State		<= WaitOnAck5;
+					NxR.I2cAckTimeOutCnt <= 0;
+				end if;
+				
+			when WaitOnAck5 =>
+				if I2cAckOut = '0' then
+					NxR.State <= ReadDataLight_Ch1_L;
+				else
+					-- time out 5 us
+					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
+						-- go back to write I2c address again
+						NxR.State <= I2cAddr2;
+					else
+						NxR.I2cAckTimeOutCnt <= R.I2cAckTimeOutCnt+1;
+					end if;
+				end if;
+								
 			----------------------------------------------------------------------------------------
 			-- read data of channel 1 low byte			
 			----------------------------------------------------------------------------------------	

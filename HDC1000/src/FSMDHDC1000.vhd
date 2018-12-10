@@ -189,7 +189,7 @@ begin
 				
 			when TriggerMeasurementWaitOnAck1 =>
 				if I2cAckOut = '0' then
-					NxR.State <= WaitForDataRdySet;
+					NxR.State <= WaitForDataRdyReset;
 				else
 					-- timeout 5 us
 					if R.I2cAckTimeOutCnt = cI2cTimeoutCntMax-1 then
