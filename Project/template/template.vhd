@@ -196,7 +196,6 @@ ARCHITECTURE MAIN OF template IS
 			switches_external_connection_export  : in    std_logic_vector(9 downto 0)  := (others => 'X'); -- export
 			timing_out_strobe                    : out   std_logic;                                        -- strobe
 			timing_out_strobe_cnt                : out   std_logic_vector(31 downto 0);                    -- strobe_cnt
-			hdc1000_data_rdy_drdy_n              : in    std_logic                     := 'X';             -- drdy_n
 			hdc1000_i2c_clk                      : inout std_logic                     := 'X';             -- i2c_clk
 			hdc1000_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
 			hdc1000_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
@@ -236,12 +235,11 @@ u0 : component HPSPlatform
             clk_clk                         => CLOCK_50,                         --                     clk.clk
 			
 			-- fpga reset
-			reset_reset_n		           => not(KEY(0)), 
+			reset_reset_n		           => HPS_H2F_RST, 
 
 			-- hdc1000
 			hdc1000_i2c_clk                 => RH_TEMP_I2C_SCL, 
 			hdc1000_i2c_data                => RH_TEMP_I2C_SDA, 
-            hdc1000_data_rdy_drdy_n         => RH_TEMP_DRDY_n,  
 			hdc1000_timing_in_strobe        => Strobe,          
 			hdc1000_timing_in_strobe_cnt    => StrobeCount,     
 			

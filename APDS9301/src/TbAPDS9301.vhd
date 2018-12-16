@@ -20,7 +20,6 @@ architecture Bhv of TbAPDS9301 is
 	constant gStrobeTime 	: time		:= 1 us;
 	constant gI2cFrequency 	: natural	:= 400_000;
 	constant gSyncStages 	: natural	:= 2;
-	constant cClkDiv		: natural	:= gStrobeTime/cClkPeriod;
 	
 	signal iClk 			: std_ulogic	:= '0';
 	signal inRstAsync 		: std_ulogic	:= not('1');

@@ -16,16 +16,12 @@ entity TbdAPDS9301 is
 	generic(
 		gClkFrequency 	: natural	:= 50_000_000;
 		gStrobeTime 	: time		:= 1 ms;
-		gI2cFrequency 	: natural	:= 200_000;
+		gI2cFrequency 	: natural	:= 400_000;
 		gSyncStages 	: natural	:= 2
 	);
 	port(
 		iClk		: in std_ulogic;
 		inRstAsync	: in std_ulogic;
-		
-		-- i2c interface
-		--ioSDA		: inout std_ulogic;
-		--ioSCL		: inout std_ulogic;
 		
 		-- gpio_1 connects fpga and rfs card
 		GPIO_1		: inout std_ulogic_vector(35 downto 0);

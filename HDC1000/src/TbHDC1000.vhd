@@ -62,7 +62,6 @@ begin
 			inRstAsync       => inRstAsync,
 			ioSCL            => ioSCL,
 			ioSDA            => ioSDA,
-			inDataReady      => inDataReady,
 			iAvalonAddr      => iAvalonAddr,
 			iAvalonRead      => iAvalonRead,
 			oAvalonReadData  => oAvalonReadData,

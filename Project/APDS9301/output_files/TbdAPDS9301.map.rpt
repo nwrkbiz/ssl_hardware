@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TbdAPDS9301
-Mon Dec 10 19:25:05 2018
+Sat Dec 15 21:37:00 2018
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -14,26 +14,32 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State
-  9. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:state
- 10. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state
- 11. Registers Removed During Synthesis
- 12. General Register Statistics
- 13. Inverted Register Statistics
- 14. Multiplexer Restructuring Statistics (Restructuring Performed)
- 15. Parameter Settings for User Entity Instance: Top-level Entity: |TbdAPDS9301
- 16. Parameter Settings for User Entity Instance: APDS9301:APDS9301
- 17. Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD
- 18. Parameter Settings for User Entity Instance: APDS9301:APDS9301|Fifo:Fifo
- 19. Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFile:RegFile
- 20. Parameter Settings for User Entity Instance: StrobeGenAndTimeStamp:StrobeTimeStamp
- 21. Port Connectivity Checks: "APDS9301:APDS9301|RegFile:RegFile"
- 22. Port Connectivity Checks: "APDS9301:APDS9301|Fifo:Fifo"
- 23. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1"
- 24. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController"
- 25. Port Connectivity Checks: "APDS9301:APDS9301"
- 26. Post-Synthesis Netlist Statistics for Top Partition
- 27. Elapsed Time Per Partition
- 28. Analysis & Synthesis Messages
+  9. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.State
+ 10. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:state
+ 11. State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|state
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Inverted Register Statistics
+ 16. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 17. Parameter Settings for User Entity Instance: Top-level Entity: |TbdAPDS9301
+ 18. Parameter Settings for User Entity Instance: APDS9301:APDS9301
+ 19. Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD
+ 20. Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController
+ 21. Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync
+ 22. Parameter Settings for User Entity Instance: APDS9301:APDS9301|Fifo:Fifo
+ 23. Parameter Settings for User Entity Instance: APDS9301:APDS9301|RegFile:RegFile
+ 24. Parameter Settings for User Entity Instance: StrobeGenAndTimeStamp:StrobeTimeStamp
+ 25. Port Connectivity Checks: "APDS9301:APDS9301|RegFile:RegFile"
+ 26. Port Connectivity Checks: "APDS9301:APDS9301|Fifo:Fifo"
+ 27. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1"
+ 28. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core"
+ 29. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync"
+ 30. Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController"
+ 31. Port Connectivity Checks: "APDS9301:APDS9301"
+ 32. Post-Synthesis Netlist Statistics for Top Partition
+ 33. Elapsed Time Per Partition
+ 34. Analysis & Synthesis Messages
 
 
 
@@ -60,13 +66,13 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Dec 10 19:25:05 2018       ;
+; Analysis & Synthesis Status     ; Successful - Sat Dec 15 21:37:00 2018       ;
 ; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                   ; TbdAPDS9301                                 ;
 ; Top-level Entity Name           ; TbdAPDS9301                                 ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 149                                         ;
+; Total registers                 ; 159                                         ;
 ; Total pins                      ; 80                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -189,6 +195,8 @@ agreement for further details.
 +--------------------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path                       ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                         ; Library ;
 +--------------------------------------------------------+-----------------+-----------------+------------------------------------------------------------------------------------------------------+---------+
+; ../../Sync/src/Sync.vhd                                ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd                                ;         ;
+; ../../I2cUnit/src/I2cController.vhd                    ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2cController.vhd                    ;         ;
 ; ../../RegFile/src/RegFile.vhd                          ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd                          ;         ;
 ; ../../APDS9301/src/FSMDAPDS9301.vhd                    ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd                    ;         ;
 ; ../../StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd ; yes             ; User VHDL File  ; C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd ;         ;
@@ -206,84 +214,88 @@ agreement for further details.
 +---------------------------------------------+------------+
 ; Resource                                    ; Usage      ;
 +---------------------------------------------+------------+
-; Estimate of Logic utilization (ALMs needed) ; 114        ;
+; Estimate of Logic utilization (ALMs needed) ; 112        ;
 ;                                             ;            ;
-; Combinational ALUT usage for logic          ; 183        ;
+; Combinational ALUT usage for logic          ; 179        ;
 ;     -- 7 input functions                    ; 2          ;
-;     -- 6 input functions                    ; 41         ;
-;     -- 5 input functions                    ; 18         ;
-;     -- 4 input functions                    ; 31         ;
-;     -- <=3 input functions                  ; 91         ;
+;     -- 6 input functions                    ; 33         ;
+;     -- 5 input functions                    ; 32         ;
+;     -- 4 input functions                    ; 25         ;
+;     -- <=3 input functions                  ; 87         ;
 ;                                             ;            ;
-; Dedicated logic registers                   ; 149        ;
+; Dedicated logic registers                   ; 159        ;
 ;                                             ;            ;
 ; I/O pins                                    ; 80         ;
 ;                                             ;            ;
 ; Total DSP Blocks                            ; 0          ;
 ;                                             ;            ;
 ; Maximum fan-out node                        ; iClk~input ;
-; Maximum fan-out                             ; 149        ;
-; Total fan-out                               ; 1355       ;
-; Average fan-out                             ; 2.57       ;
+; Maximum fan-out                             ; 159        ;
+; Total fan-out                               ; 1381       ;
+; Average fan-out                             ; 2.59       ;
 +---------------------------------------------+------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                ;
-+--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------+-----------------------+--------------+
-; Compilation Hierarchy Node                 ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                   ; Entity Name           ; Library Name ;
-+--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------+-----------------------+--------------+
-; |TbdAPDS9301                               ; 183 (0)             ; 149 (0)                   ; 0                 ; 0          ; 80   ; 0            ; |TbdAPDS9301                                                                          ; TbdAPDS9301           ; work         ;
-;    |APDS9301:APDS9301|                     ; 163 (0)             ; 132 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301                                                        ; APDS9301              ; work         ;
-;       |FsmdAPDS9301:FSMD|                  ; 163 (93)            ; 132 (79)                  ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD                                      ; FsmdAPDS9301          ; work         ;
-;          |simple_i2c:I2cController|        ; 70 (40)             ; 53 (24)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController             ; simple_i2c            ; work         ;
-;             |i2c_core:u1|                  ; 30 (30)             ; 29 (29)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1 ; i2c_core              ; work         ;
-;    |StrobeGenAndTimeStamp:StrobeTimeStamp| ; 20 (20)             ; 17 (17)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|StrobeGenAndTimeStamp:StrobeTimeStamp                                    ; StrobeGenAndTimeStamp ; work         ;
-+--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------+-----------------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                       ;
++--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------+-----------------------+--------------+
+; Compilation Hierarchy Node                 ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                          ; Entity Name           ; Library Name ;
++--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------+-----------------------+--------------+
+; |TbdAPDS9301                               ; 179 (1)             ; 159 (0)                   ; 0                 ; 0          ; 80   ; 0            ; |TbdAPDS9301                                                                                                 ; TbdAPDS9301           ; work         ;
+;    |APDS9301:APDS9301|                     ; 158 (0)             ; 142 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301                                                                               ; APDS9301              ; work         ;
+;       |FsmdAPDS9301:FSMD|                  ; 158 (51)            ; 142 (46)                  ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD                                                             ; FsmdAPDS9301          ; work         ;
+;          |I2cController:I2cController|     ; 107 (43)            ; 96 (37)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController                                 ; I2cController         ; work         ;
+;             |Sync:Sync|                    ; 0 (0)               ; 6 (6)                     ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync                       ; Sync                  ; work         ;
+;             |simple_i2c:i2c_core|          ; 64 (32)             ; 53 (24)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core             ; simple_i2c            ; work         ;
+;                |i2c_core:u1|               ; 32 (32)             ; 29 (29)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1 ; i2c_core              ; work         ;
+;    |StrobeGenAndTimeStamp:StrobeTimeStamp| ; 20 (20)             ; 17 (17)                   ; 0                 ; 0          ; 0    ; 0            ; |TbdAPDS9301|StrobeGenAndTimeStamp:StrobeTimeStamp                                                           ; StrobeGenAndTimeStamp ; work         ;
++--------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------+-----------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
-+-----------------------------+-------------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+----------------------------+------------------+------------------+----------------------------+------------------+------------------+----------------------------+---------------------+---------------------+---------------------+--------------------------+------------------------+------------------------+--------------+
-; Name                        ; R.State.WriteDataToFifo ; R.State.WaitOnAck5 ; R.State.WaitOnAck4 ; R.State.WaitOnAck3 ; R.State.WaitOnAck2 ; R.State.WaitOnAck1 ; R.State.WaitOnAck0 ; R.State.SaveDataLight_Ch1_H ; R.State.SaveDataLight_Ch1_L ; R.State.SaveDataLight_Ch0_H ; R.State.SaveDataLight_Ch0_L ; R.State.ReadDataLight_Ch1_H ; R.State.ReadDataLight_Ch1_L ; R.State.ReadDataLight_Ch0_H ; R.State.ReadDataLight_Ch0_L ; R.State.RegAddrLight_Ch1_L ; R.State.I2cAddr3 ; R.State.I2cAddr2 ; R.State.RegAddrLight_Ch0_L ; R.State.I2cAddr1 ; R.State.I2cAddr0 ; R.State.WaitForI2cTransfer ; R.State.PowerUpAck2 ; R.State.PowerUpAck1 ; R.State.PowerUpAck0 ; R.State.PowerUpWriteData ; R.State.PowerUpRegAddr ; R.State.PowerUpI2cAddr ; R.State.Idle ;
-+-----------------------------+-------------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+----------------------------+------------------+------------------+----------------------------+------------------+------------------+----------------------------+---------------------+---------------------+---------------------+--------------------------+------------------------+------------------------+--------------+
-; R.State.Idle                ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 0            ;
-; R.State.PowerUpI2cAddr      ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 1                      ; 1            ;
-; R.State.PowerUpRegAddr      ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 1                      ; 0                      ; 1            ;
-; R.State.PowerUpWriteData    ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 1                        ; 0                      ; 0                      ; 1            ;
-; R.State.PowerUpAck0         ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 1                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.PowerUpAck1         ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 1                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.PowerUpAck2         ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 1                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitForI2cTransfer  ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 1                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.I2cAddr0            ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 1                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.I2cAddr1            ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 1                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.RegAddrLight_Ch0_L  ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 1                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.I2cAddr2            ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 1                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.I2cAddr3            ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 1                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.RegAddrLight_Ch1_L  ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 1                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.ReadDataLight_Ch0_L ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 1                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.ReadDataLight_Ch0_H ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 1                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.ReadDataLight_Ch1_L ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 1                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.ReadDataLight_Ch1_H ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 1                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.SaveDataLight_Ch0_L ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 1                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.SaveDataLight_Ch0_H ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 1                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.SaveDataLight_Ch1_L ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 1                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.SaveDataLight_Ch1_H ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 1                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck0          ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 1                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck1          ; 0                       ; 0                  ; 0                  ; 0                  ; 0                  ; 1                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck2          ; 0                       ; 0                  ; 0                  ; 0                  ; 1                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck3          ; 0                       ; 0                  ; 0                  ; 1                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck4          ; 0                       ; 0                  ; 1                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WaitOnAck5          ; 0                       ; 1                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-; R.State.WriteDataToFifo     ; 1                       ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                  ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                           ; 0                          ; 0                ; 0                ; 0                          ; 0                ; 0                ; 0                          ; 0                   ; 0                   ; 0                   ; 0                        ; 0                      ; 0                      ; 1            ;
-+-----------------------------+-------------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+----------------------------+------------------+------------------+----------------------------+------------------+------------------+----------------------------+---------------------+---------------------+---------------------+--------------------------+------------------------+------------------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State                                                                                                                                                ;
++----------------------------+----------------------+----------------------+----------------------+----------------------+-------------------------+----------------------------+--------------------------+--------------+
+; Name                       ; R.State.SaveData_CH1 ; R.State.ReadData_CH1 ; R.State.SaveData_CH0 ; R.State.ReadData_CH0 ; R.State.WriteDataToFifo ; R.State.WaitForI2cTransfer ; R.State.ConfigControlReg ; R.State.Idle ;
++----------------------------+----------------------+----------------------+----------------------+----------------------+-------------------------+----------------------------+--------------------------+--------------+
+; R.State.Idle               ; 0                    ; 0                    ; 0                    ; 0                    ; 0                       ; 0                          ; 0                        ; 0            ;
+; R.State.ConfigControlReg   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                       ; 0                          ; 1                        ; 1            ;
+; R.State.WaitForI2cTransfer ; 0                    ; 0                    ; 0                    ; 0                    ; 0                       ; 1                          ; 0                        ; 1            ;
+; R.State.WriteDataToFifo    ; 0                    ; 0                    ; 0                    ; 0                    ; 1                       ; 0                          ; 0                        ; 1            ;
+; R.State.ReadData_CH0       ; 0                    ; 0                    ; 0                    ; 1                    ; 0                       ; 0                          ; 0                        ; 1            ;
+; R.State.SaveData_CH0       ; 0                    ; 0                    ; 1                    ; 0                    ; 0                       ; 0                          ; 0                        ; 1            ;
+; R.State.ReadData_CH1       ; 0                    ; 1                    ; 0                    ; 0                    ; 0                       ; 0                          ; 0                        ; 1            ;
+; R.State.SaveData_CH1       ; 1                    ; 0                    ; 0                    ; 0                    ; 0                       ; 0                          ; 0                        ; 1            ;
++----------------------------+----------------------+----------------------+----------------------+----------------------+-------------------------+----------------------------+--------------------------+--------------+
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.State                                                                                                                                                                                                                                                 ;
++--------------------------+--------------------+--------------------+----------------------+----------------------+--------------------+---------------------+-----------------------+--------------------------+-----------------------+-----------------------+----------------------+----------------------+------------------------+--------------+
+; Name                     ; R.State.R_NextData ; R.State.R_ReadData ; R.State.R_WaitOnAck2 ; R.State.R_I2cAddress ; R.State.W_NextData ; R.State.W_WriteData ; R.State.RW_WaitOnAck1 ; R.State.RW_I2cRegAddress ; R.State.RW_WaitOnAck0 ; R.State.RW_I2cAddress ; R.State.TransferDone ; R.State.RegisterData ; R.State.WaitOnTransfer ; R.State.Idle ;
++--------------------------+--------------------+--------------------+----------------------+----------------------+--------------------+---------------------+-----------------------+--------------------------+-----------------------+-----------------------+----------------------+----------------------+------------------------+--------------+
+; R.State.Idle             ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 0            ;
+; R.State.WaitOnTransfer   ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 1                      ; 1            ;
+; R.State.RegisterData     ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 1                    ; 0                      ; 1            ;
+; R.State.TransferDone     ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 1                    ; 0                    ; 0                      ; 1            ;
+; R.State.RW_I2cAddress    ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 1                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.RW_WaitOnAck0    ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 1                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.RW_I2cRegAddress ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 1                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.RW_WaitOnAck1    ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 1                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.W_WriteData      ; 0                  ; 0                  ; 0                    ; 0                    ; 0                  ; 1                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.W_NextData       ; 0                  ; 0                  ; 0                    ; 0                    ; 1                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.R_I2cAddress     ; 0                  ; 0                  ; 0                    ; 1                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.R_WaitOnAck2     ; 0                  ; 0                  ; 1                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.R_ReadData       ; 0                  ; 1                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
+; R.State.R_NextData       ; 1                  ; 0                  ; 0                    ; 0                    ; 0                  ; 0                   ; 0                     ; 0                        ; 0                     ; 0                     ; 0                    ; 0                    ; 0                      ; 1            ;
++--------------------------+--------------------+--------------------+----------------------+----------------------+--------------------+---------------------+-----------------------+--------------------------+-----------------------+-----------------------+----------------------+----------------------+------------------------+--------------+
 
 
 Encoding Type:  One-Hot
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:state                                                                                                     ;
+; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:state                                                                              ;
 +------------------------------+-----------------------------+----------------------------+------------------------------+-----------------------------+------------------------------+-----------------------------+
 ; Name                         ; \statemachine:state.st_stop ; \statemachine:state.st_ack ; \statemachine:state.st_write ; \statemachine:state.st_read ; \statemachine:state.st_start ; \statemachine:state.st_idle ;
 +------------------------------+-----------------------------+----------------------------+------------------------------+-----------------------------+------------------------------+-----------------------------+
@@ -298,7 +310,7 @@ Encoding Type:  One-Hot
 
 Encoding Type:  One-Hot
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state                                                                                                                                     ;
+; State Machine - |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|state                                                                                                              ;
 +---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
 ; Name          ; state.wr_d ; state.wr_c ; state.wr_b ; state.wr_a ; state.rd_d ; state.rd_c ; state.rd_b ; state.rd_a ; state.stop_c ; state.stop_b ; state.stop_a ; state.start_d ; state.start_c ; state.start_b ; state.start_a ; state.idle ;
 +---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
@@ -321,33 +333,174 @@ Encoding Type:  One-Hot
 +---------------+------------+------------+------------+------------+------------+------------+------------+------------+--------------+--------------+--------------+---------------+---------------+---------------+---------------+------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                  ;
-+----------------------------------------------------+----------------------------------------------------------------+
-; Register name                                      ; Reason for Removal                                             ;
-+----------------------------------------------------+----------------------------------------------------------------+
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][7]    ; Stuck at VCC due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][6]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][5]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][4]    ; Stuck at VCC due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][3]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][2]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][1]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][0]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][7]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][6]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][5]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][4]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][3]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][2]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][1]    ; Stuck at GND due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][0]    ; Stuck at VCC due to stuck port clock_enable                    ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[5] ; Stuck at GND due to stuck port data_in                         ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[6] ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[4] ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3] ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2] ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.Idle   ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cEnable    ;
-; Total Number of Removed Registers = 20             ;                                                                ;
-+----------------------------------------------------+----------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                                     ;
++----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+; Register name                                                                          ; Reason for Removal                                                                            ;
++----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][7]                                        ; Stuck at VCC due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][6]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][5]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][4]                                        ; Stuck at VCC due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][3]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][2]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][1]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[8][0]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][7]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][6]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][5]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][4]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][3]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][2]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][1]                                        ; Stuck at GND due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|RegFile:RegFile|RegFile[9][0]                                        ; Stuck at VCC due to stuck port clock_enable                                                   ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[1,2,4,6]                                 ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[0,4..6]                               ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][7]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][6]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][5]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][4]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][3]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][2]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cBurstCount[2]                                 ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[1,2,4,6]     ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[0,4..6]   ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][7]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][6]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][5]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][4]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][3]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][2]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][0]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][1]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[7]                                    ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[0]                                  ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[0]                                       ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[3]                                  ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[3]                                       ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[5]                                  ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][6]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][2]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][6]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][1]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][4]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][7]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][4]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][5]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][0]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][6]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][0]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][3]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][1]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][0]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][4]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][5]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][3]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][3]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[3][1]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][5]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][7]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][2]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[2][2]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                             ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[0,3]         ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[5]      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[7]        ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[5]      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][0]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][1] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][6]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][2]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][6]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][1]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][4]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][7]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][4]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][5]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][0]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][6]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][0]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][3]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][1]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][0]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][4]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][5]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][3]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][3]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[3][1]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][5]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][7]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][2]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[2][2]      ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7] ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[2,3]                                  ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cBurstCount[1]                            ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[6]            ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[4]       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[3]            ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[2]       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[3]        ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[2]   ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                                  ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7]      ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[5]            ; Stuck at GND due to stuck port data_in                                                        ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.State.Idle                                       ; Merged with APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.Enable          ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[2..30] ; Lost fanout                                                                                   ;
+; Total Number of Removed Registers = 137                                                ;                                                                                               ;
++----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                                            ;
++-------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; Register name                                                                       ; Reason for Removal        ; Registers Removed due to This Register                                               ;
++-------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[30] ; Lost Fanouts              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[29], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[28], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[27], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[26], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[25], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[24], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[23], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[22], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[21], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[20], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[19], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[18], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[17], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[16], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[15], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[14], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[13], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[12], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[11], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[10], ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[9],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[8],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[7],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[6],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[5],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[4],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[3],  ;
+;                                                                                     ;                           ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[2]   ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[4]                                    ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[4],        ;
+;                                                                                     ; due to stuck port data_in ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[5]          ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[6]                                    ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[6]         ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[2]                                    ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[2]         ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAddr[1]                                    ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cAddr[1]         ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[6]                                 ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[6]      ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[5]                                 ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[5]      ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[4]                                 ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[4]      ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cRegAddr[0]                                 ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cRegAddr[0]      ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][7]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][7]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][6]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][6]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][5]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][5]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][4]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][4]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][3]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][3]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[0][2]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[0][2]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cDataIn[1][7]                               ; Stuck at GND              ; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cDataIn[1][7]    ;
+;                                                                                     ; due to stuck port data_in ;                                                                                      ;
++-------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -355,43 +508,47 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 149   ;
-; Number of registers using Synchronous Clear  ; 52    ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 141   ;
+; Total registers                              ; 159   ;
+; Number of registers using Synchronous Clear  ; 45    ;
+; Number of registers using Synchronous Load   ; 10    ;
+; Number of registers using Asynchronous Clear ; 145   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 78    ;
+; Number of registers using Clock Enable       ; 82    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+----------------------------------------------------------------------------------------------+
-; Inverted Register Statistics                                                                 ;
-+------------------------------------------------------------------------------------+---------+
-; Inverted Register                                                                  ; Fan out ;
-+------------------------------------------------------------------------------------+---------+
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|SCLo      ; 8       ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|SDAo      ; 1       ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|clk_en    ; 20      ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[2] ; 5       ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[1] ; 6       ;
-; APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[0] ; 7       ;
-; Total number of inverted registers = 6                                             ;         ;
-+------------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                                                        ;
++-----------------------------------------------------------------------------------------------------------+---------+
+; Inverted Register                                                                                         ; Fan out ;
++-----------------------------------------------------------------------------------------------------------+---------+
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|SCLo      ; 9       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|SDAo      ; 1       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|clk_en    ; 20      ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:dcnt[2] ; 6       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:dcnt[1] ; 7       ;
+; APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:dcnt[0] ; 8       ;
+; Total number of inverted registers = 6                                                                    ;         ;
++-----------------------------------------------------------------------------------------------------------+---------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                      ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|sr[0]                 ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[4]    ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|cnt[7]    ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|R.I2cAckTimeOutCnt[1]                          ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|\statemachine:dcnt[0] ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1|state     ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|sr[1]                 ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|cnt[4]    ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|cnt[6]    ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstIndex[17]                       ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.I2cBurstCount[1]                        ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|R.DataIn[7]                               ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|\statemachine:dcnt[1] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1|state     ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|Selector0                                                             ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |TbdAPDS9301|APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Selector3                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------------------------------+
@@ -401,7 +558,7 @@ Encoding Type:  One-Hot
 +----------------+------------------+-----------------------------------------+
 ; gClkFrequency  ; 50000000         ; Signed Integer                          ;
 ; gStrobeTime    ; 1000000000000 fs ; Physical                                ;
-; gI2cFrequency  ; 200000           ; Signed Integer                          ;
+; gI2cFrequency  ; 400000           ; Signed Integer                          ;
 ; gSyncStages    ; 2                ; Signed Integer                          ;
 +----------------+------------------+-----------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
@@ -413,7 +570,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name    ; Value    ; Type                            ;
 +-------------------+----------+---------------------------------+
 ; gclkfrequency     ; 50000000 ; Signed Integer                  ;
-; gi2cfrequency     ; 200000   ; Signed Integer                  ;
+; gi2cfrequency     ; 400000   ; Signed Integer                  ;
 ; gsyncstages       ; 2        ; Signed Integer                  ;
 ; gresetislowactive ; 1        ; Signed Integer                  ;
 +-------------------+----------+---------------------------------+
@@ -426,9 +583,32 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name ; Value    ; Type                                                 ;
 +----------------+----------+------------------------------------------------------+
 ; gclkfrequency  ; 50000000 ; Signed Integer                                       ;
-; gi2cfrequency  ; 200000   ; Signed Integer                                       ;
+; gi2cfrequency  ; 400000   ; Signed Integer                                       ;
 ; gfifobytewidth ; 8        ; Signed Integer                                       ;
 +----------------+----------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController ;
++---------------------+----------+-----------------------------------------------------------------------------+
+; Parameter Name      ; Value    ; Type                                                                        ;
++---------------------+----------+-----------------------------------------------------------------------------+
+; gclkfrequency       ; 50000000 ; Signed Integer                                                              ;
+; gi2cfrequency       ; 400000   ; Signed Integer                                                              ;
+; gnumofparallelbytes ; 4        ; Signed Integer                                                              ;
++---------------------+----------+-----------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync ;
++----------------+-------+-----------------------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                                          ;
++----------------+-------+-----------------------------------------------------------------------------------------------+
+; gsyncstages    ; 2     ; Signed Integer                                                                                ;
+; gdatawidth     ; 3     ; Signed Integer                                                                                ;
++----------------+-------+-----------------------------------------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -488,25 +668,44 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1"           ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                             ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; busy ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1" ;
++------+--------+----------+--------------------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                                          ;
++------+--------+----------+--------------------------------------------------------------------------------------------------+
+; busy ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.              ;
++------+--------+----------+--------------------------------------------------------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController" ;
-+---------------+-------+----------+-------------------------------------------------------+
-; Port          ; Type  ; Severity ; Details                                               ;
-+---------------+-------+----------+-------------------------------------------------------+
-; clk_cnt[5..4] ; Input ; Info     ; Stuck at VCC                                          ;
-; clk_cnt[7..6] ; Input ; Info     ; Stuck at GND                                          ;
-; clk_cnt[3..1] ; Input ; Info     ; Stuck at GND                                          ;
-; clk_cnt[0]    ; Input ; Info     ; Stuck at VCC                                          ;
-+---------------+-------+----------+-------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core"         ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; clk_cnt[4..3] ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; clk_cnt[7..5] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; clk_cnt[2..0] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; ack_out       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync"                ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port       ; Type   ; Severity ; Details                                                                             ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; inrstasync ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; ondata     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController"                                ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                             ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; oi2cdata[31..16] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------+
@@ -527,30 +726,33 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 149                         ;
-;     CLR               ; 51                          ;
-;     CLR SCLR          ; 19                          ;
-;     ENA               ; 7                           ;
-;     ENA CLR           ; 38                          ;
-;     ENA CLR SCLR      ; 33                          ;
-;     plain             ; 1                           ;
+; arriav_ff             ; 159                         ;
+;     CLR               ; 53                          ;
+;     CLR SCLR          ; 17                          ;
+;     CLR SLD           ; 1                           ;
+;     ENA CLR           ; 45                          ;
+;     ENA CLR SCLR      ; 28                          ;
+;     ENA CLR SLD       ; 1                           ;
+;     ENA SLD           ; 8                           ;
+;     plain             ; 6                           ;
 ; arriav_io_obuf        ; 36                          ;
-; arriav_lcell_comb     ; 185                         ;
-;     arith             ; 63                          ;
-;         1 data inputs ; 63                          ;
+; arriav_lcell_comb     ; 180                         ;
+;     arith             ; 57                          ;
+;         1 data inputs ; 57                          ;
 ;     extend            ; 2                           ;
 ;         7 data inputs ; 2                           ;
-;     normal            ; 120                         ;
+;     normal            ; 121                         ;
 ;         0 data inputs ; 2                           ;
-;         2 data inputs ; 11                          ;
-;         3 data inputs ; 17                          ;
-;         4 data inputs ; 31                          ;
-;         5 data inputs ; 18                          ;
-;         6 data inputs ; 41                          ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 12                          ;
+;         3 data inputs ; 16                          ;
+;         4 data inputs ; 25                          ;
+;         5 data inputs ; 32                          ;
+;         6 data inputs ; 33                          ;
 ; boundary_port         ; 80                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.09                        ;
+; Average LUT depth     ; 1.90                        ;
 +-----------------------+-----------------------------+
 
 
@@ -569,10 +771,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Mon Dec 10 19:24:48 2018
+    Info: Processing started: Sat Dec 15 21:36:43 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TbdAPDS9301 -c TbdAPDS9301
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/sync/src/sync.vhd
+    Info (12022): Found design unit 1: Sync-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd Line: 29
+    Info (12023): Found entity 1: Sync File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Sync/src/Sync.vhd Line: 13
+Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/i2cunit/src/i2ccontroller.vhd
+    Info (12022): Found design unit 1: I2cController-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2cController.vhd Line: 51
+    Info (12023): Found entity 1: I2cController File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2cController.vhd Line: 15
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/regfile/src/regfile.vhd
     Info (12022): Found design unit 1: RegFile-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 49
     Info (12023): Found entity 1: RegFile File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/RegFile/src/RegFile.vhd Line: 15
@@ -584,17 +792,17 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12023): Found entity 1: StrobeGenAndTimeStamp File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/StrobeGenTimeStamp/src/StrobeGenAndTimeStamp.vhd Line: 15
 Info (12021): Found 5 design units, including 2 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/i2cunit/src/i2c.vhd
     Info (12022): Found design unit 1: I2C File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 18
-    Info (12022): Found design unit 2: simple_i2c-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 80
-    Info (12022): Found design unit 3: i2c_core-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 361
+    Info (12022): Found design unit 2: simple_i2c-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 85
+    Info (12022): Found design unit 3: i2c_core-structural File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 377
     Info (12023): Found entity 1: simple_i2c File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 53
-    Info (12023): Found entity 2: i2c_core File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 342
+    Info (12023): Found entity 2: i2c_core File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 353
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/fifo/src/fifo.vhd
     Info (12022): Found design unit 1: Fifo-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 32
     Info (12023): Found entity 1: Fifo File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 15
 Info (12021): Found 1 design units, including 0 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/pkgglobal/pkgglobal.vhd
     Info (12022): Found design unit 1: pkgGlobal File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/PkgGlobal/pkgGlobal.vhd Line: 13
 Info (12021): Found 2 design units, including 1 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/tbdapds9301.vhd
-    Info (12022): Found design unit 1: TbdAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 43
+    Info (12022): Found design unit 1: TbdAPDS9301-RTL File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
     Info (12023): Found entity 1: TbdAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 15
 Info (12021): Found 1 design units, including 0 entities, in source file /users/elias/desktop/esd fh/ssl_repo/ssl_hardware/apds9301/src/pkgapds9301.vhd
     Info (12022): Found design unit 1: pkgAPDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/pkgAPDS9301.vhd Line: 13
@@ -602,113 +810,116 @@ Info (12021): Found 2 design units, including 1 entities, in source file /users/
     Info (12022): Found design unit 1: APDS9301-Rtl File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 47
     Info (12023): Found entity 1: APDS9301 File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 15
 Info (12127): Elaborating entity "TbdAPDS9301" for the top level hierarchy
-Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(34): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(35): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(36): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(37): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-Warning (10036): Verilog HDL or VHDL warning at TbdAPDS9301.vhd(47): object "oAvalonReadData" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 47
-Info (12128): Elaborating entity "APDS9301" for hierarchy "APDS9301:APDS9301" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 61
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(30): used implicit default value for signal "HEX0" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(31): used implicit default value for signal "HEX1" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(32): used implicit default value for signal "HEX2" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+Warning (10541): VHDL Signal Declaration warning at TbdAPDS9301.vhd(33): used implicit default value for signal "HEX3" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+Warning (10036): Verilog HDL or VHDL warning at TbdAPDS9301.vhd(43): object "oAvalonReadData" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 43
+Info (12128): Elaborating entity "APDS9301" for hierarchy "APDS9301:APDS9301" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 57
 Warning (10541): VHDL Signal Declaration warning at APDS9301.vhd(51): used implicit default value for signal "RegDataConfig" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 51
 Warning (10541): VHDL Signal Declaration warning at APDS9301.vhd(52): used implicit default value for signal "WriteConfigReg" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 52
 Info (12129): Elaborating entity "FsmdAPDS9301" using architecture "A:rtl" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 71
-Info (12128): Elaborating entity "simple_i2c" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd Line: 459
-Warning (10036): Verilog HDL or VHDL warning at I2C.VHD(109): object "core_busy" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 109
-Info (12128): Elaborating entity "i2c_core" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|simple_i2c:I2cController|i2c_core:u1" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 119
+Info (12128): Elaborating entity "I2cController" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/FSMDAPDS9301.vhd Line: 207
+Info (12128): Elaborating entity "Sync" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|Sync:Sync" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2cController.vhd Line: 131
+Info (12128): Elaborating entity "simple_i2c" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2cController.vhd Line: 332
+Warning (10036): Verilog HDL or VHDL warning at I2C.VHD(120): object "core_busy" assigned a value but never read File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 120
+Info (12128): Elaborating entity "i2c_core" for hierarchy "APDS9301:APDS9301|FsmdAPDS9301:FSMD|I2cController:I2cController|simple_i2c:i2c_core|i2c_core:u1" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/I2cUnit/src/I2C.VHD Line: 130
 Info (12128): Elaborating entity "Fifo" for hierarchy "APDS9301:APDS9301|Fifo:Fifo" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 91
 Warning (10492): VHDL Process Statement warning at Fifo.vhd(88): signal "Read" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 88
 Warning (10492): VHDL Process Statement warning at Fifo.vhd(88): signal "Write" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/Fifo/src/Fifo.vhd Line: 88
 Info (12128): Elaborating entity "RegFile" for hierarchy "APDS9301:APDS9301|RegFile:RegFile" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/APDS9301.vhd Line: 105
-Info (12128): Elaborating entity "StrobeGenAndTimeStamp" for hierarchy "StrobeGenAndTimeStamp:StrobeTimeStamp" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 85
+Info (12128): Elaborating entity "StrobeGenAndTimeStamp" for hierarchy "StrobeGenAndTimeStamp:StrobeTimeStamp" File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 81
 Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[13]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[16]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[17]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[18]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[19]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[20]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[21]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[22]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[23]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[24]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[25]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[26]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[29]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[30]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[34]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
-    Warning (13040): bidirectional pin "GPIO_1[35]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[13]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[16]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[17]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[18]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[19]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[20]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[21]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[22]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[23]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[24]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[25]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[26]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[29]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[30]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[34]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
+    Warning (13040): bidirectional pin "GPIO_1[35]" has no driver File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 27
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
-    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
-    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 36
-    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 37
-    Warning (13410): Pin "HEX4[0]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[1]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[3]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[4]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[5]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX4[6]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 38
-    Warning (13410): Pin "HEX5[0]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[1]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[2]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[3]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
-    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 39
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 30
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 31
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 32
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 33
+    Warning (13410): Pin "HEX4[0]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[1]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[3]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[4]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[5]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX4[6]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 34
+    Warning (13410): Pin "HEX5[0]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[1]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[2]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[3]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
+    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: C:/Users/Elias/Desktop/ESD FH/SSL_repo/ssl_hardware/APDS9301/src/TbdAPDS9301.vhd Line: 35
 Info (286030): Timing-Driven Synthesis is running
+Info (17049): 29 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 289 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 295 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 42 output pins
     Info (21060): Implemented 36 bidirectional pins
-    Info (21061): Implemented 209 logic cells
+    Info (21061): Implemented 215 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 89 warnings
-    Info: Peak virtual memory: 4875 megabytes
-    Info: Processing ended: Mon Dec 10 19:25:05 2018
+    Info: Peak virtual memory: 4873 megabytes
+    Info: Processing ended: Sat Dec 15 21:37:00 2018
     Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:35
+    Info: Total CPU time (on all processors): 00:00:39
 
 

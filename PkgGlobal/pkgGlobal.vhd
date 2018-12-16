@@ -30,5 +30,7 @@ constant cTimeStampWidth	: natural := 32;
 -- i2c constants
 constant cI2cWrite	: std_ulogic	:= '0';
 constant cI2cRead	: std_ulogic	:= '1';
+
+subtype tByte is std_ulogic_vector(7 downto 0);
 		
 end package pkgGlobal;

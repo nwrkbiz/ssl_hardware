@@ -87,26 +87,38 @@ package pkgMPU9250 is
 	constant cDefaultI2cReadFreqNat	: natural := 1;
 	constant cDefaultI2cReadFreq	: std_ulogic_vector(15 downto 0) := std_ulogic_vector(to_unsigned(cDefaultI2cReadFreqNat,16));
 	
-	-- i2c constants for MPU9250
-	constant cI2cAddrMPU9250				: std_ulogic_vector(6 downto 0)	:= b"110_1000";
+	-- i2c address of MPU9250
+	constant cI2cAddrMPU9250				: std_ulogic_vector(6 downto 0)	:= b"110_1000";	
+	-- i2c address of AK8963
+	constant cI2cAddrAK8963					: std_ulogic_vector(6 downto 0)	:= b"000_1100";
 	
-	-- this is the address of the control register to enable bypass mode (to access the AK8963 chip directly)
-	constant cI2cRegAddrBypassControl		: std_ulogic_vector(7 downto 0)	:= x"37";
-	constant cI2cRegDataBypassControl		: std_ulogic_vector(7 downto 0)	:= x"02";
+	type tI2cRegPacket is record
+		I2cAddr		: std_ulogic_vector(6 downto 0);
+		I2cRegAddr	: std_ulogic_vector(7 downto 0);
+		I2cRegData	: std_ulogic_vector(7 downto 0);
+	end record;
+	
+	constant cI2cRegsToConfigure : natural := 5;
+	type tI2cConfig is array (0 to cI2cRegsToConfigure-1) of tI2cRegPacket;
+	
+	constant cI2cConfig	: tI2cConfig := (
+		-- mpu
+		0 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"6A", I2cRegData => x"01"),   	-- reset digital path and sensor regs 
+		1 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1B", I2cRegData => x"11"),   	-- gyro full scale: +1000dps          
+		2 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1A", I2cRegData => x"18"),   	-- accel full scale: +-8g             
+		3 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"37", I2cRegData => x"02"),   	-- enable bypass mode      
+		
+		-- ak
+		4 => (I2cAddr => cI2cAddrAK8963 , I2cRegAddr => x"0A", I2cRegData => x"12")    -- enable continous read mode (100Hz) and set bit resolution to 16 bit                                 
+	);                                                                                                                       	
+	
 	-- this is the address of the accelerometer data will be read (6 byte read)
 	constant cI2cRegAddrAccel_Xout_H		: std_ulogic_vector(7 downto 0)	:= x"3B";
 	-- this is the address of the gyroscope data will be read (6 byte read)
 	constant cI2cRegAddrGyroscope_Xout_H	: std_ulogic_vector(7 downto 0)	:= x"43";
 	
-	
-	
-	-- i2c constants for AK8963
-	constant cI2cAddrAK8963					: std_ulogic_vector(6 downto 0)	:= b"000_1100";
-	
 	-- this is the address of the magnetometer data will be read (6 byte read)
 	constant cI2cRegAddrMagnetometer_Xout_L	: std_ulogic_vector(7 downto 0)	:= x"03";
-	constant cI2cRegAddrControl1			: std_ulogic_vector(7 downto 0)	:= x"0A";
-	constant cI2cRegDataControl1			: std_ulogic_vector(7 downto 0)	:= x"16"; -- enable continous read mode (100Hz) and set bit resolution to 16 bit
 
 	
 end package pkgMPU9250;

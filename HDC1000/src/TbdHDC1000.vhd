@@ -23,24 +23,11 @@ entity TbdHDC1000 is
 		iClk		: in std_ulogic;
 		inRstAsync	: in std_ulogic;
 		
-		-- i2c interface
-		--ioSDA		: inout std_ulogic;
-		--ioSCL		: inout std_ulogic;
-		
-		-- nDataRdy
-		--inDataReady	: in std_ulogic;
-		
-		-- debug LEDs
-		LEDR		: out 	std_ulogic_vector(9 downto 0);
-		GPIO_0		: inout std_ulogic_vector(35 downto 0);
 		GPIO_1		: inout std_ulogic_vector(35 downto 0)
 	);
 end entity TbdHDC1000;
 
 architecture RTL of TbdHDC1000 is
-	
-	constant cClkPeriod 	: time	  	:= 1 sec/gClkFrequency;
-	constant cClkDiv		: natural	:= gStrobeTime/cClkPeriod;
 	
 	signal iAvalonAddr : std_ulogic_vector(cAvalonAddrWidth-1 downto 0);
 	signal iAvalonRead : std_ulogic;
@@ -53,9 +40,6 @@ architecture RTL of TbdHDC1000 is
 	signal GPIO : std_ulogic_vector(5 downto 0);
 	
 begin
-	
-	-- gpio interconnect
-	nDataReady <= GPIO_1(4);
 	
 	-- avalon inactive
 	iAvalonAddr 	 <= (others => '0');
@@ -74,7 +58,6 @@ begin
 			inRstAsync       => inRstAsync,
 			ioSCL            => GPIO_1(3),
 			ioSDA            => GPIO_1(5),
-			inDataReady      => nDataReady,
 			iStrobe 		 => Strobe,
 			iTimeStamp 		 => TimeStamp,
 			iAvalonAddr      => iAvalonAddr,
