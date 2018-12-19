@@ -32,7 +32,7 @@ end entity Fifo;
 architecture RTL of Fifo is
 	
 	type tFifo is array (0 to gFifoStages-1) of std_ulogic_vector(gFifoWidth-1 downto 0);
-	signal Fifo : tFifo := (others => (others => '0'));
+	signal Fifo : tFifo := (others => (others => '1'));
 	
 	signal Read		: natural range 0 to gFifoStages-1;
 	signal Write	: natural range 0 to gFifoStages-1;
@@ -48,8 +48,18 @@ begin
 			
 		elsif rising_edge(iClk) then
 			
-			-- read
-			oFifoData <= Fifo(Read);
+			-- read data
+			if Read = Write then -- if empty
+				-- read last valid data
+				if Read = 0 then
+					oFifoData <= Fifo(gFifoStages-1);
+				else
+					oFifoData <= Fifo(Read-1);
+				end if;
+			else	
+				-- else normal read
+				oFifoData <= Fifo(Read);
+			end if;
 			
 			-- write access
 			if iFifoWrite = cActivated then
@@ -82,15 +92,14 @@ begin
 				end if;
 			end if;
 			
-		end if;
-		
-		-- Read = Write means empty
-		if Read = Write then
-			oFifoNotEmpty <= '0';
-		else
-			oFifoNotEmpty <= '1';
-		end if;
-		
+			-- Read = Write means empty
+			if Read = Write then
+				oFifoNotEmpty <= '0';
+			else
+				oFifoNotEmpty <= '1';
+			end if;
+			
+		end if;		
 	end process;
 
 end architecture RTL;

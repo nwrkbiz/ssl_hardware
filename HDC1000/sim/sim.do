@@ -12,6 +12,7 @@ vcom -reportprogress 300 -work work {../../Sync/src/Sync.vhd}
 vcom -reportprogress 300 -work work {../../I2cUnit/src/I2cController.vhd}
 vcom -reportprogress 300 -work work {../../HDC1000/src/FSMDHDC1000.vhd}
 vcom -reportprogress 300 -work work {../../HDC1000/src/HDC1000.vhd}
+vcom -reportprogress 300 -work work {../../AvalonMaster/AvalonMaster.vhd}
 vcom -reportprogress 300 -work work {../../HDC1000/src/TbHDC1000.vhd}
 
 vsim work.tbhdc1000

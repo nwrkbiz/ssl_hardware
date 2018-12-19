@@ -15,8 +15,15 @@ add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/ioSCL
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/ioSDA
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/R
 add wave -noupdate /tbhdc1000/UUT/FSMD/I2cController/NxR
+add wave -noupdate -divider Avalon
+add wave -noupdate /tbhdc1000/iAvalonAddr
+add wave -noupdate /tbhdc1000/iAvalonRead
+add wave -noupdate /tbhdc1000/oAvalonReadData
+add wave -noupdate /tbhdc1000/AvalonMaster/R
+add wave -noupdate /tbhdc1000/AvalonMaster/NxR
+add wave -noupdate /tbhdc1000/AvalonMaster/cCountMax
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {434615312 ps} 0}
+WaveRestoreCursors {{Cursor 1} {276664 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 206
 configure wave -valuecolwidth 100
@@ -32,4 +39,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {3472487644 ps}
+WaveRestoreZoom {0 ps} {319510 ps}

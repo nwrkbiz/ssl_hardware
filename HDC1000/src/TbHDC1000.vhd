@@ -10,6 +10,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.pkgGlobal.all;
+use work.pkgHDC1000.all;
 
 entity TbHDC1000 is
 end entity TbHDC1000;
@@ -42,12 +43,6 @@ begin
 	
 	iClk <= not(iClk) after cClkPeriod/2;
 	inRstAsync <= not('0') after 100 ns;
-	
-	-- avalon inactive
-	iAvalonAddr 	 <= (others => '0');
-	iAvalonRead 	 <= '0';
-	iAvalonWrite 	 <= '0';
-	iAvalonWriteData <= (others => '0');
 
 	UUT: entity work.HDC1000
 		generic map(
@@ -98,5 +93,24 @@ begin
 			clk              => iClk,
 			rst              => iRstAsync,
 			data_to_master   => "H0H0H00H"
+		);
+		
+		
+	AvalonMaster: entity work.AvalonMaster
+		generic map(
+			gClkFrequency         => gClkFrequency,
+			gAddrChangeFreq       => 100_000, -- Hz
+			gNumOfAvalonAddresses => cRegFileNumberOfBytes,
+			gAvalonAddrWidth      => cAvalonAddrWidth,
+			gAvalonDataWidth      => cAvalonDataWidth
+		)
+		port map(
+			iClk             => iClk,
+			inRstAsync       => inRstAsync,
+			oAvalonAddr      => iAvalonAddr,
+			oAvalonWriteData => iAvalonWriteData,
+			iAvalonReadData  => oAvalonReadData,
+			oAvalonRead      => iAvalonRead,
+			oAvalonWrite     => iAvalonWrite
 		);
 end architecture Bhv;

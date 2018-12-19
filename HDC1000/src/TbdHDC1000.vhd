@@ -11,6 +11,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.pkgGlobal.all;
+use work.pkgHDC1000.all;
 
 entity TbdHDC1000 is
 	generic(
@@ -23,7 +24,8 @@ entity TbdHDC1000 is
 		iClk		: in std_ulogic;
 		inRstAsync	: in std_ulogic;
 		
-		GPIO_1		: inout std_ulogic_vector(35 downto 0)
+		GPIO_1		: inout std_ulogic_vector(35 downto 0);
+		GPIO_0		: inout std_ulogic_vector(35 downto 0)
 	);
 end entity TbdHDC1000;
 
@@ -40,12 +42,6 @@ architecture RTL of TbdHDC1000 is
 	signal GPIO : std_ulogic_vector(5 downto 0);
 	
 begin
-	
-	-- avalon inactive
-	iAvalonAddr 	 <= (others => '0');
-	iAvalonRead 	 <= '0';
-	iAvalonWrite 	 <= '0';
-	iAvalonWriteData <= (others => '0');
 	
 	HDC1000: entity work.HDC1000
 		generic map(
@@ -80,5 +76,29 @@ begin
 			oStrobe    => Strobe,
 			oTimeStamp => TimeStamp
 		);
+		
+		
+	AvalonMaster: entity work.AvalonMaster
+		generic map(
+			gClkFrequency         => gClkFrequency,
+			gAddrChangeFreq       => 600,	-- 12*50  => 50=temp read freq; 12=avalon addresses to read
+			gNumOfAvalonAddresses => cRegFileNumberOfBytes,
+			gAvalonAddrWidth      => cAvalonAddrWidth,
+			gAvalonDataWidth      => cAvalonDataWidth
+		)
+		port map(
+			iClk             => iClk,
+			inRstAsync       => inRstAsync,
+			oAvalonAddr      => iAvalonAddr,
+			oAvalonWriteData => iAvalonWriteData,
+			iAvalonReadData  => oAvalonReadData,
+			oAvalonRead      => iAvalonRead,
+			oAvalonWrite     => iAvalonWrite
+		);
+		
+		
+	GPIO_0(4 downto 0) 	<= iAvalonAddr(4 downto 0);
+	GPIO_0(5) 			<= iAvalonRead;
+	GPIO_0(13 downto 6) <= oAvalonReadData;
 
 end architecture RTL;

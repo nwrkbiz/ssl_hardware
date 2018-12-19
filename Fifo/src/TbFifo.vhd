@@ -54,7 +54,7 @@ begin
 		wait until inRstAsync = not('0');
 		
 		-- provide some data 
-		iFifoData <= x"F";
+		iFifoData <= x"C";
 		iFifoWrite <= cActivated;
 		wait for 2*cClkPeriod;
 		
