@@ -63,9 +63,25 @@ begin
 			
 			-- write access
 			if iFifoWrite = cActivated then
-				-- discard new data if fifo is full
+				-- overwrite data if fifo is full
 				if  (Write+1 = Read) or							-- write stand one before read
 					(Write = gFifoStages-1 and Read = 0) then	-- write stand one before read but over the edge of the ringbuffer
+					
+					Fifo(Write) <= iFifoData;
+					-- change write address
+					if Write + 1 < gFifoStages then
+						Write <= Write + 1;
+					else
+						Write <= Write + 1 - gFifoStages;
+					end if;
+					
+					-- change read address
+					if Read + 1 < gFifoStages then
+						Read <= Read + 1;
+					else
+						Read <= Read + 1 - gFifoStages;
+					end if;
+					
 				else
 					
 					Fifo(Write) <= iFifoData;
@@ -79,7 +95,7 @@ begin
 				end if;
 			end if;
 			
-			if iFifoShift = cActivated then
+			if iFifoShift = cActivated then 
 				
 				-- Read = Write means empty fifo
 				if Read /= Write then
