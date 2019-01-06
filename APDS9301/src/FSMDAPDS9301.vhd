@@ -48,7 +48,7 @@ architecture RTL of FsmdAPDS9301 is
 	constant cI2cMaxBurst	: natural := 4;
 	type tI2cData is array (0 to cI2cMaxBurst-1) of std_ulogic_vector(7 downto 0);	
 		
-	type tState is (Idle, ConfigControlReg, WaitForI2cTransfer, WriteDataToFifo,
+	type tState is (Idle, ConfigControlReg, ConfigTimingReg, WaitForI2cTransfer, WriteDataToFifo,
 					ReadData_CH0, SaveData_CH0, ReadData_CH1, SaveData_CH1
 					);
 	
@@ -138,6 +138,17 @@ begin
 				NxR.I2cAddr 		<= cI2cAddr;
 				NxR.I2cRegAddr		<= cI2cRegAddrControl;
 				NxR.I2cDataIn(0)	<= cI2cRegControlData;
+				NxR.I2cBurstCount 	<= 1; --write 1 byte
+				NxR.I2cWrite		<= '1';
+				if I2cTransferDone = '1' then
+					NxR.I2cWrite	<= '0';
+					NxR.State		<= ConfigTimingReg;
+				end if;
+				
+			when ConfigTimingReg =>
+				NxR.I2cAddr 		<= cI2cAddr;
+				NxR.I2cRegAddr		<= cI2cRegAddrTiming;
+				NxR.I2cDataIn(0)	<= cI2cRegDataTiming;
 				NxR.I2cBurstCount 	<= 1; --write 1 byte
 				NxR.I2cWrite		<= '1';
 				if I2cTransferDone = '1' then
