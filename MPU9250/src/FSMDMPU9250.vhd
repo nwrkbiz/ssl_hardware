@@ -27,12 +27,30 @@ entity FsmdMPU9250 is
 		ioSCL		: inout	std_logic;
 		ioSDA		: inout std_logic;
 		
-		-- fifo
+		-- streaming fifo
 		oFifoData	: out std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 		oFifoWrite	: out std_ulogic;
 		
+		-- event fifos
+		-- 256
+		oFifoData256	: out std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
+		oFifoWrite256	: out std_ulogic;
+		iFifoFull256	: in  std_ulogic;
+		iFifoEmpty256	: in  std_ulogic;
+		-- 768
+		oFifoData768	: out std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
+		oFifoWrite768	: out std_ulogic;
+		iFifoFull768	: in  std_ulogic;
+		iFifoEmpty768	: in  std_ulogic;
+		
+		-- event mode interrrupt
+		oEventOccured	: out std_ulogic;
+		
 		-- regfile interface
-		iRegDataFrequency	: in std_ulogic_vector(15 downto 0);
+		iRegFileData		: in std_ulogic_vector(cRegFileNumberOfBytes*8-1 downto 0);
+		
+		-- mode selection
+		iStreamingModeActive	: in std_ulogic;
 		
 		-- strobe and timestamp
 		iStrobe		: in std_ulogic;
@@ -47,8 +65,11 @@ architecture RTL of FsmdMPU9250 is
 		
 	type tState is (Idle, WaitForI2cTransfer, Config, 
 					ReadDataAcc, SaveDataAcc, ReadDataGyro, SaveDataGyro, ReadDataMagnet, SaveDataMagnet,
-					WriteDataToFifo
+					ModeSelection, EventMode
 					);
+					
+	
+	type tEventModeState is (Idle, FillFifo256, CompareValues, HitDetected, Fifo768Full, WaitUntilDataIsRead);
 	
 	type tData is record
 		State 		: tState;
@@ -65,6 +86,16 @@ architecture RTL of FsmdMPU9250 is
 		
 		FifoData	: std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
 		FifoWrite	: std_ulogic;
+		
+		FifoData256		: std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
+		FifoWrite256	: std_ulogic;
+		
+		FifoData768		: std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
+		FifoWrite768	: std_ulogic;
+		
+		EventModeState	: tEventModeState;
+		EventModeCount	: natural range 0 to cEventModeFreq-1;
+		EventInterrupt	: std_ulogic;
 	end record tData;
 	
 	constant cDefaultData : tData := (
@@ -81,7 +112,17 @@ architecture RTL of FsmdMPU9250 is
 		I2cConfigCount	=> 0,
 		
 		FifoData	=> (others => '0'),
-		FifoWrite	=> '0'
+		FifoWrite	=> '0',
+		
+		FifoData256		=> (others => '0'),
+		FifoWrite256	=> '0',
+		
+		FifoData768		=> (others => '0'),
+		FifoWrite768	=> '0',
+		
+		EventModeState  => Idle,
+		EventModeCount	=> 0,
+		EventInterrupt	=> '0'
 	);
 	
 	signal R,NxR	: tData;
@@ -89,7 +130,35 @@ architecture RTL of FsmdMPU9250 is
 	signal I2cDataInVec, I2cDataOutVec	: std_ulogic_vector(cI2cMaxBurst*8-1 downto 0);
 	signal I2cTransferDone : std_ulogic;
 	
+	signal RegDataFrequency : std_ulogic_vector(15 downto 0);
+	signal XToleranceTop	: unsigned(15 downto 0);
+	signal XToleranceBottom	: unsigned(15 downto 0);
+	signal YToleranceTop	: unsigned(15 downto 0);
+	signal YToleranceBottom	: unsigned(15 downto 0);
+	signal ZToleranceTop	: unsigned(15 downto 0);
+	signal ZToleranceBottom	: unsigned(15 downto 0);
+	
 begin
+	
+	-- reg file connections
+	RegDataFrequency(15 downto 8)	<= iRegFileData(cRegAddrFrequenzy_H*8+7 downto cRegAddrFrequenzy_H*8);
+	RegDataFrequency(7  downto 0)	<= iRegFileData(cRegAddrFrequenzy_L*8+7 downto cRegAddrFrequenzy_L*8);
+	
+	-- x
+	XToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_X_Top_H*8+7 downto cRegAddrTolerance_X_Top_H*8));
+	XToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_X_Top_L*8+7 downto cRegAddrTolerance_X_Top_L*8));
+	XToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_X_Bot_H*8+7 downto cRegAddrTolerance_X_Bot_H*8));
+	XToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_X_Bot_L*8+7 downto cRegAddrTolerance_X_Bot_L*8));
+	--y
+	YToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_Y_Top_H*8+7 downto cRegAddrTolerance_Y_Top_H*8));
+	YToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_Y_Top_L*8+7 downto cRegAddrTolerance_Y_Top_L*8));
+	YToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_Y_Bot_H*8+7 downto cRegAddrTolerance_Y_Bot_H*8));
+	YToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_Y_Bot_L*8+7 downto cRegAddrTolerance_Y_Bot_L*8));
+	-- z
+	ZToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_Z_Top_H*8+7 downto cRegAddrTolerance_Z_Top_H*8));
+	ZToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_Z_Top_L*8+7 downto cRegAddrTolerance_Z_Top_L*8));
+	ZToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_Z_Bot_H*8+7 downto cRegAddrTolerance_Z_Bot_H*8));
+	ZToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_Z_Bot_L*8+7 downto cRegAddrTolerance_Z_Bot_L*8));
 	
 	Reg: process (iClk, inRstAsync) is
 	begin
@@ -102,14 +171,20 @@ begin
 	end process;
 	
 	FSMD: process (
-		R, iRegDataFrequency, iStrobe, iTimeStamp, I2cTransferDone, I2cDataOutVec
+		R, RegDataFrequency, iStrobe, iTimeStamp, I2cTransferDone, I2cDataOutVec, 
+		iFifoFull256, iFifoEmpty256, iFifoEmpty768, iFifoFull768, iStreamingModeActive, 
+		XToleranceBottom, XToleranceTop, YToleranceBottom, YToleranceTop, ZToleranceBottom, ZToleranceTop
 	) is	
+		variable AccX, AccY, AccZ : unsigned(15 downto 0);
 	begin
 		-- defaults
 		NxR <= R;
 		NxR.I2cRead		<= '0';
 		NxR.I2cWrite	<= '0';
 		NxR.FifoWrite	<= '0';
+		NxR.FifoWrite256 <= '0';
+		NxR.FifoWrite768 <= '0';
+		NxR.EventInterrupt <= '0';
 		
 		
 		-- freq count logic
@@ -117,7 +192,7 @@ begin
 		if iStrobe = '1' then
 			if R.FreqCount = 0 then
 				-- reset count and set i2c transfer
-				NxR.FreqCount <= to_integer(unsigned(iRegDataFrequency))-1;
+				NxR.FreqCount <= to_integer(unsigned(RegDataFrequency))-1;
 				NxR.ReadI2cData <= '1';
 			else
 				NxR.FreqCount <= R.FreqCount - 1;
@@ -211,16 +286,88 @@ begin
 				-- save time stamp
 				NxR.FifoData(tFifoRangeTimeStamp)	<= iTimeStamp;
 				
+				-- if magneotmeter sends always zeros -> reset the whole fsm to do config again
 				if I2cDataOutVec = (I2cDataOutVec'range => '0') then
 					NxR.State <= Config;
 				else
-					NxR.State		<= WriteDataToFifo;	
+					NxR.State		<= ModeSelection;	
 				end if;
 				
-			when WriteDataToFifo =>
-				NxR.FifoWrite 	<= '1';
-				NxR.State		<= WaitForI2cTransfer;
-			
+			when ModeSelection =>
+				-- decide if streaming mode or event mode is active
+				if iStreamingModeActive = '1' then
+					-- write data to fifo and go back to reading state
+					NxR.FifoWrite 	<= '1';
+					NxR.State		<= WaitForI2cTransfer;
+				else
+					NxR.State		<= EventMode;
+					NxR.EventModeCount <= 0;
+				end if;
+				
+			when EventMode =>
+				
+				-- data should be always provided with 2Hz (to the streaming fifo)
+				if R.EventModeCount = cEventModeFreq-1 then
+					NxR.FifoWrite 	<= '1';
+					NxR.EventModeCount <= 0;
+				else
+					NxR.EventModeCount <= R.EventModeCount+1;
+				end if;
+				
+				-- after event mode was handled -> wait for next data 
+				NxR.State <= WaitForI2cTransfer;
+				
+				-- get accelerometer x,y,z values into variables
+				AccX := unsigned(R.FifoData(tFifoRangeAccelerometer_X_H) & R.FifoData(tFifoRangeAccelerometer_X_L));
+				AccY := unsigned(R.FifoData(tFifoRangeAccelerometer_Y_H) & R.FifoData(tFifoRangeAccelerometer_Y_L));
+				AccZ := unsigned(R.FifoData(tFifoRangeAccelerometer_Z_H) & R.FifoData(tFifoRangeAccelerometer_Z_L));
+							
+				-- event mode
+				case (R.EventModeState) is
+					
+					when Idle =>
+						NxR.EventModeState <= FillFifo256;
+						
+					-- if fifo256 is empty -> wait until its full
+					when FillFifo256 =>
+						NxR.FifoData256 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
+						NxR.FifoWrite256	<= '1';
+						
+						if iFifoFull256 = '1' then
+							NxR.EventModeState <= CompareValues;
+						end if;
+					
+					-- now values can be compared with tolearances - new data will still be written to fifo 256
+					when CompareValues =>
+						NxR.FifoData256 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
+						NxR.FifoWrite256	<= '1';
+						
+						if (AccX > XToleranceTop or AccX < XToleranceBottom or
+							AccY > YToleranceTop or AccY < YToleranceBottom or
+							AccZ > ZToleranceTop or AccZ < ZToleranceBottom ) then
+							NxR.EventModeState <= HitDetected;
+						end if;
+						
+					-- now fill fifo 768 
+					when HitDetected =>
+						NxR.FifoData768 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 768
+						NxR.FifoWrite768	<= '1';
+						
+						if iFifoFull768 = '1' then
+							NxR.EventModeState <= Fifo768Full;
+						end if;
+						
+					-- 1024 values are there to read -> assert interrupt
+					when Fifo768Full =>
+						NxR.EventInterrupt <= '1';
+						NxR.EventModeState <= WaitUntilDataIsRead;
+						
+					when WaitUntilDataIsRead =>
+						if iFifoEmpty256 = '1' and iFifoEmpty768 = '1' then
+							NxR.EventModeState <= Idle;
+						end if;					
+						
+				end case;			
 		end case;
 		
 	
@@ -229,6 +376,13 @@ begin
 	-- outputs
 	oFifoData 	<= R.FifoData;
 	oFifoWrite	<= R.FifoWrite;
+	
+	oFifoData256 	<= R.FifoData256;
+	oFifoWrite256 	<= R.FifoWrite256;
+	oFifoData768 	<= R.FifoData768;
+	oFifoWrite768 	<= R.FifoWrite768;
+	
+	oEventOccured	<= R.EventInterrupt;
 	
 	
 	I2cController: entity work.I2cController

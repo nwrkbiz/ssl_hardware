@@ -25,7 +25,8 @@ entity Fifo is
 		oFifoData		: out std_ulogic_vector(gFifoWidth-1 downto 0);
 		iFifoShift		: in  std_ulogic;
 		iFifoWrite		: in  std_ulogic;
-		oFifoNotEmpty	: out std_ulogic
+		oFifoEmpty		: out std_ulogic;
+		oFifoFull		: out std_ulogic
 	);
 end entity Fifo;
 
@@ -45,6 +46,9 @@ begin
 		if inRstAsync = cnActivated then
 			Read 	<= 0;
 			Write 	<= 0;
+			
+			oFifoEmpty 	<= '0';
+			oFifoFull  	<= '0';
 			
 		elsif rising_edge(iClk) then
 			
@@ -110,9 +114,17 @@ begin
 			
 			-- Read = Write means empty
 			if Read = Write then
-				oFifoNotEmpty <= '0';
+				oFifoEmpty <= '1';
 			else
-				oFifoNotEmpty <= '1';
+				oFifoEmpty <= '0';
+			end if;
+			
+			-- if fifo is full
+			if  (Write+1 = Read) or							-- write stand one before read
+				(Write = gFifoStages-1 and Read = 0) then	-- write stand one before read but over the edge of the ringbuffer
+				oFifoFull <= '1';
+			else
+				oFifoFull <= '0';
 			end if;
 			
 		end if;		

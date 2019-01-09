@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 package pkgMPU9250 is
 	
 	-- register file address constants
-	constant cRegFileNumberOfBytes			: natural := 37;
+	constant cRegFileNumberOfBytes			: natural := 47;
 	constant cRegAddrAccelerometer_X_L 		: natural := 0;
 	constant cRegAddrAccelerometer_X_H 		: natural := 1;
 	constant cRegAddrAccelerometer_Y_L 		: natural := 2;
@@ -51,6 +51,16 @@ package pkgMPU9250 is
 	constant cRegAddrTolerance_Z_Top_H		: natural := 34;
 	constant cRegAddrTolerance_Z_Bot_L		: natural := 35;
 	constant cRegAddrTolerance_Z_Bot_H		: natural := 36;
+	constant cRegAddrEvent_Acc_X_L			: natural := 37;
+	constant cRegAddrEvent_Acc_X_H			: natural := 38;
+	constant cRegAddrEvent_Acc_Y_L			: natural := 39;
+	constant cRegAddrEvent_Acc_Y_H			: natural := 40;
+	constant cRegAddrEvent_Acc_Z_L			: natural := 41;
+	constant cRegAddrEvent_Acc_Z_H			: natural := 42;
+	constant cRegAddrEvent_TimeStamp_0		: natural := 43;
+	constant cRegAddrEvent_TimeStamp_1		: natural := 44;
+	constant cRegAddrEvent_TimeStamp_2		: natural := 45;
+	constant cRegAddrEvent_TimeStamp_3		: natural := 46;
 	
 	
 	-- fifo width
@@ -104,8 +114,8 @@ package pkgMPU9250 is
 	constant cI2cConfig	: tI2cConfig := (
 		-- mpu
 		0 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"6A", I2cRegData => x"01"),   	-- reset digital path and sensor regs 
-		1 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1B", I2cRegData => x"11"),   	-- gyro full scale: +1000dps          
-		2 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1A", I2cRegData => x"18"),   	-- accel full scale: +-8g             
+		1 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1B", I2cRegData => x"08"),   	-- gyro full scale: +1000dps          
+		2 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"1C", I2cRegData => x"08"),   	-- accel full scale: +-8g             
 		3 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"37", I2cRegData => x"02"),   	-- enable bypass mode      
 		
 		-- ak
@@ -119,6 +129,11 @@ package pkgMPU9250 is
 	
 	-- this is the address of the magnetometer data will be read (6 byte read)
 	constant cI2cRegAddrMagnetometer_Xout_L	: std_ulogic_vector(7 downto 0)	:= x"03";
+	
+	
+	-- event mode
+	constant cEventModeFifoBytes	: natural := 10; -- 6 byte accelerometer values + 4 byte timestamp
+	constant cEventModeFreq	: natural	:= 500; -- event mode offers 500 times less data than streaming mode
 
 	
 end package pkgMPU9250;
