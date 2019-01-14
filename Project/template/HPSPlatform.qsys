@@ -217,6 +217,14 @@
          type = "String";
       }
    }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element MPU9250_0
    {
       datum _sortIndex
@@ -352,6 +360,7 @@
    type="conduit"
    dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface name="mpu" internal="MPU9250_0.conduit_end" type="conduit" dir="end" />
  <interface name="mpu9250" internal="MPU9250_0.i2c" type="conduit" dir="end" />
  <interface
    name="mpu9250_timing_in"

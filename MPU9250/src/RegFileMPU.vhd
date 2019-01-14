@@ -141,13 +141,13 @@ begin
 			-- event mode: get fifo data into reg file
 			-- first provide data from fifo 256
 			if iFifoEmpty256 = '0' then
-				for i in 0 to gFifoByteWidth-1 loop
+				for i in 0 to cEventModeFifoBytes-1 loop
 					RegFile(cRegAddrEvent_Acc_X_L + i) <= iFifoData256(7+8*i downto 0+8*i);
 				end loop;
 				
 			-- if the fifo 256 is empty -> read the fifo 768
 			else
-				for i in 0 to gFifoByteWidth-1 loop
+				for i in 0 to cEventModeFifoBytes-1 loop
 					RegFile(cRegAddrEvent_Acc_X_L + i) <= iFifoData768(7+8*i downto 0+8*i);
 				end loop;
 			end if;

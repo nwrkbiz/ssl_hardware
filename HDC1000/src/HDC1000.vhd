@@ -100,7 +100,7 @@ begin
 			oFifoData  		=> DataFromFifo,
 			iFifoShift 		=> FifoShift,
 			iFifoWrite 		=> FifoWrite,
-			oFifoNotEmpty	=> open
+			oFifoEmpty		=> open
 		);
 		
 	RegFile: entity work.RegFile

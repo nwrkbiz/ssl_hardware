@@ -33,12 +33,12 @@ entity FsmdMPU9250 is
 		
 		-- event fifos
 		-- 256
-		oFifoData256	: out std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
+		oFifoData256	: out std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
 		oFifoWrite256	: out std_ulogic;
 		iFifoFull256	: in  std_ulogic;
 		iFifoEmpty256	: in  std_ulogic;
 		-- 768
-		oFifoData768	: out std_ulogic_vector(gFifoByteWidth*8-1 downto 0);
+		oFifoData768	: out std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
 		oFifoWrite768	: out std_ulogic;
 		iFifoFull768	: in  std_ulogic;
 		iFifoEmpty768	: in  std_ulogic;
@@ -54,7 +54,9 @@ entity FsmdMPU9250 is
 		
 		-- strobe and timestamp
 		iStrobe		: in std_ulogic;
-		iTimeStamp	: in std_ulogic_vector(cTimeStampWidth-1 downto 0)
+		iTimeStamp	: in std_ulogic_vector(cTimeStampWidth-1 downto 0);
+		
+		oLEDs		: out std_ulogic_vector(9 downto 0)
 	);
 end entity FsmdMPU9250;
 
@@ -65,7 +67,7 @@ architecture RTL of FsmdMPU9250 is
 		
 	type tState is (Idle, WaitForI2cTransfer, Config, 
 					ReadDataAcc, SaveDataAcc, ReadDataGyro, SaveDataGyro, ReadDataMagnet, SaveDataMagnet,
-					ModeSelection, EventMode
+					ModeSelection, StoreDataInFifo, EventMode
 					);
 					
 	
@@ -96,6 +98,8 @@ architecture RTL of FsmdMPU9250 is
 		EventModeState	: tEventModeState;
 		EventModeCount	: natural range 0 to cEventModeFreq-1;
 		EventInterrupt	: std_ulogic;
+		
+		LEDs			: std_ulogic_vector(9 downto 0);
 	end record tData;
 	
 	constant cDefaultData : tData := (
@@ -122,7 +126,9 @@ architecture RTL of FsmdMPU9250 is
 		
 		EventModeState  => Idle,
 		EventModeCount	=> 0,
-		EventInterrupt	=> '0'
+		EventInterrupt	=> '0',
+		
+		LEDs			=> (others => '0')
 	);
 	
 	signal R,NxR	: tData;
@@ -296,20 +302,27 @@ begin
 			when ModeSelection =>
 				-- decide if streaming mode or event mode is active
 				if iStreamingModeActive = '1' then
-					-- write data to fifo and go back to reading state
-					NxR.FifoWrite 	<= '1';
-					NxR.State		<= WaitForI2cTransfer;
+					NxR.LEDs(0)		<= '1';
+					NxR.State		<= StoreDataInFifo;
 				else
+					NxR.LEDs(0)		<= '0';
 					NxR.State		<= EventMode;
-					NxR.EventModeCount <= 0;
 				end if;
+				
+			when StoreDataInFifo =>
+				-- write data to fifo and go back to reading state
+				NxR.FifoWrite 	<= '1';
+				NxR.State		<= WaitForI2cTransfer;
 				
 			when EventMode =>
 				
 				-- data should be always provided with 2Hz (to the streaming fifo)
+				NxR.LEDs(1) <= '0';
 				if R.EventModeCount = cEventModeFreq-1 then
 					NxR.FifoWrite 	<= '1';
 					NxR.EventModeCount <= 0;
+					NxR.LEDs(1) <= '1';
+					NxR.LEDs(2) <= '1';
 				else
 					NxR.EventModeCount <= R.EventModeCount+1;
 				end if;
@@ -318,9 +331,9 @@ begin
 				NxR.State <= WaitForI2cTransfer;
 				
 				-- get accelerometer x,y,z values into variables
-				AccX := unsigned(R.FifoData(tFifoRangeAccelerometer_X_H) & R.FifoData(tFifoRangeAccelerometer_X_L));
-				AccY := unsigned(R.FifoData(tFifoRangeAccelerometer_Y_H) & R.FifoData(tFifoRangeAccelerometer_Y_L));
-				AccZ := unsigned(R.FifoData(tFifoRangeAccelerometer_Z_H) & R.FifoData(tFifoRangeAccelerometer_Z_L));
+				AccX := unsigned(R.FifoData(tFifoRangeAccelerometer_X_H'high downto tFifoRangeAccelerometer_X_L'low));
+				AccY := unsigned(R.FifoData(tFifoRangeAccelerometer_Y_H'high downto tFifoRangeAccelerometer_Y_L'low));
+				AccZ := unsigned(R.FifoData(tFifoRangeAccelerometer_Z_H'high downto tFifoRangeAccelerometer_Z_L'low));
 							
 				-- event mode
 				case (R.EventModeState) is
@@ -334,6 +347,7 @@ begin
 						NxR.FifoWrite256	<= '1';
 						
 						if iFifoFull256 = '1' then
+							NxR.LEDs(3) <= '1';
 							NxR.EventModeState <= CompareValues;
 						end if;
 					
@@ -345,6 +359,7 @@ begin
 						if (AccX > XToleranceTop or AccX < XToleranceBottom or
 							AccY > YToleranceTop or AccY < YToleranceBottom or
 							AccZ > ZToleranceTop or AccZ < ZToleranceBottom ) then
+							NxR.LEDs(4) <= '1';
 							NxR.EventModeState <= HitDetected;
 						end if;
 						
@@ -354,6 +369,7 @@ begin
 						NxR.FifoWrite768	<= '1';
 						
 						if iFifoFull768 = '1' then
+							NxR.LEDs(5) <= '1';
 							NxR.EventModeState <= Fifo768Full;
 						end if;
 						
@@ -364,6 +380,7 @@ begin
 						
 					when WaitUntilDataIsRead =>
 						if iFifoEmpty256 = '1' and iFifoEmpty768 = '1' then
+							NxR.LEDs(6) <= '1';
 							NxR.EventModeState <= Idle;
 						end if;					
 						
@@ -383,6 +400,8 @@ begin
 	oFifoWrite768 	<= R.FifoWrite768;
 	
 	oEventOccured	<= R.EventInterrupt;
+	
+	oLEDs			<= R.LEDs;
 	
 	
 	I2cController: entity work.I2cController

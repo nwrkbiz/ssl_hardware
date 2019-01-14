@@ -45,7 +45,9 @@ entity MPU9250 is
 		iAvalonRead 		: in  std_ulogic;
 		oAvalonReadData 	: out std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 		iAvalonWrite 		: in  std_ulogic;
-		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0)
+		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0);
+		
+		oLEDs				: out std_ulogic_vector(9 downto 0)
 	);
 end entity MPU9250;
 
@@ -60,15 +62,15 @@ architecture Rtl of MPU9250 is
 	signal RegData : std_ulogic_vector(cRegFileNumberOfBytes*8-1 downto 0);
 	
 	-- signals for fifos for event mode
-	signal DataToFifo256 : std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
-	signal DataFromFifo256 : std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
+	signal DataToFifo256 : std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0)		:= (others => '0');
+	signal DataFromFifo256 : std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
 	signal FifoShift256 : std_ulogic;
 	signal FifoWrite256 : std_ulogic;
 	signal FifoEmpty256 : std_ulogic;
 	signal FifoFull256 : std_ulogic;
 	
-	signal DataToFifo768 : std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
-	signal DataFromFifo768 : std_ulogic_vector(cFifoByteWidth*8-1 downto 0);
+	signal DataToFifo768 : std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
+	signal DataFromFifo768 : std_ulogic_vector(cEventModeFifoBytes*8-1 downto 0);
 	signal FifoShift768 : std_ulogic;
 	signal FifoWrite768 : std_ulogic;
 	signal FifoEmpty768 : std_ulogic;
@@ -77,6 +79,7 @@ architecture Rtl of MPU9250 is
 	constant cSyncWidth	: natural := 1;
 	signal iAsync : std_ulogic_vector(cSyncWidth-1 downto 0);
 	signal oSync : std_ulogic_vector(cSyncWidth-1 downto 0);
+	
 		
 begin
 	
@@ -98,7 +101,7 @@ begin
 		)
 		port map(
 			iClk       => iClk,
-			inRstAsync => inRstAsync,
+			inRstAsync => Reset,
 			iData      => iAsync,
 			oData      => oSync
 		);
@@ -114,18 +117,32 @@ begin
 		port map(
   			iClk                 => iClk,
 			inRstAsync           => Reset,
+			
 			ioSCL                => ioSCL,
 			ioSDA                => ioSDA,
+			
 			oFifoData            => DataToFifo,
 			oFifoWrite           => FifoWrite,
+			
 			iRegFileData		 => RegData,
+			
 			iStrobe              => iStrobe,
 			iTimeStamp           => iTimeStamp,
+			
+			
 			iFifoFull256 	     => FifoFull256,
 			iFifoEmpty256 	     => FifoEmpty256,
+			oFifoData256		 => DataToFifo256,
+			oFifoWrite256		 => FifoWrite256,
+			
 			iFifoFull768 	     => FifoFull768,
 			iFifoEmpty768 	     => FifoEmpty768,
-			iStreamingModeActive => oSync(0)
+			oFifoData768		 => DataToFifo768,
+			oFifoWrite768		 => FifoWrite768,
+			
+			iStreamingModeActive => oSync(0),
+			
+			oLEDs				 => oLEDs
 		);
 		
 	Fifo: entity work.Fifo

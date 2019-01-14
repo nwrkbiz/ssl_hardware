@@ -208,8 +208,9 @@ ARCHITECTURE MAIN OF template IS
 			mpu9250_i2c_data                     : inout std_logic                     := 'X';             -- i2c_data
 			mpu9250_timing_in_strobe             : in    std_logic                     := 'X';             -- strobe
 			mpu9250_timing_in_strobe_cnt         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- strobe_cnt
-			mpu9250_i2c_addr_lsb                 : out   std_logic                                         -- i2c_addr_lsb
-
+			mpu9250_i2c_addr_lsb                 : out   std_logic;                                        -- i2c_addr_lsb
+			mpu_leds                        : out   std_logic_vector(9 downto 0);                     -- leds
+			mpu_mode_sel                         : in    std_logic                     := 'X'              -- mode_sel
 		);
     end component HPSPlatform;
       
@@ -255,7 +256,9 @@ u0 : component HPSPlatform
 			mpu9250_i2c_data                => MPU_SDA_SDI,
 			mpu9250_i2c_addr_lsb            => MPU_AD0_SDO,
 			mpu9250_timing_in_strobe        => Strobe,         
-			mpu9250_timing_in_strobe_cnt    => StrobeCount,      
+			mpu9250_timing_in_strobe_cnt    => StrobeCount,
+			mpu_leds						=> LEDR,
+			mpu_mode_sel					=> SW(0),
 			
 			-- strobe and timestamp have to be exported because conduit only allows one to one connection
             timing_out_strobe               => Strobe,                    --                   timing_out.strobe
@@ -334,7 +337,7 @@ u0 : component HPSPlatform
    
     
             -- periph
-            leds_external_connection_export  => LEDR,  -- led_external_connection.export
+            leds_external_connection_export  => open,--LEDR,  -- led_external_connection.export
             switches_external_connection_export   => SW,   --  sw_external_connection.export
                 
             seven_segment_conduit_end_export(6+7*0 downto  7*0)    => HEX0,
