@@ -98,7 +98,6 @@ architecture RTL of FsmdMPU9250 is
 		EventModeState	: tEventModeState;
 		EventModeCount	: natural range 0 to cEventModeFreq-1;
 		EventInterrupt	: std_ulogic;
-		IrqCount		: natural range 0 to 9;
 		
 		LEDs			: std_ulogic_vector(9 downto 0);
 	end record tData;
@@ -128,7 +127,6 @@ architecture RTL of FsmdMPU9250 is
 		EventModeState  => Idle,
 		EventModeCount	=> 0,
 		EventInterrupt	=> '0',
-		IrqCount		=> 0,
 		
 		LEDs			=> (others => '0')
 	);
@@ -139,12 +137,12 @@ architecture RTL of FsmdMPU9250 is
 	signal I2cTransferDone : std_ulogic;
 	
 	signal RegDataFrequency : std_ulogic_vector(15 downto 0);
-	signal XToleranceTop	: unsigned(15 downto 0);
-	signal XToleranceBottom	: unsigned(15 downto 0);
-	signal YToleranceTop	: unsigned(15 downto 0);
-	signal YToleranceBottom	: unsigned(15 downto 0);
-	signal ZToleranceTop	: unsigned(15 downto 0);
-	signal ZToleranceBottom	: unsigned(15 downto 0);
+	signal XToleranceTop	: signed(15 downto 0);
+	signal XToleranceBottom	: signed(15 downto 0);
+	signal YToleranceTop	: signed(15 downto 0);
+	signal YToleranceBottom	: signed(15 downto 0);
+	signal ZToleranceTop	: signed(15 downto 0);
+	signal ZToleranceBottom	: signed(15 downto 0);
 	
 begin
 	
@@ -153,20 +151,20 @@ begin
 	RegDataFrequency(7  downto 0)	<= iRegFileData(cRegAddrFrequenzy_L*8+7 downto cRegAddrFrequenzy_L*8);
 	
 	-- x
-	XToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_X_Top_H*8+7 downto cRegAddrTolerance_X_Top_H*8));
-	XToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_X_Top_L*8+7 downto cRegAddrTolerance_X_Top_L*8));
-	XToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_X_Bot_H*8+7 downto cRegAddrTolerance_X_Bot_H*8));
-	XToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_X_Bot_L*8+7 downto cRegAddrTolerance_X_Bot_L*8));
+	XToleranceTop(15 downto 8)		<= signed(iRegFileData(cRegAddrTolerance_X_Top_H*8+7 downto cRegAddrTolerance_X_Top_H*8));
+	XToleranceTop(7  downto 0)		<= signed(iRegFileData(cRegAddrTolerance_X_Top_L*8+7 downto cRegAddrTolerance_X_Top_L*8));
+	XToleranceBottom(15 downto 8)	<= signed(iRegFileData(cRegAddrTolerance_X_Bot_H*8+7 downto cRegAddrTolerance_X_Bot_H*8));
+	XToleranceBottom(7  downto 0)	<= signed(iRegFileData(cRegAddrTolerance_X_Bot_L*8+7 downto cRegAddrTolerance_X_Bot_L*8));
 	--y
-	YToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_Y_Top_H*8+7 downto cRegAddrTolerance_Y_Top_H*8));
-	YToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_Y_Top_L*8+7 downto cRegAddrTolerance_Y_Top_L*8));
-	YToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_Y_Bot_H*8+7 downto cRegAddrTolerance_Y_Bot_H*8));
-	YToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_Y_Bot_L*8+7 downto cRegAddrTolerance_Y_Bot_L*8));
+	YToleranceTop(15 downto 8)		<= signed(iRegFileData(cRegAddrTolerance_Y_Top_H*8+7 downto cRegAddrTolerance_Y_Top_H*8));
+	YToleranceTop(7  downto 0)		<= signed(iRegFileData(cRegAddrTolerance_Y_Top_L*8+7 downto cRegAddrTolerance_Y_Top_L*8));
+	YToleranceBottom(15 downto 8)	<= signed(iRegFileData(cRegAddrTolerance_Y_Bot_H*8+7 downto cRegAddrTolerance_Y_Bot_H*8));
+	YToleranceBottom(7  downto 0)	<= signed(iRegFileData(cRegAddrTolerance_Y_Bot_L*8+7 downto cRegAddrTolerance_Y_Bot_L*8));
 	-- z
-	ZToleranceTop(15 downto 8)		<= unsigned(iRegFileData(cRegAddrTolerance_Z_Top_H*8+7 downto cRegAddrTolerance_Z_Top_H*8));
-	ZToleranceTop(7  downto 0)		<= unsigned(iRegFileData(cRegAddrTolerance_Z_Top_L*8+7 downto cRegAddrTolerance_Z_Top_L*8));
-	ZToleranceBottom(15 downto 8)	<= unsigned(iRegFileData(cRegAddrTolerance_Z_Bot_H*8+7 downto cRegAddrTolerance_Z_Bot_H*8));
-	ZToleranceBottom(7  downto 0)	<= unsigned(iRegFileData(cRegAddrTolerance_Z_Bot_L*8+7 downto cRegAddrTolerance_Z_Bot_L*8));
+	ZToleranceTop(15 downto 8)		<= signed(iRegFileData(cRegAddrTolerance_Z_Top_H*8+7 downto cRegAddrTolerance_Z_Top_H*8));
+	ZToleranceTop(7  downto 0)		<= signed(iRegFileData(cRegAddrTolerance_Z_Top_L*8+7 downto cRegAddrTolerance_Z_Top_L*8));
+	ZToleranceBottom(15 downto 8)	<= signed(iRegFileData(cRegAddrTolerance_Z_Bot_H*8+7 downto cRegAddrTolerance_Z_Bot_H*8));
+	ZToleranceBottom(7  downto 0)	<= signed(iRegFileData(cRegAddrTolerance_Z_Bot_L*8+7 downto cRegAddrTolerance_Z_Bot_L*8));
 	
 	Reg: process (iClk, inRstAsync) is
 	begin
@@ -183,7 +181,7 @@ begin
 		iFifoFull256, iFifoEmpty256, iFifoEmpty768, iFifoFull768, iStreamingModeActive, 
 		XToleranceBottom, XToleranceTop, YToleranceBottom, YToleranceTop, ZToleranceBottom, ZToleranceTop
 	) is	
-		variable AccX, AccY, AccZ : unsigned(15 downto 0);
+		variable AccX, AccY, AccZ : signed(15 downto 0);
 	begin
 		-- defaults
 		NxR <= R;
@@ -192,10 +190,7 @@ begin
 		NxR.FifoWrite	<= '0';
 		NxR.FifoWrite256 <= '0';
 		NxR.FifoWrite768 <= '0';
-		NxR.EventInterrupt <= '0';
-		NxR.LEDs(7) <= '0';
-		NxR.LEDs(8) <= '0';
-		
+		NxR.EventInterrupt <= '0';		
 		
 		-- freq count logic
 		---------------------------------------------------------------
@@ -332,13 +327,14 @@ begin
 				
 			when EventMode =>
 				
+				NxR.LEDs(9) <= '0';
+				
 				-- data should be always provided with 2Hz (to the streaming fifo)
 				NxR.LEDs(1) <= '0';
 				if R.EventModeCount = cEventModeFreq-1 then
 					NxR.FifoWrite 	<= '1';
 					NxR.EventModeCount <= 0;
 					NxR.LEDs(1) <= '1';
-					NxR.LEDs(2) <= '1';
 				else
 					NxR.EventModeCount <= R.EventModeCount+1;
 				end if;
@@ -347,63 +343,60 @@ begin
 				NxR.State <= WaitForI2cTransfer;
 				
 				-- get accelerometer x,y,z values into variables
-				AccX := unsigned(R.FifoData(tFifoRangeAccelerometer_X_H'high downto tFifoRangeAccelerometer_X_L'low));
-				AccY := unsigned(R.FifoData(tFifoRangeAccelerometer_Y_H'high downto tFifoRangeAccelerometer_Y_L'low));
-				AccZ := unsigned(R.FifoData(tFifoRangeAccelerometer_Z_H'high downto tFifoRangeAccelerometer_Z_L'low));
+				AccX := signed(R.FifoData(tFifoRangeAccelerometer_X_H'high downto tFifoRangeAccelerometer_X_L'low));
+				AccY := signed(R.FifoData(tFifoRangeAccelerometer_Y_H'high downto tFifoRangeAccelerometer_Y_L'low));
+				AccZ := signed(R.FifoData(tFifoRangeAccelerometer_Z_H'high downto tFifoRangeAccelerometer_Z_L'low));
 							
 				-- event mode
 				case (R.EventModeState) is
 					
 					when Idle =>
 						NxR.EventModeState <= FillFifo256;
+						NxR.LEDs(9 downto 3) <= (others => '0');
+						NxR.LEDs(3) <= '1';
 						
 					-- if fifo256 is empty -> wait until its full
 					when FillFifo256 =>
-						NxR.FifoData256 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
+						NxR.FifoData256 	<= std_ulogic_vector(signed(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
 						NxR.FifoWrite256	<= '1';
 						
 						if iFifoFull256 = '1' then
-							NxR.LEDs(3) <= '1';
+							NxR.LEDs(4) <= '1';
 							NxR.EventModeState <= CompareValues;
 						end if;
 					
 					-- now values can be compared with tolearances - new data will still be written to fifo 256
 					when CompareValues =>
-						NxR.FifoData256 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
+						NxR.FifoData256 	<= std_ulogic_vector(signed(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 256
 						NxR.FifoWrite256	<= '1';
 						
 						if (AccX > XToleranceTop or AccX < XToleranceBottom or
 							AccY > YToleranceTop or AccY < YToleranceBottom or
 							AccZ > ZToleranceTop or AccZ < ZToleranceBottom ) then
-							NxR.LEDs(4) <= '1';
+							NxR.LEDs(5) <= '1';
 							NxR.EventModeState <= HitDetected;
 						end if;
 						
 					-- now fill fifo 768 
 					when HitDetected =>
-						NxR.FifoData768 	<= std_ulogic_vector(unsigned(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 768
+						NxR.FifoData768 	<= std_ulogic_vector(signed(R.FifoData(tFifoRangeTimeStamp)) & AccZ & AccY & AccX); -- take data to event fifo 768
 						NxR.FifoWrite768	<= '1';
 						
 						if iFifoFull768 = '1' then
-							NxR.LEDs(5) <= '1';
+							NxR.LEDs(6) <= '1';
 							NxR.EventModeState <= Fifo768Full;
 						end if;
 						
 					-- 1024 values are there to read -> assert interrupt
-				when Fifo768Full =>
-						NxR.LEDs(8) <= '1';
+					when Fifo768Full =>
+						NxR.LEDs(9) <= '1';
 						NxR.EventInterrupt <= '1';
-						if R.IrqCount = 9 then
-							NxR.EventModeState <= WaitUntilDataIsRead;
-							NxR.IrqCount <= 0;
-						else
-							NxR.IrqCount <= R.IrqCount+1;
-						end if;
+						NxR.EventModeState <= WaitUntilDataIsRead;
 						
 					when WaitUntilDataIsRead =>
+						NxR.LEDs(7) <= '1';
 						if iFifoEmpty256 = '1' and iFifoEmpty768 = '1' then
-							NxR.LEDs(6) <= '1';
-							NxR.LEDs(7) <= '1';
+							NxR.LEDs(2) <= '1';
 							NxR.EventModeState <= Idle;
 						end if;					
 						
