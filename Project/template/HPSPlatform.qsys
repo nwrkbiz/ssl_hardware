@@ -9,11 +9,27 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element APDS9301_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element APDS9301_0.avalon_slave
+   {
+      datum baseAddress
+      {
+         value = "1280";
+         type = "String";
+      }
+   }
    element HDC1000_0
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "6";
          type = "int";
       }
    }
@@ -21,11 +37,11 @@
    {
       datum baseAddress
       {
-         value = "2048";
+         value = "1536";
          type = "String";
       }
    }
-   element HDC1000_0.timing
+   element HDC1000_0.clock_sink
    {
       datum _tags
       {
@@ -145,11 +161,99 @@
          type = "String";
       }
    }
-   element StrobeGenAndTimeStamp_0
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element MPU9250_0
    {
       datum _sortIndex
       {
          value = "4";
+         type = "int";
+      }
+   }
+   element MPU9250_0.avalon_slave
+   {
+      datum baseAddress
+      {
+         value = "1024";
+         type = "String";
+      }
+   }
+   element StrobeGenAndTimeStamp_0
+   {
+      datum _sortIndex
+      {
+         value = "3";
          type = "int";
       }
    }
@@ -173,7 +277,15 @@
    {
       datum baseAddress
       {
-         value = "2320";
+         value = "1808";
+         type = "String";
+      }
+   }
+   element hmi.seven_segment_s0
+   {
+      datum baseAddress
+      {
+         value = "0";
          type = "String";
       }
    }
@@ -181,7 +293,7 @@
    {
       datum baseAddress
       {
-         value = "2304";
+         value = "1792";
          type = "String";
       }
    }
@@ -214,14 +326,21 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface name="apds9301" internal="APDS9301_0.i2c" type="conduit" dir="end" />
  <interface
-   name="data_rdy_n"
-   internal="HDC1000_0.hdc1000"
+   name="apds9301_timing_in"
+   internal="APDS9301_0.timing"
    type="conduit"
    dir="end" />
+ <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface name="h2f_reset" internal="hps_0.h2f_reset" type="reset" dir="start" />
- <interface name="hdc1000_1" internal="HDC1000_0.i2c" type="conduit" dir="end" />
+ <interface name="hdc1000" internal="HDC1000_0.i2c" type="conduit" dir="end" />
+ <interface name="hdc1000_data_rdy" internal="HDC1000_0.hdc1000" />
+ <interface
+   name="hdc1000_timing_in"
+   internal="HDC1000_0.timing"
+   type="conduit"
+   dir="end" />
  <interface
    name="hps_0_f2h_cold_reset_req"
    internal="hps_0.f2h_cold_reset_req"
@@ -249,6 +368,13 @@
    type="conduit"
    dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface name="mpu" internal="MPU9250_0.conduit_end" type="conduit" dir="end" />
+ <interface name="mpu9250" internal="MPU9250_0.i2c" type="conduit" dir="end" />
+ <interface
+   name="mpu9250_timing_in"
+   internal="MPU9250_0.timing"
+   type="conduit"
+   dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="seven_segment_conduit_end"
@@ -260,7 +386,24 @@
    internal="hmi.switches_external_connection"
    type="conduit"
    dir="end" />
+ <interface
+   name="timing_out"
+   internal="StrobeGenAndTimeStamp_0.timing"
+   type="conduit"
+   dir="end" />
+ <module name="APDS9301_0" kind="APDS9301" version="1.0" enabled="1">
+  <parameter name="gClkFrequency" value="50000000" />
+  <parameter name="gI2cFrequency" value="400000" />
+  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gSyncStages" value="2" />
+ </module>
  <module name="HDC1000_0" kind="HDC1000" version="1.0" enabled="1">
+  <parameter name="gClkFrequency" value="50000000" />
+  <parameter name="gI2cFrequency" value="400000" />
+  <parameter name="gResetIsLowActive" value="0" />
+  <parameter name="gSyncStages" value="2" />
+ </module>
+ <module name="MPU9250_0" kind="MPU9250" version="1.0" enabled="1">
   <parameter name="gClkFrequency" value="50000000" />
   <parameter name="gI2cFrequency" value="400000" />
   <parameter name="gResetIsLowActive" value="0" />
@@ -831,9 +974,27 @@
    kind="avalon"
    version="16.1"
    start="hps_0.h2f_lw_axi_master"
+   end="MPU9250_0.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="APDS9301_0.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0500" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="hps_0.h2f_lw_axi_master"
    end="HDC1000_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0800" />
+  <parameter name="baseAddress" value="0x0600" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -842,7 +1003,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hmi.leds_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0910" />
+  <parameter name="baseAddress" value="0x0710" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -860,19 +1021,29 @@
    start="hps_0.h2f_lw_axi_master"
    end="hmi.switches_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0900" />
+  <parameter name="baseAddress" value="0x0700" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="HDC1000_0.clock_sink" />
+   end="StrobeGenAndTimeStamp_0.clock_sink" />
  <connection
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="StrobeGenAndTimeStamp_0.clock_sink" />
+   end="MPU9250_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="APDS9301_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="HDC1000_0.clock_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -896,21 +1067,10 @@
    end="hmi.seven_segment_clock" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="hmi.switches_clk" />
  <connection
-   kind="conduit"
-   version="16.1"
-   start="StrobeGenAndTimeStamp_0.timing"
-   end="HDC1000_0.timing">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
    kind="interrupt"
    version="16.1"
    start="hps_0.f2h_irq0"
-   end="HDC1000_0.interrupt">
+   end="MPU9250_0.interrupt_sender">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
@@ -923,6 +1083,16 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="HDC1000_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="APDS9301_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="MPU9250_0.reset_sink" />
  <connection
    kind="reset"
    version="16.1"

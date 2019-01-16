@@ -20,23 +20,35 @@
          
 		    
 
-			HDC1000_0: rfs_sensorboard@0x100000800 {
-				compatible = "ssl,hdc1000-1.0";
-				reg = <0x00000001 0x00000800 0x00000100>;
+			MPU9250_0: rfs_sensorboard@0x100000400 {
+				compatible = "ssl,mpu9250-1.0";
+				reg = <0x00000001 0x00000400 0x00000100>;
 				interrupt-parent = <&hps_0_arm_gic_0>;
 				interrupts = <0 40 0>;
 				clocks = <&clk_0>;
-			}; //end rfs_sensorboard@0x100000800 (HDC1000_0)
+			}; //end rfs_sensorboard@0x100000400 (MPU9250_0)
 
-			hmi_leds: gpio@0x100000910 {
+			APDS9301_0: rfs_sensorboard@0x100000500 {
+				compatible = "ssl,apds9301-1.0";
+				reg = <0x00000001 0x00000500 0x00000100>;
+				clocks = <&clk_0>;
+			}; //end rfs_sensorboard@0x100000500 (APDS9301_0)
+
+			HDC1000_0: rfs_sensorboard@0x100000600 {
+				compatible = "ssl,hdc1000-1.0";
+				reg = <0x00000001 0x00000600 0x00000100>;
+				clocks = <&clk_0>;
+			}; //end rfs_sensorboard@0x100000600 (HDC1000_0)
+
+			hmi_leds: gpio@0x100000710 {
 				compatible = "altr,pio-16.1", "altr,pio-1.0";
-				reg = <0x00000001 0x00000910 0x00000010>;
+				reg = <0x00000001 0x00000710 0x00000010>;
 				clocks = <&clk_0>;
 				altr,gpio-bank-width = <10>;	/* embeddedsw.dts.params.altr,gpio-bank-width type NUMBER */
 				resetvalue = <1023>;	/* embeddedsw.dts.params.resetvalue type NUMBER */
 				#gpio-cells = <2>;
 				gpio-controller;
-			}; //end gpio@0x100000910 (hmi_leds)
+			}; //end gpio@0x100000710 (hmi_leds)
 
 			hmi_seven_segment: display@0x100000000 {
 				compatible = "hof,sevensegment-1.0";
@@ -44,15 +56,15 @@
 				clocks = <&clk_0>;
 			}; //end display@0x100000000 (hmi_seven_segment)
 
-			hmi_switches: gpio@0x100000900 {
+			hmi_switches: gpio@0x100000700 {
 				compatible = "altr,pio-16.1", "altr,pio-1.0";
-				reg = <0x00000001 0x00000900 0x00000010>;
+				reg = <0x00000001 0x00000700 0x00000010>;
 				clocks = <&clk_0>;
 				altr,gpio-bank-width = <10>;	/* embeddedsw.dts.params.altr,gpio-bank-width type NUMBER */
 				resetvalue = <0>;	/* embeddedsw.dts.params.resetvalue type NUMBER */
 				#gpio-cells = <2>;
 				gpio-controller;
-			}; //end gpio@0x100000900 (hmi_switches)
+			}; //end gpio@0x100000700 (hmi_switches)
 		
 
 			

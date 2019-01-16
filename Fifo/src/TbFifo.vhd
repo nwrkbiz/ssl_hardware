@@ -23,8 +23,8 @@ architecture RTL of TbFifo is
 	signal inRstAsync 	: std_ulogic	:= not('1');
 	signal iFifoData 	: std_ulogic_vector(gFifoWidth-1 downto 0);
 	signal oFifoData 	: std_ulogic_vector(gFifoWidth-1 downto 0);
-	signal iFifoShift 	: std_ulogic;
-	signal iFifoWrite 	: std_ulogic;
+	signal iFifoShift 	: std_ulogic := '0';
+	signal iFifoWrite 	: std_ulogic := '0';
 	
 	constant cClkFreq	: natural 	:= 50_000_000;
 	constant cClkPeriod	: time		:= 1 sec/cClkFreq; 
@@ -54,9 +54,11 @@ begin
 		wait until inRstAsync = not('0');
 		
 		-- provide some data 
-		iFifoData <= x"F";
+		iFifoData <= x"C";
 		iFifoWrite <= cActivated;
-		wait for 2*cClkPeriod;
+		wait for cClkPeriod;
+		iFifoData <= x"D";
+		wait for cClkPeriod;
 		
 		-- first shift
 		iFifoWrite <= cInactivated;

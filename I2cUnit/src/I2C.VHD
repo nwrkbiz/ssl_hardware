@@ -72,8 +72,13 @@ entity simple_i2c is
 		Dout : out std_logic_vector(7 downto 0);
 
 		-- i2c signals
-		SCL : inout std_logic;
-		SDA : inout std_logic
+		scl_tri_i	: in  std_ulogic;
+		scl_tri_o	: out std_ulogic;
+		scl_tri_t	: out std_ulogic;
+		
+		sda_tri_i	: in  std_ulogic;
+		sda_tri_o	: out std_ulogic;
+		sda_tri_t	: out std_ulogic
 	);
 end entity simple_i2c;
 
@@ -92,8 +97,14 @@ architecture structural of simple_i2c is
 		Din : in std_logic;
 		Dout : out std_logic;
 
-		SCL : inout std_logic;
-		SDA : inout std_logic
+		-- i2c signals
+		scl_tri_i	: in  std_ulogic;
+		scl_tri_o	: out std_ulogic;
+		scl_tri_t	: out std_ulogic;
+		
+		sda_tri_i	: in  std_ulogic;
+		sda_tri_o	: out std_ulogic;
+		sda_tri_t	: out std_ulogic
 	);
 	end component i2c_core;
 
@@ -116,7 +127,7 @@ architecture structural of simple_i2c is
 	signal go, host_ack : std_logic;
 begin
 	-- hookup i2c core
-	u1: i2c_core port map (clk, nReset, clk_cnt, core_cmd, core_ack, core_busy, core_txd, core_rxd, SCL, SDA);
+	u1: i2c_core port map (clk, nReset, clk_cnt, core_cmd, core_ack, core_busy, core_txd, core_rxd, scl_tri_i, scl_tri_o, scl_tri_t, sda_tri_i, sda_tri_o, sda_tri_t);
 
 	-- generate host-command-acknowledge
 	cmd_ack <= host_ack;
@@ -353,8 +364,13 @@ entity i2c_core is
 		Din : in std_logic;
 		Dout : out std_logic;
 
-		SCL : inout std_logic;
-		SDA : inout std_logic
+		scl_tri_i	: in  std_ulogic;
+		scl_tri_o	: out std_ulogic;
+		scl_tri_t	: out std_ulogic;
+		
+		sda_tri_i	: in  std_ulogic;
+		sda_tri_o	: out std_ulogic;
+		sda_tri_t	: out std_ulogic
 	);
 end entity i2c_core;
 
@@ -373,7 +389,7 @@ architecture structural of i2c_core is
 	signal cnt : unsigned(7 downto 0) := clk_cnt;
 begin
 	-- whenever the slave is not ready it can delay the cycle by pulling SCL low
-	slave_wait <= '1' when ((SCLo = '1') and (SCL = '0')) else '0';
+	slave_wait <= '1' when ((SCLo = '1') and (scl_tri_i = '0')) else '0';
 
 	-- generate clk enable signal
 	gen_clken: process(clk, nReset)
@@ -511,7 +527,7 @@ begin
 
 				txd <= itxd;
 				if (store_sda = '1') then
-					Dout <= SDA;
+					Dout <= sda_tri_i;
 				end if;
 			end if;
 
@@ -522,13 +538,13 @@ begin
 	--
 	-- convert states to SCL and SDA signals
 	--
-	output_decoder: process (clk, nReset, state, Din, SCLo, SDA)
+	output_decoder: process (clk, nReset, state, Din, SCLo, sda_tri_i)
 		variable iscl, isda : std_logic;
 	begin
 		case (state) is
 			when idle =>
-				iscl := SCLo; -- keep SCL in same state
-				isda := SDA; -- keep SDA in same state
+				iscl := SCLo; -- keep SCL high
+				isda := sda_tri_i; -- keep SDA high
 
 			-- start
 			when start_a =>
@@ -611,10 +627,15 @@ begin
 		end if;
 	end process output_decoder;
 
-	SCL <= '0' when (SCLo = '0') else 'Z'; -- since SCL is externally pulled-up convert a '1' to a 'Z'(tri-state)
-	SDA <= '0' when (SDAo = '0') else 'Z'; -- since SDA is externally pulled-up convert a '1' to a 'Z'(tri-state)
---	SCL <= SCLo;
---	SDA <= SDAo;
+	--SCL <= '0' when (SCLo = '0') else 'Z'; -- since SCL is externally pulled-up convert a '1' to a 'Z'(tri-state)
+	--SDA <= '0' when (SDAo = '0') else 'Z'; -- since SDA is externally pulled-up convert a '1' to a 'Z'(tri-state)
+
+
+	scl_tri_t <= SCLo;
+	scl_tri_o <= '0';
+	
+	sda_tri_t <= SDAo;
+	sda_tri_o <= '0';
 
 end architecture structural;
 
