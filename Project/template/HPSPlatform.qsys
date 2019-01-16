@@ -225,6 +225,14 @@
          type = "String";
       }
    }
+   element HPSPlatform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element MPU9250_0
    {
       datum _sortIndex
@@ -1058,6 +1066,13 @@
    start="clk_0.clk"
    end="hmi.seven_segment_clock" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="hmi.switches_clk" />
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="hps_0.f2h_irq0"
+   end="MPU9250_0.interrupt_sender">
+  <parameter name="irqNumber" value="0" />
+ </connection>
  <connection
    kind="reset"
    version="16.1"

@@ -23,6 +23,8 @@
 			MPU9250_0: rfs_sensorboard@0x100000400 {
 				compatible = "ssl,mpu9250-1.0";
 				reg = <0x00000001 0x00000400 0x00000100>;
+				interrupt-parent = <&hps_0_arm_gic_0>;
+				interrupts = <0 40 0>;
 				clocks = <&clk_0>;
 			}; //end rfs_sensorboard@0x100000400 (MPU9250_0)
 

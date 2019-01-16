@@ -67,7 +67,7 @@ architecture RTL of FsmdMPU9250 is
 		
 	type tState is (Idle, WaitForI2cTransfer, Config, 
 					ReadDataAcc, SaveDataAcc, ReadDataGyro, SaveDataGyro, ReadDataMagnet, SaveDataMagnet,
-					ModeSelection, StoreDataInFifo, EventMode
+					ReadAK8963StatusReg2, ModeSelection, StoreDataInFifo, EventMode
 					);
 					
 	
@@ -98,6 +98,7 @@ architecture RTL of FsmdMPU9250 is
 		EventModeState	: tEventModeState;
 		EventModeCount	: natural range 0 to cEventModeFreq-1;
 		EventInterrupt	: std_ulogic;
+		IrqCount		: natural range 0 to 9;
 		
 		LEDs			: std_ulogic_vector(9 downto 0);
 	end record tData;
@@ -127,6 +128,7 @@ architecture RTL of FsmdMPU9250 is
 		EventModeState  => Idle,
 		EventModeCount	=> 0,
 		EventInterrupt	=> '0',
+		IrqCount		=> 0,
 		
 		LEDs			=> (others => '0')
 	);
@@ -191,6 +193,8 @@ begin
 		NxR.FifoWrite256 <= '0';
 		NxR.FifoWrite768 <= '0';
 		NxR.EventInterrupt <= '0';
+		NxR.LEDs(7) <= '0';
+		NxR.LEDs(8) <= '0';
 		
 		
 		-- freq count logic
@@ -296,7 +300,19 @@ begin
 				if I2cDataOutVec = (I2cDataOutVec'range => '0') then
 					NxR.State <= Config;
 				else
-					NxR.State		<= ModeSelection;	
+					NxR.State		<= ReadAK8963StatusReg2;	
+				end if;
+				
+			when ReadAK8963StatusReg2 =>
+				-- status reg 2 needs to be read to enable a new data conversion
+				-- data will not be used
+				NxR.I2cAddr 		<= cI2cAddrAK8963;
+				NxR.I2cRegAddr		<= cI2cRegAddrMagnetometer_St2;
+				NxR.I2cBurstCount 	<= 1;
+				NxR.I2cRead	<= '1';
+				if I2cTransferDone = '1' then
+					NxR.I2cRead	<= '0';
+					NxR.State		<= ModeSelection;
 				end if;
 				
 			when ModeSelection =>
@@ -374,13 +390,20 @@ begin
 						end if;
 						
 					-- 1024 values are there to read -> assert interrupt
-					when Fifo768Full =>
+				when Fifo768Full =>
+						NxR.LEDs(8) <= '1';
 						NxR.EventInterrupt <= '1';
-						NxR.EventModeState <= WaitUntilDataIsRead;
+						if R.IrqCount = 9 then
+							NxR.EventModeState <= WaitUntilDataIsRead;
+							NxR.IrqCount <= 0;
+						else
+							NxR.IrqCount <= R.IrqCount+1;
+						end if;
 						
 					when WaitUntilDataIsRead =>
 						if iFifoEmpty256 = '1' and iFifoEmpty768 = '1' then
 							NxR.LEDs(6) <= '1';
+							NxR.LEDs(7) <= '1';
 							NxR.EventModeState <= Idle;
 						end if;					
 						

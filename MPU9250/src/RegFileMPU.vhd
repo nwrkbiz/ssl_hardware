@@ -89,7 +89,7 @@ architecture RTL of RegFileMPU is
 begin
 		
 	Reg: process(iClk, inRstAsync) is	
-		variable AvalonAddr		: natural;
+		variable AvalonAddr		: natural range 0 to gNumOfBytes-1;
 		
 	begin
 		

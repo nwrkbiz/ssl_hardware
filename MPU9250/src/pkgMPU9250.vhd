@@ -119,7 +119,7 @@ package pkgMPU9250 is
 		3 => (I2cAddr => cI2cAddrMPU9250, I2cRegAddr => x"37", I2cRegData => x"02"),   	-- enable bypass mode      
 		
 		-- ak
-		4 => (I2cAddr => cI2cAddrAK8963 , I2cRegAddr => x"0A", I2cRegData => x"12")    -- enable continous read mode (100Hz) and set bit resolution to 16 bit                                 
+		4 => (I2cAddr => cI2cAddrAK8963 , I2cRegAddr => x"0A", I2cRegData => x"16")    -- enable continous read mode (100Hz) and set bit resolution to 16 bit                                 
 	);                                                                                                                       	
 	
 	-- this is the address of the accelerometer data will be read (6 byte read)
@@ -129,6 +129,9 @@ package pkgMPU9250 is
 	
 	-- this is the address of the magnetometer data will be read (6 byte read)
 	constant cI2cRegAddrMagnetometer_Xout_L	: std_ulogic_vector(7 downto 0)	:= x"03";
+	
+	-- this is the address of the magnetometer statsu register 2
+	constant cI2cRegAddrMagnetometer_St2: std_ulogic_vector(7 downto 0)	:= x"09";
 	
 	
 	-- event mode

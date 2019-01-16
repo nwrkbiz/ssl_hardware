@@ -47,7 +47,9 @@ entity MPU9250 is
 		iAvalonWrite 		: in  std_ulogic;
 		iAvalonWriteData 	: in  std_ulogic_vector(cAvalonDataWidth-1 downto 0);
 		
-		oLEDs				: out std_ulogic_vector(9 downto 0)
+		oLEDs				: out std_ulogic_vector(9 downto 0);
+		
+		oEventIrq			: out std_ulogic
 	);
 end entity MPU9250;
 
@@ -142,7 +144,9 @@ begin
 			
 			iStreamingModeActive => oSync(0),
 			
-			oLEDs				 => oLEDs
+			oLEDs				 => oLEDs,
+			
+			oEventOccured		 => oEventIrq
 		);
 		
 	Fifo: entity work.Fifo
